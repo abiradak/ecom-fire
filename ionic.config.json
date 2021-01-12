@@ -1,0 +1,7 @@
+{
+  "name": "perfumery",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

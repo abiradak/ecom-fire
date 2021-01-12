@@ -1,0 +1,929 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+
+/* Core CSS required for Ionic components to work properly */
+
+// google font- link
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+// google font- link
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+// home page css start
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+li {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+.header-right {}
+
+.header-right ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.header-right ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0px 10px;
+}
+
+.header-right ul li a {
+    position: relative;
+}
+
+.header-right ul li a span {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    text-align: center;
+    line-height: 15px;
+    color: #fff;
+    font-size: 10px;
+    border-radius: 50px;
+    top: -5px;
+    right: -10px;
+}
+
+.site-header {
+    width: 100%;
+    box-shadow: 0px 1px 7px rgba(0, 0, 0, .1);
+}
+
+.address p {
+    margin: 0px;
+    font-weight: 300;
+}
+
+.address h5 {
+    margin: 0px;
+}
+
+.address a {
+    text-decoration: none;
+    color: #2BB409;
+    font-weight: 300;
+}
+
+.togle-add {
+    background: #2bb4092e;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50px;
+    line-height: 20px;
+}
+
+.single-product-list {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .1);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.single-product-list img {
+    width: 100%;
+    height: 290px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.single-product-list p {
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    font-size: 16px;
+    line-height: 18px;
+    padding-top: 10px;
+}
+
+.single-product-list h3 {
+    font-weight: 600;
+    margin: 0px;
+    font-size: 20px;
+}
+
+.see-all h6 {
+    color: #2BB409;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    bottom: -27px;
+    background: white;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+.see-all {
+    width: 100%;
+    border-bottom: 1px solid #e6e3e3;
+    position: relative;
+}
+
+.advan-text h6 {
+    margin: 0px;
+}
+
+.advan-icon {
+    border: 1px solid #2bb409;
+    margin-right: 10px;
+    border-radius: 50px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+}
+
+.advan-text p {
+    margin-bottom: 0px;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.sellting-ttl {
+    font-size: 26px;
+    font-weight: 500;
+    padding-bottom: 17px;
+}
+
+.seling-img {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    position: relative;
+    // box-shadow: 2px 5px 15px rgba(0, 0, 0, .5);
+    border: 1px solid #e8e6e6;
+}
+
+.over-scroll {
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.sale {
+    position: absolute;
+    top: 15px;
+    background: #2bb409;
+    padding: 2px 10px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    left: 15px;
+}
+
+.product-panel {
+    position: absolute;
+    bottom: 0;
+    background: #2bb409;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    padding: 15px 10px;
+    font-size: 14px;
+    align-items: center;
+}
+
+.vendor {
+    color: #2BB409;
+}
+
+.text-upper {
+    text-transform: uppercase;
+}
+
+.selling-content {
+    width: 100%;
+    padding-top: 14px;
+}
+
+.selling-content p {
+    margin-bottom: 4px;
+}
+
+.dtil {
+    color: #22222299;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.gift {
+    display: flex;
+}
+
+.line-thrw {
+    text-decoration: line-through;
+    color: #949494;
+    font-size: 12px;
+}
+
+.gift span {
+    margin-left: 10px;
+}
+
+.neww {
+    background: red;
+}
+
+.about-company {
+    width: 100%;
+}
+
+.about-company p {
+    font-weight: 300;
+    margin-bottom: 0px;
+}
+
+.about-company a {
+    text-decoration: underline;
+    color: #2BB409;
+    font-weight: 500;
+}
+
+.single-discount {
+    width: 100%;
+    background: #fff;
+}
+
+.single-content {
+    padding: 20px;
+}
+
+.single-discount img {
+    width: 100%;
+    height: 320px;
+}
+
+.single-content p {
+    margin-bottom: 0px;
+    font-weight: 300;
+    color: #2BB409;
+}
+
+.single-content h6 {
+    font-weight: 700;
+    font-size: 15px;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.discount-section {
+    width: 100%;
+    background-image: url(./assets/images/discount.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    padding: 25px 0px;
+}
+
+.send-msg-section {
+    width: 100%;
+    background-image: url(./assets/images/11558.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 25px 0px 50px;
+}
+
+.send-msg-section input {
+    padding: 15px 20px;
+    height: auto;
+    font-size: 16px;
+}
+
+.cstm-submit {
+    background: #2BB409;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.send-msg-section p {
+    color: #000;
+    padding-top: 5px;
+}
+
+.review-content .coment {
+    border: 1px solid #2BB409;
+    padding: 15px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.review-content .coment:after {
+    position: absolute;
+    content: "";
+    bottom: -21px;
+    left: 29px;
+    border: 11px solid #ea0b0b00;
+    border-left: 15px solid #2bb409;
+    border-top: 9px solid #2bb409;
+}
+
+.review-content .coment:before {
+    position: absolute;
+    content: "";
+    bottom: -19px;
+    left: 30px;
+    border: 11px solid transparent;
+    border-left: 14px solid #fff;
+    border-top: 8px solid #fff;
+    z-index: 1;
+}
+
+.review-date {
+    font-weight: 300;
+}
+
+.review-client {
+    color: #2BB409;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.footer {
+    width: 100%;
+    background: #fff;
+    color: #222;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.company-contact ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.company-contact ul li {
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 7px;
+    color: #222;
+}
+
+.company-contact ul li i {
+    font-size: 22px;
+    width: 15%;
+    float: left;
+    color: #ccc;
+}
+
+.company-contact ul li span {
+    width: calc(100% - 15%);
+    float: left;
+    text-align: left;
+    font-size: 14px;
+}
+
+.company-social ul {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.company-social ul li {
+    list-style: none;
+    display: flex;
+}
+
+.company-social ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 0px;
+    background: #2bb409;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 30px;
+}
+
+// home page css end
+// category page
+.breadcum {
+    width: 100%;
+    background: #ecffe8;
+    padding: 10px 0px;
+}
+
+.breadcum ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.breadcum ul li {
+    list-style: none;
+    display: inline-block;
+    color: #222;
+    padding: 0px 4px;
+}
+
+.breadcum ul li a {
+    text-decoration: none;
+    color: #2BB409;
+}
+
+.filter-ttl {
+    font-size: 18px;
+    font-weight: 500;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.filter-item .form-group input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+
+.filter-item .form-group label {
+    position: relative;
+    cursor: pointer;
+}
+
+.filter-item .form-group label:before {
+    content: '';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid #3db91e;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 6px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 9px;
+    border-radius: 3px;
+}
+
+.filter-item .form-group input:checked+label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 6px;
+    height: 14px;
+    border: solid #3db91e;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.radio-button__label-wrapper {
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    padding-left: 1.6rem;
+    position: relative;
+    top: 0.25rem;
+}
+
+.radio-button__label-wrapper:hover .radio-button__input~.radio-button__custom-indicator {
+    border-color: black;
+}
+
+.radio-button__label-title {
+    margin-bottom: 0.25rem;
+}
+
+.radio-button__label-subtext {
+    display: block;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.radio-button__custom-indicator {
+    background-color: white;
+    border: 1px solid #999;
+    border-radius: 50%;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+}
+
+.radio-button__custom-indicator::after {
+    background-color: #3db91e;
+    border-radius: 50%;
+    content: "";
+    display: none;
+    height: 14px;
+    left: 2px;
+    position: absolute;
+    top: 2px;
+    width: 14px;
+}
+
+.radio-button__input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.radio-button__input:focus~.radio-button__custom-indicator {
+    border-color: black;
+}
+
+.radio-button__input:checked~.radio-button__custom-indicator::after {
+    display: block;
+}
+
+.radio-button__input:disabled~.radio-button__custom-indicator {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.btn-cstm {
+    padding: 10px 0px;
+    width: 100%;
+    border: 2px solid #6cca55;
+    margin: 6px 0px;
+    font-weight: 500;
+    color: #6cca55;
+}
+
+.btn-2-cstm {
+    background: #6cca55!important;
+    color: #fff!important;
+}
+
+.sorted {
+    width: 100%;
+}
+
+.sorted ul li a {
+    text-decoration: none;
+    padding: 10px 0px;
+    display: inline-block;
+    color: #222;
+    border-bottom: 1px solid #d8d8d8;
+    width: 100%;
+}
+
+.all-filter {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+// category page
+// product-detail
+.in-stock {
+    padding: 7px 15px;
+    background: #2bb40929;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.in-stock i {
+    color: #2bb409;
+}
+
+.in-stock span {
+    padding-left: 5px;
+}
+
+.product-details p {
+    margin: 0px;
+    font-weight: 300;
+}
+
+.product-details span {
+    margin: 0px;
+    font-weight: 500;
+    padding-bottom: 7px;
+    display: inline-block;
+}
+
+.prce {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.cart-item {
+    border: 1px solid #dcdcdc;
+    padding: 0px 10px;
+    width: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.p-details {
+    position: inherit;
+}
+
+.describ-box ul li {
+    width: 100%;
+    text-align: center;
+    padding: 7px 5px;
+    margin-bottom: 10px;
+    border: 1px solid #e4e3e3;
+    border-radius: 5px;
+}
+
+.describ-box ul li h6 {
+    margin: 0px;
+}
+
+.describ-box ul li span {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.detail-review {
+    width: 100%;
+}
+
+.detail-review h6 {
+    margin: 0px;
+    padding-bottom: 10px;
+}
+
+.detail-review span {
+    color: red;
+}
+
+.detail-review p {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.delivery-details {
+    width: 100%;
+}
+
+.delivery-details ul {
+    padding-left: 18px;
+    border-left: 1px solid #e2e2e2;
+}
+
+.delivery-details p {
+    font-weight: 300;
+}
+
+.delivery-details ul li h6 {
+    margin-bottom: 10px;
+}
+
+.delivery-details ul li p {}
+
+.similar-product .product-panel {
+    justify-content: center;
+}
+
+.cstm-color {
+    background: #2BB409!important;
+}
+
+// product-detail
+// view cart css start
+.cart-list {
+    background: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .1);
+}
+
+.product-describe h6 {
+    margin: 0;
+    font-size: 15px;
+    padding-bottom: 10px;
+    font-weight: 400;
+    color: #2BB409;
+}
+
+.product-describe p {
+    margin: 0;
+    font-weight: 300;
+    font-size: 14px;
+    padding-bottom: 2px;
+}
+
+.product-describe p span {
+    font-weight: 500;
+    padding-left: 7px;
+}
+
+.cart-price {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.save-remove {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+}
+
+.rmv-itm {
+    width: 50%;
+}
+
+.save-itm {
+    width: 50%;
+}
+
+.cart-list h3 {
+    color: #cacaca;
+    font-size: 17px;
+    margin: 0px;
+    padding-bottom: 7px;
+}
+
+.all-price ul li {
+    font-weight: 400;
+    padding: 2px 0;
+    font-size: 14px;
+}
+
+.all-price ul li span {
+    float: right;
+}
+
+.all-price ul li:last-child {
+    font-weight: 500;
+    border-top: 1px dotted #ccc;
+    border-bottom: 1px dotted #ccc;
+    padding: 9px 0px;
+    margin-top: 5px;
+}
+
+.fixed-footter {
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+    background: white;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+}
+
+.address-cart .btn-cstm {
+    padding: 5px 0px;
+}
+
+.address-cart h5 {
+    margin: 0px;
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+
+.address-cart h5 span {
+    background: #6cca5552;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    color: #166703;
+}
+
+.address-cart p {
+    margin: 0px;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+// view cart css start
+// add ddress
+.add-new-address {
+    color: #2bb409;
+    background: #fff;
+    padding: 7px 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .1);
+    font-size: 15px;
+}
+
+.add-new-address span {
+    margin-left: 10px;
+}
+
+.edit-add {
+    background: #6cca55;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #ffffff;
+    width: 40px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+}
+
+.profile-dp {
+    width: 100%;
+    position: relative;
+}
+
+.my-account {
+    background: #76cd61;
+}
+
+.profi-edit {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    color: #fff;
+}
+
+.profile-dp img {
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+    max-height: 100%;
+    border: 2px solid #ffffff;
+    border-radius: 200px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, .5);
+}
+
+.profile-dp h3 {
+    color: #fff;
+}
+
+.profile-dp p {
+    color: #fff;
+    margin: 0;
+    font-size: 12px;
+}
+
+.go-to-page {
+    text-align: right;
+    font-size: 12px;
+    color: #76cd61;
+    padding-top: 6px;
+}
+
+.pro-ttl h4 {
+    padding-bottom: 3px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.pro-ttl p {
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+.account-details {
+    background: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+    border-radius: 3px;
+}
+
+.logout {
+    padding: 15px 0px;
+}
+
+// add ddress
