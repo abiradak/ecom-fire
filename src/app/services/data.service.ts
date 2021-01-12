@@ -15,8 +15,6 @@ export class DataService {
     progressBar: true,
   };
 
-  courseDetails = null;
-
   constructor(
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
@@ -47,13 +45,6 @@ export class DataService {
   // --- For showing the info toast
   showInfo(message: string | any, title: any = null): void {
     this.toastr.info(message, 'Info!', this.toastConfig);
-  }
-
-  setCourseDeatils(courseDetails: null): void {
-    this.courseDetails = courseDetails;
-  }
-  getCourseDeatils(): any {
-    return this.courseDetails;
   }
 
 }

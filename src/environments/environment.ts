@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: ''
+  apiUrl: 'https://ecom-14f13.web.app/api/v1/'
 };
 
 /*

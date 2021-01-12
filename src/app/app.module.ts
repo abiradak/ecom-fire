@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,20 +9,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
-// import { LoadingComponent } from './loading/loading.component';
-// import { OverlayModule } from '@angular/cdk/overlay';
-// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-// import { LoadingService } from './services/loading.service';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
-
-// import { DataTablesModule } from 'angular-datatables';
+import { ProductAddComponent } from './product-add/product-add.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     DashboardComponent,
-    // LoadingComponent,
+    ProductAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,14 +27,11 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // OverlayModule,
-    // MatProgressSpinnerModule,
     NgxSpinnerModule,
-    // DataTablesModule,
+    AngularEditorModule,
     ToastrModule.forRoot(),
   ],
   providers: [
-    // LoadingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
