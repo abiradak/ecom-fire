@@ -29,9 +29,8 @@
                                     <img style="width: 100px;" [src]="item.data.image" />
                                 </td>
                                 <td>
-                                    <button class="btn btn-raised btn-primary" (click)="editProduct(item)">Edit</button>
-                                    &nbsp;
-                                    <button class="btn btn-raised btn-danger" (click)="confirmDelete(item.id, i)">Delete</button>
+                                    <button class="btn btn-raised btn-primary btn-sm" (click)="editProduct(item)">Edit</button> &nbsp;
+                                    <button class="btn btn-raised btn-danger btn-sm" (click)="confirmDelete(item.id, i)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
