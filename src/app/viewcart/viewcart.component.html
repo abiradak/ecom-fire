@@ -54,7 +54,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="cart-list my-3 p-2">
+                    <!-- <div class="cart-list my-3 p-2">
                         <div class="row no-gutters">
                             <div class="col-10">
                                 <div class="product-describe">
@@ -89,24 +89,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="cart-list my-3 p-2">
-                        <div class="row no-gutters">
+                        <div class="row no-gutters" *ngFor="let item of cart.items">
                             <div class="col-10">
                                 <div class="product-describe">
-                                    <h6>MAITRESSE EAU</h6>
-                                    <p>Article:<span>5986948</span></p>
-                                    <p>Year:<span>2018</span></p>
-                                    <p>Volume:<span>150 ml</span></p>
+                                    <h6>{{ item.product.name }}</h6>
+                                    <!-- <p>Article:<span>5986948</span></p>
+                                    <p>Year:<span>2018</span></p> -->
+                                    <p>Volume:<span>{{ item.product.volume }} ml</span></p>
                                     <div class="cart-price d-flex justify-content-between">
                                         <span>Price</span>
-                                        <span>630 RUB <span class="line-thrw">1030RUB </span> </span>
+                                        <span>{{ (item.product.price*item.quantity).toFixed(2) }} RUB  </span>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="col-2">
-                                <img src="../../assets/images/PourHomme.png">
+                                <img [src] = "item.product.image">
 
                                 <div class="cart-item mt-2">
                                     <span>-</span>2
@@ -142,7 +142,7 @@
                         <div class="all-price">
                             <ul>
                                 <li>
-                                    Price <span>230 RUB</span>
+                                    Price <span>{{ subTotal }} RUB</span>
                                 </li>
                                 <li>
                                     Discount <span class="vendor">- 30 RUB</span>
@@ -151,7 +151,7 @@
                                     Delivery Charges <span class="vendor">FREE</span>
                                 </li>
                                 <li>
-                                    Total Amount <span>200 RUB</span>
+                                    Total Amount <span>{{ subTotal }} RUB</span>
                                 </li>
                             </ul>
                         </div>
@@ -159,7 +159,7 @@
                     <!-- price details -->
                     <!-- fixed footer -->
                     <div class="fixed-footter text-right p-2">
-                        <button type="button" class=" btn btn-success cstm-color">Checkout</button>
+                        <button type="button" class=" btn btn-success cstm-color" [routerLink]="['/login']" routerLinkActive="router-link-active" >Checkout</button>
                     </div>
                     <!-- fixed footer -->
                 </div>

@@ -188,7 +188,7 @@
                 <div class="col-12">
                     <div class="selling-product--list py-3">
                         <div class="seling-img">
-                            <img src="../../assets/images/manJ55441.png">
+                            <img [src] = "details.image">
                         </div>
                         <div class="content-details">
                             <div class="contect-stock d-flex justify-content-between align-items-center pt-2">
@@ -221,8 +221,8 @@
                         <div class="price-sec d-flex justify-content-between align-items-center py-2">
                             <div class="prce">{{ details.price }} p.</div>
                             <div class="cart-item">
-                                <span>-</span>2
-                                <span>+</span>
+                                <span (click) = "decreaseCounter()">-</span>{{ itemCount }}
+                                <span (click) = "increaseCounter()">+</span>
                             </div>
                         </div>
                         <div class="product-panel p-details">
@@ -269,7 +269,7 @@
                <g>
                </g>
                </svg> <span class="ml-2">COMPARE</span> </div>
-                            <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
+                            <div (click) = "addToCart()" class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
                   <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
                 </svg> <span class="ml-2">ADD TO CART</span></div>
 

@@ -7,6 +7,7 @@ import { ItemcategoryComponent } from './itemcategory/itemcategory.component';
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { ViewcartComponent } from './viewcart/viewcart.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'home',

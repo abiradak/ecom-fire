@@ -1,0 +1,38 @@
+<ion-content>
+    <div class="head">
+
+    </div>
+
+    <div class="main-body">
+        <div class="login-back-img">
+            <div class="overlay">
+                <img src="../../assets/images/logo.png" alt="">
+            </div>
+        </div>
+
+        <div class="login-frm-back">
+            <form>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+
+                        <input type="text" id="email" formControlName="email" placeholder="Email">
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+
+                        <input type="password" id="password" formControlName="password" placeholder="Password">
+                        <!-- <i class="fa fa-eye-slash"></i> -->
+
+                        <div class="forgot"><a [routerLink]="['/forget-password']">Forgot password?</a></div>
+                    </div>
+
+                </div>
+                <button [routerLink]="['/home']" class="btn btn-sm login-btn" type="submit">Login</button>
+                <p class="sign-up">Not Registred?
+                    <a [routerLink]="['/register']">Create An Account !</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+</ion-content>

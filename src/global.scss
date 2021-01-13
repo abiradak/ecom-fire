@@ -927,3 +927,247 @@ li {
 }
 
 // add ddress
+// login
+.head {
+    padding-left: 0;
+}
+
+.heading {
+    font-size: 26px;
+    font-weight: bold;
+    padding-left: 15px;
+    margin-bottom: 40px;
+}
+
+.login-back-img {
+    background: url(./assets/images/discount.png);
+    height: 55vh;
+    background-position: center;
+    background-size: cover;
+    border-radius: 0px 0 30% 30%;
+    opacity: 0.5;
+}
+
+.overlay {
+    background: #95d9846b;
+    height: 55vh;
+    display: block;
+    vertical-align: middle;
+    justify-content: space-between;
+    margin: auto;
+    border-radius: 0px 0 30% 30%;
+    position: relative;
+}
+
+.login-frm-back {
+    background: #fff;
+    position: relative;
+    top: -110px;
+    padding: 25px 10px;
+    margin: 10px auto;
+    width: 88%;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 #759066, 1px 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.main-body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+.wel-back {
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.main-body input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: #f9fafc00;
+    border-radius: 0;
+    padding: 8px 12px 10px;
+    /* padding-top: 8px; */
+    /* border-radius: 10px; */
+    font-size: 14px;
+    color: #ddd;
+}
+
+.fa-eye-slash {
+    color: #cac4c4;
+    position: absolute;
+    right: 6px;
+    top: 5px;
+}
+
+.welcome {
+    font-size: 16px;
+}
+
+.welcome span {
+    color: #76cd61;
+    font-size: 24px;
+}
+
+.forgot {
+    text-align: right;
+    // color: #838287;
+    // font-weight: bold;
+    padding-top: 10px;
+}
+
+.forgot a {
+    color: #76cd61;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.desable-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    background-image: linear-gradient(-90deg, #d490e7, #e99ed9);
+    border: none;
+    font-size: 20px;
+    color: #f1cdf1;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background: #76cd61;
+    border: none;
+    font-size: 16px;
+    color: #ffffff;
+    margin-top: 0px;
+    box-shadow: 1px 9px 8px 0 #76cd6145, 0 6px 20px 0 #76cd6124;
+}
+
+.finger-print {
+    text-align: center;
+    color: #ddd;
+    margin-top: 25px;
+}
+
+.sign-up {
+    margin-top: 25px;
+    color: #0d0d0d;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.sign-up a {
+    color: #76cd61;
+}
+
+.logo-name {
+    color: #1e1e1e;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.logo-img {
+    width: 185px
+}
+
+.logo-name span {
+    color: #fe5c2d;
+}
+
+.back-btn {
+    text-align: left;
+    color: #1c8403;
+    font-size: 25px;
+    margin: 0;
+    padding-left: 10px;
+    position: absolute;
+    top: 14px;
+}
+
+.overlay img {
+    padding-top: 10vh;
+}
+
+// login
+// thank you
+.thankyou {
+    width: 100%;
+    padding-top: 28vh;
+}
+
+.symbol {
+    position: relative;
+    font-size: 36px;
+    font-weight: lighter;
+    background: #76cd61;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 200px;
+    margin: 0 auto;
+    color: #fff;
+}
+
+.symbol:after {
+    position: absolute;
+    content: "";
+    height: 120px;
+    width: 120px;
+    border: 1px solid #76cd613d;
+    border-radius: 200px;
+    left: -10px;
+    top: -10px;
+}
+
+.symbol::before {
+    position: absolute;
+    content: "";
+    height: 110px;
+    width: 110px;
+    border: 1px solid #76cd61b3;
+    border-radius: 200px;
+    left: -5px;
+    top: -5px;
+}
+
+.thank-tyou-content h2 {
+    font-size: 16px;
+    margin-top: 26px;
+}
+
+.thank-tyou-content p {
+    margin: 0;
+    font-size: 12px;
+}
+
+.thank-tyou-content p span {
+    color: #76cd61;
+}
+
+// thank you
+// sidebar
+.side-menu {
+    width: 100%;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.side-menu ul li {
+    color: #222;
+    display: inline-block;
+    width: 100%;
+    padding: 3px 0px;
+}
+
+.side-menu ul li span {
+    padding-left: 10px;
+}

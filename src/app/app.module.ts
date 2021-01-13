@@ -20,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
+import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { IonicStorageModule } from '@ionic/storage';
     ViewcartComponent,
     CheckoutComponent,
     AddressComponent,
-    MyaccountComponent
+    MyaccountComponent,
+    LoginComponent
   ],
   entryComponents: [],
   imports: [
