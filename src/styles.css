@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+
 /* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+
 * {
     margin: 0;
 }
@@ -10,15 +12,16 @@ body {
     font-family: 'Lato', sans-serif !important;
 }
 
-.loder { 
-    width: 100%; 
-    background: rgba(0, 0, 0, 0.7); 
-    position: fixed; 
-    left: 0px; top: 0px; 
-    bottom: 0px; 
-    z-index: 99999; 
-    display: flex; 
-    justify-content: center; 
+.loder {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -68,11 +71,11 @@ a:hover {
 }
 
 .navbar-nav li:hover svg path {
-    fill: #13ECA4;
+    fill: #2bb409;
 }
 
 .navbar-nav li:hover svg .search-line {
-    stroke: #13ECA4;
+    stroke: #2bb409;
 }
 
 .navbar {
@@ -114,7 +117,7 @@ a:hover {
 }
 
 .top-header {
-    background: #000;
+    background: #2bb4093d;
     padding: 15px 20px;
     width: 100%;
     position: fixed;
@@ -360,9 +363,37 @@ ul.notification-list {
 .close-btn {}
 
 .time {
-    color: #b2b2b2;
+    color: #2bb409;
     font-size: 16px;
     margin-left: 30px;
+}
+
+.shw_img {
+    position: relative;
+}
+
+.re_move {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #0000005c;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    opacity: 0;
+}
+
+.re_move:hover {
+    color: red;
+}
+
+.shw_img:hover .re_move {
+    opacity: 1;
 }
 
 .time img {
@@ -438,7 +469,7 @@ ul.notification-list li:nth-child(odd) {
 
 .side-bar {
     width: auto;
-    background: #111419;
+    background: #2bb4093d;
     position: fixed;
     left: 0px;
     top: 90px;
@@ -501,11 +532,11 @@ ul.notification-list li:nth-child(odd) {
 }
 
 .light-theme #sidebar ul li.active a {
-    color: #13ECA4 !important;
+    color: #2bb409 !important;
 }
 
 .light-theme #sidebar ul li.active a svg .das-icon {
-    fill: #13ECA4 !important;
+    fill: #2bb409 !important;
 }
 
 .light-theme #sidebar ul li a:hover svg .black-icon {
@@ -527,7 +558,7 @@ ul.notification-list li:nth-child(odd) {
 }
 
 .light-theme .color-green {
-    color: #13ECA4 !important;
+    color: #2bb409 !important;
 }
 
 .light-theme .navbar-nav li svg path {
@@ -553,7 +584,7 @@ ul.notification-list li:nth-child(odd) {
 }
 
 #sidebar ul li a:hover svg path {
-    fill: #13ECA4;
+    fill: #2bb409;
 }
 
 #sidebar ul li svg {
@@ -565,11 +596,11 @@ ul.notification-list li:nth-child(odd) {
 }
 
 #sidebar ul li a:hover svg ellipse {
-    fill: #13ECA4;
+    fill: #2bb409;
 }
 
 #sidebar ul li a:hover {
-    color: #13ECA4;
+    color: #2bb409;
 }
 
 #sidebar ul li:hover .nav-link[data-toggle]:not(.collapsed):before {
@@ -593,7 +624,7 @@ ul.notification-list li:nth-child(odd) {
 #sidebar ul li a {
     display: flex;
     align-items: center;
-    color: #414352;
+    color: #7e7f86;
 }
 
 #sidebar ul li a span {
@@ -605,19 +636,19 @@ ul.notification-list li:nth-child(odd) {
 }
 
 #sidebar ul li.active {
-    background: #1D1F22;
+    background: #2bb4093d;
 }
 
 #sidebar ul li.active a {
-    color: #13ECA4;
+    color: #2bb409;
 }
 
 #sidebar ul li.active {
-    border-right: 4px #13ECA4 solid;
+    border-right: 4px #2bb409 solid;
 }
 
 #sidebar ul li.active a svg .das-icon {
-    fill: #13ECA4;
+    fill: #2bb409;
 }
 
 #submenu2,
@@ -1023,7 +1054,7 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
 }
 
 .domain-list ul li:last-child a:hover {
-    color: #13ECA4 !important;
+    color: #2bb409 !important;
 }
 
 .dropdown-text {
@@ -1075,7 +1106,7 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
     }
     .setting img,
     .squ-icon img {
-        height: 25px;
+        height: 50px;
     }
     .user img {
         height: 40px;
@@ -1122,15 +1153,15 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
 }
 
 .wiget-col1:hover:after {
-    background: #FFD740;
+    background: #ccc;
 }
 
 .wiget-col2:hover:after {
-    background: #B2FF59;
+    background: #ccc;
 }
 
 .wiget-col3:hover:after {
-    background: #FF8C00;
+    background: #ccc;
 }
 
 .wiget-col4:hover:after {
@@ -1174,7 +1205,7 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
 }
 
 .dashboard-box ul li:nth-child(2):hover .dot {
-    fill: #13ECA4;
+    fill: #2bb409;
 }
 
 .dashboard-box ul li:nth-child(3):hover path {
@@ -1186,7 +1217,7 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
 }
 
 .change-dashboard-box ul li:nth-child(2):hover .dot {
-    fill: #13ECA4;
+    fill: #2bb409;
 }
 
 .change-dashboard-box ul li:nth-child(3):hover path {
@@ -1195,8 +1226,8 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
 
 .dashboard-box {
     padding: 20px;
-    background: #161A21;
-    box-shadow: -5px -5px 15px, 5px 5px 15px #000;
+    background: #2bb409;
+    /* box-shadow: -5px -5px 15px #2bb409, 5px 5px 15px #2bb409; */
     /*box-shadow: 0 0 10px rgba(250, 251, 255, 0.6);*/
     border-radius: 20px;
     position: relative;
@@ -1271,15 +1302,15 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
 }
 
 .wiget-box1:before {
-    background: #FFD740;
+    background: #fff;
 }
 
 .wiget-box2:before {
-    background: #B2FF59;
+    background: #fff;
 }
 
 .wiget-box3:before {
-    background: #FF8C00;
+    background: #fff;
 }
 
 .wiget-box4:before {
@@ -1344,7 +1375,7 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
     font-size: 20px;
     line-height: 130%;
     text-transform: uppercase;
-    color: #DADCE7;
+    color: #fff;
 }
 
 .box-icon img {
@@ -1529,7 +1560,7 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
 }
 
 .modal-right a:nth-child(1):hover svg path {
-    fill: #13ECA4;
+    fill: #2bb409;
 }
 
 .modal-right a:nth-child(2):hover svg path {
