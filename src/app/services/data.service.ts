@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DataService {
 
   currency = '$';
-  nameValidationRegex = /^[a-zA-Z\s-,.\']+$/;
+  nameValidationRegex = /^[0-9a-zA-Z\s-,.\']+$/;
   priceValidationRegex = /^\d{0,8}(\.\d{1,4})?$/;
   toastConfig: object = {
     timeOut: 3000,

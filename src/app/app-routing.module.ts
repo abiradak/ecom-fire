@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CategoryAddComponent } from './category-add/category-add.component';
+import { CategoryEditComponent } from './category-edit/category-edit.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductAddComponent } from './product-add/product-add.component';
@@ -27,6 +30,18 @@ const routes: Routes = [
       {
         path: 'product-edit/:productId',
         component: ProductEditComponent,
+      },
+      {
+        path: 'category-add',
+        component: CategoryAddComponent,
+      },
+      {
+        path: 'category-list',
+        component: CategoryListComponent,
+      },
+      {
+        path: 'category-edit/:categoryId',
+        component: CategoryEditComponent,
       },
     ]
   },

@@ -38,6 +38,9 @@ export class ApiService {
         case 'put':
           return this.http.put<any>(environment.apiUrl + url, (data), httpOptions);
 
+        case 'patch':
+          return this.http.patch<any>(environment.apiUrl + url, (data), httpOptions);
+
         case 'delete':
           return this.http.delete<any>(environment.apiUrl + url, httpOptions);
 

@@ -16,6 +16,9 @@ import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+import { CategoryAddComponent } from './category-add/category-add.component';
+import { CategoryEditComponent } from './category-edit/category-edit.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     ProductListComponent,
     LoaderComponent,
     ProductEditComponent,
+    CategoryAddComponent,
+    CategoryEditComponent,
+    CategoryListComponent,
   ],
   imports: [
     BrowserModule,
