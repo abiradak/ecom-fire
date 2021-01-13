@@ -117,7 +117,7 @@ a:hover {
 }
 
 .top-header {
-    background: #2bb4093d;
+    background: #a0db95;
     padding: 15px 20px;
     width: 100%;
     position: fixed;
@@ -469,7 +469,7 @@ ul.notification-list li:nth-child(odd) {
 
 .side-bar {
     width: auto;
-    background: #2bb4093d;
+    background: #a0db95;
     position: fixed;
     left: 0px;
     top: 90px;
@@ -1106,7 +1106,7 @@ ul.nav-tabs li a ul.nav-tabs li a .noti-btn {
     }
     .setting img,
     .squ-icon img {
-        height: 50px;
+        height: 50px !important;
     }
     .user img {
         height: 40px;

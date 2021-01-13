@@ -63,14 +63,20 @@
                                                                 </div>
                                                             </div>
                                                             <!-- Product Image -->
-                                                            <div class="form-group">
-                                                                <label>Product Image</label>
-                                                                <input type="file" class="form-control-file" #fileInput (change)="fileChangeEvent($event)">
-                                                                <div class="error-message">{{imageError}}</div>
-                                                            </div>
-                                                            <div *ngIf="isImageSaved">
-                                                                <img style="width: 100px;" [src]="cardImageBase64" />
-                                                                <a (click)="removeImage(fileInput)" *ngIf="isImageChanged">Remove</a>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>Product Image</label>
+                                                                        <input type="file" class="form-control-file" #fileInput (change)="fileChangeEvent($event)">
+                                                                        <div class="error-message">{{imageError}}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div *ngIf="isImageSaved" class="shw_img">
+                                                                        <img style="width: 100px;" [src]="cardImageBase64" />
+                                                                        <a (click)="removeImage(fileInput)" *ngIf="isImageChanged" class="re_move">Remove</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <!-- Product Description -->
                                                             <div class="form-group">

@@ -27,6 +27,7 @@
     "datatables.net-dt": "^1.10.23",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
+    "ng-multiselect-dropdown": "^0.2.14",
     "ngx-owl-carousel": "^2.0.7",
     "ngx-owl-carousel-o": "^5.0.0",
     "ngx-spinner": "^10.0.1",

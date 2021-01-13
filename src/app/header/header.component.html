@@ -7,58 +7,57 @@
                     <!-- Brand/logo -->
 
                     <span (click)="showHideMenu()" class="mr-3">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" width="25px" height="25px" fill="#2bb409" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<g>
-	<g>
-		<path d="M492,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h472c11.046,0,20-8.954,20-20S503.046,236,492,236z"/>
-	</g>
-</g>
-<g>
-	<g>
-		<path d="M492,76H20C8.954,76,0,84.954,0,96s8.954,20,20,20h472c11.046,0,20-8.954,20-20S503.046,76,492,76z"/>
-	</g>
-</g>
-<g>
-	<g>
-		<path d="M492,396H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h472c11.046,0,20-8.954,20-20
-			C512,404.954,503.046,396,492,396z"/>
-	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-</svg>
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" width="25px" height="25px" fill="#2bb409" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <g>
+                                <g>
+                                    <path d="M492,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h472c11.046,0,20-8.954,20-20S503.046,236,492,236z"/>
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path d="M492,76H20C8.954,76,0,84.954,0,96s8.954,20,20,20h472c11.046,0,20-8.954,20-20S503.046,76,492,76z"/>
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path d="M492,396H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h472c11.046,0,20-8.954,20-20
+                                        C512,404.954,503.046,396,492,396z"/>
+                                </g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                            <g>
+                            </g>
+                        </svg>
                     </span>
                     <a class="squ-icon">
-                        <img src="../../assets/images/logo.png">
+                        <img src="../../assets/images/logo.png" style="height: 60px;">
                     </a>
 
                     <!-- <a class="navbar-brand user" [ngClass]="showMainMenu === true ? '' : 'd-none3'">
@@ -145,6 +144,92 @@
                                         <ellipse cx="8.6339" cy="8" rx="8.07921" ry="8" fill="#7e7f86" />
                                     </svg>
                                     <span>Product List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Category -->
+                <li class="nav-item" [ngClass]="currentPage == '/category-add' || currentPage == '/category-edit' || currentPage == '/category-list'? 'active' : ''">
+                    <a class="nav-link collapsed text-truncate" href="#submenu2" data-toggle="collapse" data-target="#submenu2">
+                        <svg width="40" height="40" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4 2.88889C4 1.2934 5.2934 0 6.88889 0H12.6667C14.2622 0 15.5556 1.2934 15.5556 2.88889V8.66667C15.5556 10.2622 14.2622 11.5556 12.6667 11.5556H6.88889C5.2934 11.5556 4 10.2622 4 8.66667V2.88889Z"
+                                fill="#fff" />
+                            <path
+                                d="M4 17.3333C4 15.7378 5.2934 14.4444 6.88889 14.4444H12.6667C14.2622 14.4444 15.5556 15.7378 15.5556 17.3333V23.1111C15.5556 24.7066 14.2622 26 12.6667 26H6.88889C5.2934 26 4 24.7066 4 23.1111V17.3333Z"
+                                fill="#fff" />
+                            <path
+                                d="M18.4444 2.88889C18.4444 1.2934 19.7378 0 21.3333 0H27.1111C28.7066 0 30 1.2934 30 2.88889V8.66667C30 10.2622 28.7066 11.5556 27.1111 11.5556H21.3333C19.7378 11.5556 18.4444 10.2622 18.4444 8.66667V2.88889Z"
+                                fill="#fff" />
+                            <path
+                                d="M18.4444 17.3333C18.4444 15.7378 19.7378 14.4444 21.3333 14.4444H27.1111C28.7066 14.4444 30 15.7378 30 17.3333V23.1111C30 24.7066 28.7066 26 27.1111 26H21.3333C19.7378 26 18.4444 24.7066 18.4444 23.1111V17.3333Z"
+                                fill="#fff" />
+                        </svg>
+                        <span [ngClass]="showMainMenu === true ? '' : 'd-none'">Category</span>
+                    </a>
+                    <!-- Sub-menu List -->
+                    <div class="collapse" id="submenu2" aria-expanded="false" [ngClass]="showMainMenu === true ? '' : 'd-none'">
+                        <ul class="flex-column pl-2 nav">
+                            <!-- Add Category -->
+                            <li (click)="navigateTo('category-add')" class="nav-item">
+                                <a class="nav-link py-0">
+                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="8.6339" cy="8" rx="8.07921" ry="8" fill="#7e7f86" />
+                                    </svg>
+                                    <span>Category Add</span>
+                                </a>
+                            </li>
+                            <!-- Category List -->
+                            <li (click)="navigateTo('category-list')" class="nav-item">
+                                <a class="nav-link py-0">
+                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="8.6339" cy="8" rx="8.07921" ry="8" fill="#7e7f86" />
+                                    </svg>
+                                    <span>Category List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Brand -->
+                <li class="nav-item" [ngClass]="currentPage == '/brand-add' || currentPage == '/brand-edit' || currentPage == '/brand-list'? 'active' : ''">
+                    <a class="nav-link collapsed text-truncate" href="#submenu3" data-toggle="collapse" data-target="#submenu3">
+                        <svg width="40" height="40" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4 2.88889C4 1.2934 5.2934 0 6.88889 0H12.6667C14.2622 0 15.5556 1.2934 15.5556 2.88889V8.66667C15.5556 10.2622 14.2622 11.5556 12.6667 11.5556H6.88889C5.2934 11.5556 4 10.2622 4 8.66667V2.88889Z"
+                                fill="#fff" />
+                            <path
+                                d="M4 17.3333C4 15.7378 5.2934 14.4444 6.88889 14.4444H12.6667C14.2622 14.4444 15.5556 15.7378 15.5556 17.3333V23.1111C15.5556 24.7066 14.2622 26 12.6667 26H6.88889C5.2934 26 4 24.7066 4 23.1111V17.3333Z"
+                                fill="#fff" />
+                            <path
+                                d="M18.4444 2.88889C18.4444 1.2934 19.7378 0 21.3333 0H27.1111C28.7066 0 30 1.2934 30 2.88889V8.66667C30 10.2622 28.7066 11.5556 27.1111 11.5556H21.3333C19.7378 11.5556 18.4444 10.2622 18.4444 8.66667V2.88889Z"
+                                fill="#fff" />
+                            <path
+                                d="M18.4444 17.3333C18.4444 15.7378 19.7378 14.4444 21.3333 14.4444H27.1111C28.7066 14.4444 30 15.7378 30 17.3333V23.1111C30 24.7066 28.7066 26 27.1111 26H21.3333C19.7378 26 18.4444 24.7066 18.4444 23.1111V17.3333Z"
+                                fill="#fff" />
+                        </svg>
+                        <span [ngClass]="showMainMenu === true ? '' : 'd-none'">Brand</span>
+                    </a>
+                    <!-- Sub-menu List -->
+                    <div class="collapse" id="submenu3" aria-expanded="false" [ngClass]="showMainMenu === true ? '' : 'd-none'">
+                        <ul class="flex-column pl-2 nav">
+                            <!-- Add Brand -->
+                            <li (click)="navigateTo('brand-add')" class="nav-item">
+                                <a class="nav-link py-0">
+                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="8.6339" cy="8" rx="8.07921" ry="8" fill="#7e7f86" />
+                                    </svg>
+                                    <span>Brand Add</span>
+                                </a>
+                            </li>
+                            <!-- Brand List -->
+                            <li (click)="navigateTo('brand-list')" class="nav-item">
+                                <a class="nav-link py-0">
+                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="8.6339" cy="8" rx="8.07921" ry="8" fill="#7e7f86" />
+                                    </svg>
+                                    <span>Brand List</span>
                                 </a>
                             </li>
                         </ul>

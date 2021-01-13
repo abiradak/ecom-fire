@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BrandAddComponent } from './brand-add/brand-add.component';
+import { BrandEditComponent } from './brand-edit/brand-edit.component';
+import { BrandListComponent } from './brand-list/brand-list.component';
 import { CategoryAddComponent } from './category-add/category-add.component';
 import { CategoryEditComponent } from './category-edit/category-edit.component';
 import { CategoryListComponent } from './category-list/category-list.component';
@@ -42,6 +45,18 @@ const routes: Routes = [
       {
         path: 'category-edit/:categoryId',
         component: CategoryEditComponent,
+      },
+      {
+        path: 'brand-add',
+        component: BrandAddComponent,
+      },
+      {
+        path: 'brand-list',
+        component: BrandListComponent,
+      },
+      {
+        path: 'brand-edit/:brandId',
+        component: BrandEditComponent,
       },
     ]
   },

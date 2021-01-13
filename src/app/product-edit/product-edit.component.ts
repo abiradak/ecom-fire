@@ -74,7 +74,7 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
-    console.log('ngOnInit this.productId: ', this.productId);
+    // console.log('ngOnInit this.productId: ', this.productId);
     if (this.productId.length === 0) {
       this.dataService.showError('Product details not found.'); // --- Display error message
       this.router.navigate(['/product-list']);
@@ -87,7 +87,7 @@ export class ProductEditComponent implements OnInit {
     const url = 'product/' + this.productId;
     this.showloader = true;
     this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
-      console.log('getProduct response: ' , response);
+      // console.log('getProduct response: ' , response);
       this.showloader = false;
       if (response.product) {
         this.productData = response.product;
@@ -212,7 +212,7 @@ export class ProductEditComponent implements OnInit {
       this.showloader = true;
       // console.log('submitProduct payload: ', payload);
       this.apiService.sendHttpCallWithToken(payload, url, 'patch').subscribe((response) => {
-        console.log('submitProduct response: ' , response);
+        // console.log('submitProduct response: ' , response);
         this.showloader = false;
         if (response.status === 200) {
           this.dataService.showSuccess(response.message);

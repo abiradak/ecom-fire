@@ -19,6 +19,10 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { CategoryAddComponent } from './category-add/category-add.component';
 import { CategoryEditComponent } from './category-edit/category-edit.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { BrandAddComponent } from './brand-add/brand-add.component';
+import { BrandListComponent } from './brand-list/brand-list.component';
+import { BrandEditComponent } from './brand-edit/brand-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,9 @@ import { CategoryListComponent } from './category-list/category-list.component';
     CategoryAddComponent,
     CategoryEditComponent,
     CategoryListComponent,
+    BrandAddComponent,
+    BrandListComponent,
+    BrandEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +51,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
     AngularEditorModule,
     DataTablesModule,
     ToastrModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     {
