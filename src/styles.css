@@ -10,6 +10,18 @@ body {
     font-family: 'Lato', sans-serif !important;
 }
 
+.loder { 
+    width: 100%; 
+    background: rgba(0, 0, 0, 0.7); 
+    position: fixed; 
+    left: 0px; top: 0px; 
+    bottom: 0px; 
+    z-index: 99999; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
 a:focus {
     outline: none;
 }

@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 const routes: Routes = [
   {
@@ -17,13 +19,15 @@ const routes: Routes = [
       {
         path: 'product-add',
         component: ProductAddComponent,
-        // canActivate: [AdminGuard],
       },
-      // {
-      //   path: 'course-edit/:courseId',
-      //   component: CourseEditComponent,
-      //   canActivate: [AdminGuard],
-      // },
+      {
+        path: 'product-list',
+        component: ProductListComponent,
+      },
+      {
+        path: 'product-edit/:productId',
+        component: ProductEditComponent,
+      },
     ]
   },
   // {

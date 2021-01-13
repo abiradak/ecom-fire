@@ -43,7 +43,7 @@ export class ProductAddComponent implements OnInit {
       },
     ]
   };
-
+  showloader = false;
   imageError: string;
   isImageSaved = false;
   cardImageBase64: string = null;
@@ -139,9 +139,11 @@ export class ProductAddComponent implements OnInit {
         image: this.cardImageBase64,
         description: this.productForm.value.productdesc,
       };
-      console.log('submitProduct payload: ', payload);
+      // console.log('submitProduct payload: ', payload);
+      this.showloader = true;
       this.apiService.sendHttpCallWithToken(payload, url, 'post').subscribe((response) => {
-        console.log('coming response blank >>>>>' , response);
+        console.log('submitProduct response: ' , response);
+        this.showloader = false;
         if (response.status === 200) {
           this.dataService.showSuccess(response.message);
         } else if (response.status === 400) {
@@ -149,16 +151,17 @@ export class ProductAddComponent implements OnInit {
         } else {
           this.dataService.showError('Unable to add product');
         }
-      }, (err) => {
-        if (err.message) {
-          this.dataService.showError(err.message);
+      }, (error) => {
+        console.log('submitProduct error: ' , error);
+        this.showloader = false;
+        if (error.message) {
+          this.dataService.showError(error.message);
         } else {
           this.dataService.showError('Unable to add product');
         }
-        console.log('errors coming >>>>>>>' , err);
       });
     } else {
-      this.dataService.showError('Please fill require details.'); // --- Display error message
+      this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.productForm.controls).forEach((field) => {
         const control = this.productForm.get(field);
         control.markAsTouched({ onlySelf: true });

@@ -3,15 +3,19 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductAddComponent } from './product-add/product-add.component';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ProductListComponent } from './product-list/product-list.component';
+import { LoaderComponent } from './loader/loader.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,9 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HeaderComponent,
     DashboardComponent,
     ProductAddComponent,
+    ProductListComponent,
+    LoaderComponent,
+    ProductEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +36,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     NgxSpinnerModule,
     AngularEditorModule,
+    DataTablesModule,
     ToastrModule.forRoot(),
   ],
   providers: [
