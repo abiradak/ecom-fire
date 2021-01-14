@@ -152,19 +152,19 @@
                 <!-- Category -->
                 <li class="nav-item" [ngClass]="currentPage == '/category-add' || currentPage == '/category-edit' || currentPage == '/category-list'? 'active' : ''">
                     <a class="nav-link collapsed text-truncate" href="#submenu2" data-toggle="collapse" data-target="#submenu2">
-                        <svg width="40" height="40" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="40" height="40" viewBox="0 0 30 26" fill="#7e7f86" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M4 2.88889C4 1.2934 5.2934 0 6.88889 0H12.6667C14.2622 0 15.5556 1.2934 15.5556 2.88889V8.66667C15.5556 10.2622 14.2622 11.5556 12.6667 11.5556H6.88889C5.2934 11.5556 4 10.2622 4 8.66667V2.88889Z"
-                                fill="#fff" />
+                                fill="#7e7f86" />
                             <path
                                 d="M4 17.3333C4 15.7378 5.2934 14.4444 6.88889 14.4444H12.6667C14.2622 14.4444 15.5556 15.7378 15.5556 17.3333V23.1111C15.5556 24.7066 14.2622 26 12.6667 26H6.88889C5.2934 26 4 24.7066 4 23.1111V17.3333Z"
-                                fill="#fff" />
+                                fill="#7e7f86" />
                             <path
                                 d="M18.4444 2.88889C18.4444 1.2934 19.7378 0 21.3333 0H27.1111C28.7066 0 30 1.2934 30 2.88889V8.66667C30 10.2622 28.7066 11.5556 27.1111 11.5556H21.3333C19.7378 11.5556 18.4444 10.2622 18.4444 8.66667V2.88889Z"
-                                fill="#fff" />
+                                fill="#7e7f86" />
                             <path
                                 d="M18.4444 17.3333C18.4444 15.7378 19.7378 14.4444 21.3333 14.4444H27.1111C28.7066 14.4444 30 15.7378 30 17.3333V23.1111C30 24.7066 28.7066 26 27.1111 26H21.3333C19.7378 26 18.4444 24.7066 18.4444 23.1111V17.3333Z"
-                                fill="#fff" />
+                                fill="#7e7f86" />
                         </svg>
                         <span [ngClass]="showMainMenu === true ? '' : 'd-none'">Category</span>
                     </a>
@@ -195,20 +195,7 @@
                 <!-- Brand -->
                 <li class="nav-item" [ngClass]="currentPage == '/brand-add' || currentPage == '/brand-edit' || currentPage == '/brand-list'? 'active' : ''">
                     <a class="nav-link collapsed text-truncate" href="#submenu3" data-toggle="collapse" data-target="#submenu3">
-                        <svg width="40" height="40" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4 2.88889C4 1.2934 5.2934 0 6.88889 0H12.6667C14.2622 0 15.5556 1.2934 15.5556 2.88889V8.66667C15.5556 10.2622 14.2622 11.5556 12.6667 11.5556H6.88889C5.2934 11.5556 4 10.2622 4 8.66667V2.88889Z"
-                                fill="#fff" />
-                            <path
-                                d="M4 17.3333C4 15.7378 5.2934 14.4444 6.88889 14.4444H12.6667C14.2622 14.4444 15.5556 15.7378 15.5556 17.3333V23.1111C15.5556 24.7066 14.2622 26 12.6667 26H6.88889C5.2934 26 4 24.7066 4 23.1111V17.3333Z"
-                                fill="#fff" />
-                            <path
-                                d="M18.4444 2.88889C18.4444 1.2934 19.7378 0 21.3333 0H27.1111C28.7066 0 30 1.2934 30 2.88889V8.66667C30 10.2622 28.7066 11.5556 27.1111 11.5556H21.3333C19.7378 11.5556 18.4444 10.2622 18.4444 8.66667V2.88889Z"
-                                fill="#fff" />
-                            <path
-                                d="M18.4444 17.3333C18.4444 15.7378 19.7378 14.4444 21.3333 14.4444H27.1111C28.7066 14.4444 30 15.7378 30 17.3333V23.1111C30 24.7066 28.7066 26 27.1111 26H21.3333C19.7378 26 18.4444 24.7066 18.4444 23.1111V17.3333Z"
-                                fill="#fff" />
-                        </svg>
+                        <svg height="40px" viewBox="0 0 384 384" width="40px" fill="#7e7f86" xmlns="http://www.w3.org/2000/svg"><path d="m96 272h192v32h-192zm0 0"/><path d="m192 252.238281 118.414062-172.238281h-236.828124zm0-56.476562-57.585938-83.761719h115.171876zm0 0"/><path d="m0 384h384v-384h-384zm32-352h320v320h-320zm0 0"/></svg>
                         <span [ngClass]="showMainMenu === true ? '' : 'd-none'">Brand</span>
                     </a>
                     <!-- Sub-menu List -->
@@ -237,8 +224,8 @@
                 </li>
                 <!-- Sign Out -->
                 <li class="nav-item" (click)="signOut()">
-                    <a class="nav-link text-truncate">
-                        <svg version="1.1" width="28" height="31" fill="#414352" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                    <a class="nav-link text-truncate" style="padding-left: 15px;">
+                        <svg version="1.1" width="40" height="40" fill="#7e7f86" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                             <g>
                                 <g>
                                     <path  d="M255.15,468.625H63.787c-11.737,0-21.262-9.526-21.262-21.262V64.638c0-11.737,9.526-21.262,21.262-21.262H255.15
