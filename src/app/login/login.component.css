@@ -1,0 +1,410 @@
+#login {
+    background-image: url("../../assets/img/gallery/light-bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+#login .login-img {
+    padding: 0;
+    background: #f0f0f0;
+}
+
+#login .login-btn button.btn.btn-outline-primary:hover a.text-decoration-none,
+#login .login-btn .fc button.btn-outline-primary:hover a.text-decoration-none,
+.fc #login .login-btn button.btn-outline-primary:hover a.text-decoration-none {
+    color: #fff;
+}
+
+#login .forgot-password-option a.text-decoration-none,
+#login .forgot-password-option .custom-control-label,
+#login .remember-me a.text-decoration-none,
+#login .remember-me .custom-control-label {
+    font-size: 14px;
+}
+
+.card-body.login-img {
+    width: 450px;
+}
+
+#error {
+    background-image: url("../../assets/img/gallery/light-bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    #error .error-img {
+        width: 300px;
+    }
+}
+
+#coming-soon {
+    background-image: url("../../assets/img/gallery/light-bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#coming-soon .card-coming-soon {
+    border-radius: 0.5rem;
+}
+
+#coming-soon .getting-started {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#coming-soon .cs-text-divider {
+    width: 100%;
+    text-align: center;
+}
+
+#coming-soon .cs-text-divider hr {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+#coming-soon .cs-text-divider span {
+    position: relative;
+    top: 11px;
+}
+
+#coming-soon .btn.btn-lg.btn-primary,
+#coming-soon .btn-group-lg>.btn.btn-primary,
+#coming-soon .fc .btn-group-lg>button.btn-primary,
+.fc #coming-soon .btn-group-lg>button.btn-primary,
+#coming-soon .fc button.btn-lg.btn-primary,
+.fc #coming-soon button.btn-lg.btn-primary {
+    color: #fff !important;
+}
+
+@media (max-width: 540px) {
+    #coming-soon {
+        overflow: hidden;
+    }
+    #coming-soon .card-coming-soon {
+        position: relative;
+        top: -12px;
+    }
+    #coming-soon .card-coming-soon .card-header {
+        padding: 1rem;
+    }
+    #coming-soon .card-coming-soon .card-header h4.card-title {
+        font-size: 1rem;
+    }
+    #coming-soon .card-coming-soon img.img-cs {
+        width: 100px;
+    }
+    #coming-soon .card-coming-soon .cs-text-divider hr {
+        margin-left: auto;
+        margin-right: auto;
+        width: 35%;
+    }
+    #coming-soon .card-coming-soon .getting-started {
+        padding-top: 0 !important;
+        margin-top: auto !important;
+    }
+    #coming-soon .card-coming-soon .getting-started .clockCard {
+        margin-bottom: 0.5rem !important;
+    }
+    #coming-soon .card-coming-soon .getting-started .clockCard P.lead {
+        margin-top: 0 !important;
+    }
+    #coming-soon .card-coming-soon input.form-control {
+        margin-top: 0.5rem !important;
+    }
+}
+
+#maintenance {
+    background-image: url("../../assets/img/gallery/light-bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    #maintenance .maintenance-img {
+        width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    #maintenance .maintenance-img {
+        width: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .dropzone .dz-message {
+        top: 60%;
+    }
+}
+
+#card-move-section .card-moved .card {
+    background: #009DA0;
+    color: #fff;
+}
+
+.customizer {
+    width: 400px;
+    right: -400px;
+    padding: 0;
+    background-color: #FFF;
+    z-index: 1051;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    transition: right 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+    backface-visibility: hidden;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.customizer.open {
+    right: 0;
+}
+
+.customizer .customizer-content {
+    position: relative;
+    height: 100%;
+}
+
+.customizer a.customizer-toggle {
+    background: #FFF;
+    color: #009DA0;
+    display: block;
+    box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+.customizer a.customizer-close {
+    color: #000;
+}
+
+.customizer .customizer-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 7px;
+    width: auto;
+    z-index: 10;
+}
+
+.customizer #rtl-icon {
+    position: absolute;
+    right: -1px;
+    top: 35%;
+    width: 54px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 50px;
+    margin-top: 50px;
+}
+
+.customizer .customizer-toggle {
+    position: absolute;
+    top: 35%;
+    width: 54px;
+    height: 50px;
+    left: -54px;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.customizer .color-options a {
+    white-space: pre;
+}
+
+.customizer .cz-bg-color {
+    margin: 0 auto;
+}
+
+.customizer .cz-bg-color span:hover {
+    cursor: pointer;
+}
+
+.customizer .cz-bg-color span.white {
+    color: #ddd !important;
+}
+
+.customizer .cz-bg-color .selected,
+.customizer .cz-tl-bg-color .selected {
+    box-shadow: 0 0 10px 3px #009da0;
+    border: 3px solid #fff;
+}
+
+.customizer .cz-bg-image:hover {
+    cursor: pointer;
+}
+
+.customizer .cz-bg-image img.rounded {
+    border-radius: 1rem !important;
+    border: 2px solid #e6e6e6;
+    height: 100px;
+    width: 50px;
+}
+
+.customizer .cz-bg-image img.rounded.selected {
+    border: 2px solid #FF586B;
+}
+
+.customizer .tl-color-options {
+    display: none;
+}
+
+.customizer .cz-tl-bg-image img.rounded {
+    border-radius: 1rem !important;
+    border: 2px solid #e6e6e6;
+    height: 100px;
+    width: 70px;
+}
+
+.customizer .cz-tl-bg-image img.rounded.selected {
+    border: 2px solid #FF586B;
+}
+
+.customizer .cz-tl-bg-image img.rounded:hover {
+    cursor: pointer;
+}
+
+.customizer .bg-hibiscus {
+    background-image: linear-gradient(to right bottom, #f05f57, #c83d5c, #99245a, #671351, #360940);
+    background-size: cover;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background .3s;
+}
+
+.customizer .bg-purple-pizzazz {
+    background-image: linear-gradient(to right bottom, #662d86, #8b2a8a, #ae2389, #cf1d83, #ed1e79);
+    background-size: cover;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background .3s;
+}
+
+.customizer .bg-blue-lagoon {
+    background-image: linear-gradient(to right bottom, #144e68, #006d83, #008d92, #00ad91, #57ca85);
+    background-size: cover;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background .3s;
+}
+
+.customizer .bg-electric-violet {
+    background-image: linear-gradient(to left top, #4a00e0, #600de0, #7119e1, #8023e1, #8e2de2);
+    background-size: cover;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background .3s;
+}
+
+.customizer .bg-portage {
+    background-image: linear-gradient(to left top, #97abff, #798ce5, #5b6ecb, #3b51b1, #123597);
+    background-size: cover;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background .3s;
+}
+
+.customizer .bg-tundora {
+    background-image: linear-gradient(to left top, #474747, #4a4a4a, #4c4d4d, #4f5050, #525352);
+    background-size: cover;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background .3s;
+}
+
+.customizer .cz-bg-color .col span.rounded-circle:hover,
+.customizer .cz-tl-bg-color .col span.rounded-circle:hover {
+    cursor: pointer;
+}
+
+.main-content .color-palette .color-group li {
+    list-style-type: none;
+}
+
+.main-content .color-palette .color-group li.main-color {
+    border-bottom: 4px solid #fafafa;
+}
+
+.main-content .color-palette .color-group li.color {
+    padding: 10px 15px 11px;
+    margin: 0;
+}
+
+.main-content .color-palette .color-group li.color.main-color .name {
+    display: block;
+    margin-bottom: 53px;
+    font-size: 2rem;
+}
+
+.main-content .color-palette .color-group li.color .hex {
+    float: right;
+    text-transform: uppercase;
+    display: block;
+}
+
+.main-content .color-palette .color-group:last-child li.main-color {
+    border-bottom: 4px solid #fafafa;
+}
+
+.main-content .color-palette .color-group:last-child li.color {
+    padding: 10px 15px 11px;
+    margin: 0;
+}
+
+.main-content .color-palette .color-group:last-child li.color.main-color .name {
+    display: block;
+    margin-bottom: 53px;
+    font-size: 2rem;
+}
+
+.main-content .color-palette .color-group:last-child li.color .hex {
+    float: right;
+    text-transform: uppercase;
+    display: block;
+}
+
+.main-content .color-palette .light-strong span {
+    color: #fff;
+}
+
+.main-content .color-palette .dark span {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.main-content .color-palette span {
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.main-content .color-palette span.light-strong {
+    color: #fff;
+}
+
+.main-content .color-palette span.dark {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.wrapper {
+    position: relative;
+    top: 0;
+    height: 100vh;
+}

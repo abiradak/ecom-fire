@@ -23,6 +23,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BrandAddComponent } from './brand-add/brand-add.component';
 import { BrandListComponent } from './brand-list/brand-list.component';
 import { BrandEditComponent } from './brand-edit/brand-edit.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BrandEditComponent } from './brand-edit/brand-edit.component';
     BrandAddComponent,
     BrandListComponent,
     BrandEditComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
