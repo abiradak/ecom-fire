@@ -30,6 +30,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { ViewCartComponent } from './view-cart/view-cart.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { RegisterComponent } from './register/register.component';
     SimilarProductComponent,
     ViewCartComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CheckoutComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
