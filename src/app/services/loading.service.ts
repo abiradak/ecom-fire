@@ -1,7 +1,7 @@
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { ComponentRef, Injectable, Injector } from '@angular/core';
-import { LoadingComponent } from '../loading/loading.component';
+// import { LoadingComponent } from '../loading/loading.component';
 
 export class LoadingOverlayRef {
   constructor(private overlayRef: OverlayRef) { }
@@ -24,7 +24,7 @@ export class LoadingService {
   open(): LoadingOverlayRef {
     const overlayRef = this.createOverlay();
     const dialogRef = new LoadingOverlayRef(overlayRef);
-    const overlayComponent = this.attachDialogContainer(overlayRef, dialogRef);
+    // const overlayComponent = this.attachDialogContainer(overlayRef, dialogRef);
     return dialogRef;
   }
 
@@ -43,13 +43,13 @@ export class LoadingService {
     return this.overlay.create(overlayConfig);
   }
 
-  private attachDialogContainer(overlayRef: OverlayRef, dialogRef: LoadingOverlayRef): LoadingComponent {
-    const injector = this.createInjector(dialogRef);
-    const containerPortal = new ComponentPortal(LoadingComponent, null, injector);
-    const containerRef: ComponentRef<LoadingComponent> = overlayRef.attach(containerPortal);
+  // private attachDialogContainer(overlayRef: OverlayRef, dialogRef: LoadingOverlayRef): LoadingComponent {
+  //   const injector = this.createInjector(dialogRef);
+  //   const containerPortal = new ComponentPortal(LoadingComponent, null, injector);
+  //   const containerRef: ComponentRef<LoadingComponent> = overlayRef.attach(containerPortal);
 
-    return containerRef.instance;
-  }
+  //   return containerRef.instance;
+  // }
 
   private createInjector(dialogRef: LoadingOverlayRef): PortalInjector {
     const injectionTokens = new WeakMap();

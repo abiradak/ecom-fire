@@ -27,6 +27,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { SimilarProductComponent } from './similar-product/similar-product.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LoadingComponent } from './loading/loading.component';
+import { ViewCartComponent } from './view-cart/view-cart.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { LoadingComponent } from './loading/loading.component';
     MainMenuComponent,
     SingleCategoryComponent,
     ProductDetailsComponent,
-    SimilarProductComponent
+    SimilarProductComponent,
+    ViewCartComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

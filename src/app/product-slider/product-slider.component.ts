@@ -42,6 +42,7 @@ export class ProductSliderComponent implements OnInit {
 
   };
   currency;
+  showloader = false;
   categories = [];
   newProducts = [];
 
@@ -58,28 +59,44 @@ export class ProductSliderComponent implements OnInit {
 
   async getCategoriesFromApi(): Promise<void> {
     const url = `/catagories`;
+    this.showloader = true;
     this.apiService.sendHttpCallWithToken('', url , 'get').subscribe((response) => {
       // console.log('getCategoriesFromApi response: ' , response);
+      this.showloader = false;
       if (response.category && response.category.length > 0) {
         this.categories = response.category;
       }
       this.getProductsFromApi();
     }, (error: any) => {
       console.log('getCategoriesFromApi errors: ' , error);
+      this.showloader = false;
       this.getProductsFromApi();
     });
   }
 
   async getProductsFromApi(): Promise<void> {
     const url = `/product`;
+    this.showloader = true;
     this.apiService.sendHttpCallWithToken('', url , 'get').subscribe((response) => {
       // console.log('getProductsFromApi response: ' , response);
+      this.showloader = false;
       if (response.product && response.product.length > 0) {
         this.newProducts = response.product;
       }
     }, (error: any) => {
       console.log('getProductsFromApi errors: ' , error);
+      this.showloader = false;
     });
+  }
+
+  addToCart(product): void {
+    console.log('addToCart product: ', product);
+    const cartProduct = {
+      id: product.id,
+      data: product.data,
+      quantity: 1
+    };
+    this.dataService.setCartItem(cartProduct);
   }
 
 }

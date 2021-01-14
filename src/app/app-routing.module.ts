@@ -8,15 +8,18 @@ import { BrandsComponent } from './brands/brands.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeadermainComponent } from './header/headermain/headermain.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductSliderComponent } from './product-slider/product-slider.component';
+import { RegisterComponent } from './register/register.component';
 import { ReviewComponent } from './review/review.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { SimilarProductComponent } from './similar-product/similar-product.component';
 import { SingleCategoryComponent } from './single-category/single-category.component';
 import { SliderComponent } from './slider/slider.component';
+import { ViewCartComponent } from './view-cart/view-cart.component';
 
 const routes: Routes = [
   {
@@ -45,9 +48,19 @@ const routes: Routes = [
       {
         path: 'product-details',
         component: ProductDetailsComponent
+      },
+      {
+        path: 'view-cart',
+        component: ViewCartComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
       }
-
-
     ]
   },
   {

@@ -11,6 +11,7 @@ export class DataService {
     timeOut: 3000,
     progressBar: true,
   };
+  cartProducts = [];
 
   constructor(
     private toastr: ToastrService,
@@ -29,5 +30,17 @@ export class DataService {
   // --- For showing the info toast
   showInfo(message, title: any = null): void {
     this.toastr.info(message, 'Info!', this.toastConfig);
+  }
+
+  setCartItem(cartProduct): void {
+    this.cartProducts.push(cartProduct);
+    localStorage.setItem('cartProducts', JSON.stringify(this.cartProducts));
+  }
+
+  getCartItem(): any {
+    if (localStorage.getItem('cartProducts')) {
+      this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+    }
+    return this.cartProducts;
   }
 }
