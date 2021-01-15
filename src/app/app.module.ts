@@ -21,6 +21,11 @@ import { DataService } from './services/data.service';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
 import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { ThankyouComponent } from './thankyou/thankyou.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+
 
 
 @NgModule({
@@ -33,11 +38,16 @@ import { LoginComponent } from './login/login.component';
     CheckoutComponent,
     AddressComponent,
     MyaccountComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    ThankyouComponent,
+    AboutusComponent
   ],
   entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     IonicModule.forRoot(),

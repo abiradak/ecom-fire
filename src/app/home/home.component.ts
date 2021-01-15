@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 
 
@@ -9,9 +10,12 @@ import { ApiService } from '../services/api.service';
 })
 export class HomeComponent implements OnInit {
   categories: any;
+  cart: any;
+  quantity: any;
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private router: Router,
   ) { }
 
   slideOpts1 = {
@@ -24,14 +28,28 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    this.getCart();
   }
 
   async getCategories(): Promise<void> {
     this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
       this.categories = res.category;
+      console.log('>>>>>>', this.categories);
     }, (err) => {
       console.log('>>>>>>>' , err);
     });
+  }
+
+  getCart(): void {
+    this.cart = JSON.parse(localStorage.getItem('cart'));
+    this.quantity = 0;
+    this.cart.items.forEach(element => {
+      this.quantity = this.quantity + element.quantity;
+    });
+  }
+
+  goToCate(item) {
+    this.router.navigate(['item-category', item]);
   }
 
 }

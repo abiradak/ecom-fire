@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-viewcart',
@@ -9,10 +11,17 @@ export class ViewcartComponent implements OnInit {
   cart = {};
   subTotal: number;
 
-  constructor() { }
+  constructor(
+    private dataService: DataService,
+    private route: Router
+  ) { }
 
   ngOnInit() {
     this.getCartData();
+  }
+
+  back() {
+    this.dataService.goBack();
   }
 
   getCartData(): void {
@@ -31,4 +40,48 @@ export class ViewcartComponent implements OnInit {
     }
     console.log('>>>>>', this.subTotal);
   }
+
+  checkout() {
+    const isLogin = this.dataService.isLogin();
+    if (isLogin === true) {
+      this.proceed();
+    } else {
+      this.route.navigate(['login']);
+    }
+  }
+
+  updateCart(index: number, updateType: string): void {
+    console.log('>>>>', index);
+    let currentQty = this.cart['items'][index].quantity;
+    if (updateType === 'add') {
+      currentQty++;
+      this.cart['items'][index].quantity = currentQty;
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+      this.getCartData();
+    } else {
+      if (currentQty > 1) {
+        currentQty--;
+        this.cart['items'][index].quantity = currentQty;
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+        this.getCartData();
+      }
+    }
+    this.dataService.presentToast('cart updated', 'success');
+  }
+
+  deleteFromCart(index: number): void {
+    this.cart['items'].forEach(element => {
+      if (this.cart['items'].indexOf(element) === index) {
+        this.cart['items'].splice(index, 1);
+      }
+    });
+    localStorage.setItem('cart', JSON.stringify(this.cart));
+    this.dataService.presentToast('Item Removed', 'success');
+    this.getCartData();
+  }
+
+  proceed() {
+    this.route.navigate(['checkout']);
+  }
+
 }

@@ -8,6 +8,9 @@ import { MyaccountComponent } from './myaccount/myaccount.component';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { ViewcartComponent } from './viewcart/viewcart.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ThankyouComponent } from './thankyou/thankyou.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 const routes: Routes = [
   {
@@ -53,6 +56,18 @@ const routes: Routes = [
   {
     path: 'my-account',
     component: MyaccountComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'thankyou',
+    component: ThankyouComponent
+  },
+  {
+    path: 'about-us',
+    component: AboutusComponent
   }
 ];
 

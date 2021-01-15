@@ -65,11 +65,11 @@
                     </div>
                     <div class="header-right">
                         <ul>
-                            <li>
+                            <li [routerLink]="['/view-cart']" routerLinkActive="router-link-active" >
                                 <a href=""> <svg viewBox="0 0 22 22" height="22" width="22" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="x_cart_prev">
                           <path d="M6.756 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.36C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.776 2.095l9.743-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.756zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
                         </svg>
-                                    <span>2</span>
+                                    <span>{{ quantity }}</span>
                                 </a>
                             </li>
                             <li>
@@ -170,20 +170,20 @@
     <div class="product-list py-4 ">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 mb-3">
-                    <div class="single-product-list text-center">
+                <div *ngFor="let item of categories" class="col-sm-12 mb-3">
+                    <div class="single-product-list text-center"   (click) = "goToCate(item)">
                         <img src="../../assets/images/formen.png">
                         <p>PERFUMERY</p>
-                        <h3> For men</h3>
+                        <h3>{{ item.data.name }}</h3>
                     </div>
                 </div>
-                <div class="col-sm-12 mb-3">
+                <!-- <div class="col-sm-12 mb-3">
                     <div class="single-product-list text-center">
                         <img src="../../assets/images/forwomen.png">
                         <p>PERFUMERY</p>
                         <h3> For women</h3>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>

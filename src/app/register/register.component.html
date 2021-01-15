@@ -1,0 +1,79 @@
+<ion-content>
+    <div class="head">
+    </div>
+
+    <div class="main-body">
+        <!-- <form [formGroup]="signinForm" (ngSubmit)="onSubmit()"> -->
+        <div class="register-back-img">
+            <div class="overlay">
+                <img src="../../assets/images/logo.png" alt="">
+            </div>
+        </div>
+
+        <div class="register-frm-back">
+
+            <form [formGroup]="register">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+
+                        <input type="text" id="email" formControlName="name" [ngClass]="{'is-invalid': register.controls?.name?.invalid && register.controls?.name?.touched }" placeholder="Name">
+                        <div *ngIf="register.controls?.name?.errors?.required" class="invalid-feedback">
+                            Name is required.
+                          </div>
+                          <div *ngIf="register.controls?.name?.errors?.maxlength" class="invalid-feedback">
+                            Name can maximum 50 Characters.
+                          </div>
+                          <div *ngIf="register.controls?.name?.errors?.minlength" class="invalid-feedback">
+                            Name will atleast 2 Characters.
+                          </div>
+                          <div *ngIf="register.controls?.name?.errors?.pattern" class="invalid-feedback">
+                            Name Will include only Characters.
+                          </div>
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+
+                        <input type="text" id="email" formControlName="email" [ngClass]="{'is-invalid': register.controls?.email?.invalid && register.controls?.email?.touched }" placeholder="Email">
+                        <div *ngIf="register.controls?.email?.errors?.pattern" class="invalid-feedback">
+                            Enter valid Email.
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+
+                        <input type="text" id="email" formControlName="mobile"[ngClass]="{'is-invalid': register.controls?.mobile?.invalid && register.controls?.mobile?.touched }"  placeholder="Phone">
+                        <div *ngIf="register.controls?.mobile?.errors?.required" class="invalid-feedback">
+                            Mobile is required.
+                          </div>
+                          <div *ngIf="register.controls?.mobile?.errors?.maxlength" class="invalid-feedback">
+                            Mobile can maximum 10 Characters.
+                          </div>
+                          <div *ngIf="register.controls?.mobile?.errors?.minlength" class="invalid-feedback">
+                            Mobile will atleast 10 Characters.
+                          </div>
+                          <div *ngIf="register.controls?.mobile?.errors?.pattern" class="invalid-feedback">
+                            Mobile Will include only numbers.
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+
+                        <input type="password" [ngClass]="{'is-invalid': register.controls?.password?.invalid && register.controls?.password?.touched }" id="password" formControlName="password" placeholder="password">
+                        <div *ngIf="register.controls?.password?.errors?.required" class="invalid-feedback">
+                            Enter the password.
+                        </div>
+                        <!-- <i class="fa fa-eye-slash"></i> -->
+
+                        <!-- <div class="forgot"><a routerLink="/otp">Forgot?</a></div> -->
+                    </div>
+
+                </div>
+                <button (click) = "submit()" class="btn btn-sm register-btn" type="submit">Register</button>
+                <p class="sign-up">Already have An Account |
+                    <a [routerLink]="['/register']">register Now</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+</ion-content>

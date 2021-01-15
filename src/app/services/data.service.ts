@@ -111,7 +111,7 @@ export class DataService {
   await alert.present();
 }
 
-isToken() {
+isLogin() {
   this.userinfo = JSON.parse(localStorage.getItem('userDetails'));
   if ( this.userinfo !== null && this.userinfo !== '') {
     return true;

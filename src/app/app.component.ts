@@ -13,37 +13,28 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
+      title: 'Profile',
+      url: '/my-account',
       icon: 'mail'
     },
     {
-      title: 'Outbox',
-      url: '/folder/Outbox',
+      title: 'Order',
+      url: '/view-cart',
       icon: 'paper-plane'
     },
     {
-      title: 'Favorites',
-      url: '/folder/Favorites',
+      title: 'Category',
+      url: '/home',
       icon: 'heart'
     },
     {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
+      title: 'About Us',
+      url: '/about-us',
+      icon: 'heart'
     },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  user: {};
+  public labels = [];
 
   constructor(
     private platform: Platform,
@@ -65,5 +56,17 @@ export class AppComponent implements OnInit {
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+    this.getUserDetails();
   }
+
+  getUserDetails() {
+    this.user = JSON.parse(localStorage.getItem('userDetails'));
+    if (this.user !== null) {
+      this.labels = ['Logout']
+    } else {
+      this.labels = ['Login']
+    }
+  }
+
+
 }

@@ -11,23 +11,28 @@
         </div>
 
         <div class="login-frm-back">
-            <form>
+            <form [formGroup]="login">
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
 
-                        <input type="text" id="email" formControlName="email" placeholder="Email">
+                        <input type="text" id="email"  formControlName="email" [ngClass]="{'is-invalid': login.controls?.email?.invalid && login.controls?.email?.touched }" placeholder="Email">
+                        <div *ngIf="login.controls?.email?.errors?.pattern" class="invalid-feedback">
+                            Enter valid Email.
+                        </div>
 
                     </div>
                     <div class="col-md-4 mb-3">
 
-                        <input type="password" id="password" formControlName="password" placeholder="Password">
+                        <input type="password" [ngClass]="{'is-invalid': login.controls?.password?.invalid && login.controls?.password?.touched }" id="password" formControlName="password" placeholder="Password">
                         <!-- <i class="fa fa-eye-slash"></i> -->
-
+                        <div *ngIf="login.controls?.password?.errors?.required" class="invalid-feedback">
+                            Enter the password.
+                        </div>
                         <div class="forgot"><a [routerLink]="['/forget-password']">Forgot password?</a></div>
                     </div>
 
                 </div>
-                <button [routerLink]="['/home']" class="btn btn-sm login-btn" type="submit">Login</button>
+                <button class="btn btn-sm login-btn" type="submit" (click) = "submit()">Login</button>
                 <p class="sign-up">Not Registred?
                     <a [routerLink]="['/register']">Create An Account !</a>
                 </p>
