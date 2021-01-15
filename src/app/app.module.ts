@@ -32,6 +32,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { AboutComponent } from './about/about.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { MyAccountComponent } from './my-account/my-account.component';
     LoginComponent,
     RegisterComponent,
     CheckoutComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    AboutComponent,
+    ThankYouComponent
   ],
   imports: [
     BrowserModule,

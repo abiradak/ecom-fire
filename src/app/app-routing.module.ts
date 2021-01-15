@@ -21,6 +21,7 @@ import { SendMailComponent } from './send-mail/send-mail.component';
 import { SimilarProductComponent } from './similar-product/similar-product.component';
 import { SingleCategoryComponent } from './single-category/single-category.component';
 import { SliderComponent } from './slider/slider.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
 import { ViewCartComponent } from './view-cart/view-cart.component';
 
 const routes: Routes = [
@@ -72,6 +73,14 @@ const routes: Routes = [
       {
         path: 'myAccount',
         component: MyAccountComponent
+      } ,
+      {
+        path: 'about-us',
+        component: AboutHomeComponent
+      },
+      {
+        path: 'thankyou',
+        component: ThankYouComponent
       }
     ]
   },
