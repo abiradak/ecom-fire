@@ -90,13 +90,38 @@ export class ProductSliderComponent implements OnInit {
   }
 
   addToCart(product): void {
-    console.log('addToCart product: ', product);
-    const cartProduct = {
-      id: product.id,
-      data: product.data,
-      quantity: 1
-    };
-    this.dataService.setCartItem(cartProduct);
+    // console.log('addToCart product: ', product);
+    const cartProducts = this.dataService.getCartItem();
+    if (cartProducts.length > 0) {
+      const findIndex = cartProducts.findIndex(data => data.id === product.id);
+      // console.log('findIndex: ', findIndex);
+      if (findIndex > -1) {
+        let currentQty = cartProducts[findIndex].quantity;
+        currentQty++;
+        cartProducts[findIndex].quantity = currentQty;
+        this.dataService.setCartItem(cartProducts);
+        this.dataService.showInfo('Product updated to cart');
+      } else {
+        const cartProduct = {
+          id: product.id,
+          data: product.data,
+          quantity: 1
+        };
+        cartProducts.push(cartProduct);
+        this.dataService.setCartItem(cartProducts);
+        this.dataService.showInfo('Product added to cart');
+      }
+    } else {
+      const cartProduct = {
+        id: product.id,
+        data: product.data,
+        quantity: 1
+      };
+      cartProducts.push(cartProduct);
+      this.dataService.setCartItem(cartProducts);
+      this.dataService.showInfo('Product added to cart');
+    }
+    // console.log('addToCart cartProducts: ', cartProducts);
   }
 
 }

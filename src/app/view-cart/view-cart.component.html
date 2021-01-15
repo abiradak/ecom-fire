@@ -34,44 +34,37 @@
                             <th class="col-span-2 text-center">Remove</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><img src="../../assets/images/download-1.png" style="width: 70px;"></td>
+                    <tbody *ngIf="cartProducts.length > 0">
+                        <tr *ngFor="let product of cartProducts; let i = index">
+                            <td>
+                                <!-- <img src="../../assets/images/download-1.png"> -->
+                                <img [src]="product.data.image" *ngIf="product.data.image" style="width: 70px;"/>
+                                <img src="../../assets/images/manJ55441.png" *ngIf="!product.data.image" style="width: 70px;">
+                            </td>
                             <td>
                                 <div class="d_tails">
-                                    <p> Article : <span>5698569</span></p>
-                                    <p> Year : <span>2016</span></p>
-                                    <p> volume : <span>50 ml</span></p>
+                                    <p> Name : <span>{{ product?.data?.name }}</span></p>
+                                    <!-- <p> Year : <span>2016</span></p> -->
+                                    <p> Volume : <span>{{ product?.data?.volume }}</span></p>
                                 </div>
                             </td>
-                            <td class="text-center"><b>1050 P</b></td>
+                            <td class="text-center"><b>{{ product?.data?.price }} {{ currency }}</b></td>
                             <td class="text-center">
                                 <div class="cart-item m-auto">
-                                    <span>-</span>2
-                                    <span>+</span>
+                                    <span (click)="updateCart(i, 'remove')" style="cursor: pointer;">-</span>
+                                    {{ product?.quantity }}
+                                    <span (click)="updateCart(i, 'add')" style="cursor: pointer;">+</span>
                                 </div>
                             </td>
-                            <td class="text-center"><b>2100 P</b></td>
-                            <td class="text-center"> <i class="fa fa-trash"></i> </td>
+                            <td class="text-center">
+                                <b>{{ product?.data?.price * product?.quantity }} {{ currency }}</b>
+                            </td>
+                            <td class="text-center"> <i class="fa fa-trash" (click)="removeFromCart(i)"></i> </td>
                         </tr>
+                    </tbody>
+                    <tbody *ngIf="cartProducts.length === 0">
                         <tr>
-                            <td><img src="../../assets/images/PourHomme.png" style="width: 70px;"></td>
-                            <td>
-                                <div class="d_tails">
-                                    <p> Article : <span>5698569</span></p>
-                                    <p> Year : <span>2016</span></p>
-                                    <p> volume : <span>50 ml</span></p>
-                                </div>
-                            </td>
-                            <td class="text-center"><b>1050 P</b></td>
-                            <td class="text-center">
-                                <div class="cart-item m-auto">
-                                    <span>-</span>1
-                                    <span>+</span>
-                                </div>
-                            </td>
-                            <td class="text-center"><b>1050 P</b></td>
-                            <td class="text-center"> <i class="fa fa-trash"></i> </td>
+                            <td colspan="6" class="text-center">Cart is empty</td>
                         </tr>
                     </tbody>
                 </table>
@@ -92,22 +85,21 @@
                                 <table class="subttl" style="border:none; width: 250px;">
                                     <tbody>
                                         <tr class="cart-subtotal">
-
                                             <th>Subtotal</th>
-                                            <td><span class="amount">215.00 p.</span></td>
+                                            <td><span class="amount">{{ subTotal }} {{ currency }}</span></td>
                                         </tr>
                                         <tr class="cart-subtotal">
                                             <th>Tax - 10% </th>
-                                            <td><span class="amount"> 21.5 p.</span></td>
+                                            <td><span class="amount"> {{ subTotal * 0.1 }} {{ currency }}</span></td>
                                         </tr>
-                                        <tr class="cart-subtotal">
+                                        <!-- <tr class="cart-subtotal">
                                             <th>Coupon discount:</th>
                                             <td><span class="amount"> 5.00 p.</span></td>
-                                        </tr>
+                                        </tr> -->
                                         <tr class="order-total">
                                             <th>Total</th>
                                             <td>
-                                                <strong><span class="amount">RUB 241.5</span></strong>
+                                                <strong><span class="amount">{{ total }} {{ currency }}</span></strong>
                                             </td>
                                         </tr>
                                     </tbody>
