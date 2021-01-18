@@ -51,7 +51,6 @@ export class ViewcartComponent implements OnInit {
   }
 
   updateCart(index: number, updateType: string): void {
-    console.log('>>>>', index);
     let currentQty = this.cart['items'][index].quantity;
     if (updateType === 'add') {
       currentQty++;
@@ -81,7 +80,10 @@ export class ViewcartComponent implements OnInit {
   }
 
   proceed() {
-    this.route.navigate(['checkout']);
+    if (this.cart && this.cart['items'].length > 0) {
+      this.route.navigate(['checkout']);
+    } else {
+      this.dataService.presentToast('Cart is Empty!', 'warning');
+    }
   }
-
 }

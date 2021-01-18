@@ -12,7 +12,9 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCart();
+  }
 
   getCart(): void {
     this.cart = JSON.parse(localStorage.getItem('cart'));
@@ -23,5 +25,4 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
-
 }

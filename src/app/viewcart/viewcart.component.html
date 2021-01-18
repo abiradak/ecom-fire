@@ -90,7 +90,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="cart-list my-3 p-2">
+                    <div class="cart-list my-3 p-2" *ngIf="cart && cart.items">
                         <div class="row no-gutters" *ngFor="let item of cart.items; let i = index;">
                             <div class="col-10">
                                 <div class="product-describe">

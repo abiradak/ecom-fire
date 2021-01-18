@@ -81,7 +81,7 @@
     <div class="product-list py-4 ">
         <div class="container">
             <div class="row">
-                <div *ngFor="let item of categories" class="col-sm-12 mb-3">
+                <div *ngFor="let item of categories| slice:0:catEnd" class="col-sm-12 mb-3">
                     <div class="single-product-list text-center"   (click) = "goToCate(item)">
                         <img src="../../assets/images/formen.png">
                         <p>PERFUMERY</p>
@@ -98,8 +98,48 @@
 
             </div>
         </div>
-        <div class="see-all">
-            <h6>See all <br> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#2BB409" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;"
+        <div *ngIf="isCollapse === true" class="see-all">
+            <h6 (click) = "allCatList()">See All <br> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#2BB409" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;"
+                    xml:space="preserve">
+            <g>
+              <path d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751
+                c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0
+                c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z"/>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            </svg></h6>
+        </div>
+        <div *ngIf="isCollapse === false" class="see-all">
+            <h6 (click) = "collapseCatList()">Collapse <br> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#2BB409" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;"
                     xml:space="preserve">
             <g>
               <path d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751
@@ -210,15 +250,15 @@
                 </div>
             </div>
             <div *ngFor="let item of product.products" class="row over-scroll">
-                <div class="col-12" [routerLink]="['/product-details',item.id]" routerLinkActive="router-link-active" >
+                <div class="col-12" routerLinkActive="router-link-active" >
                     <div class="selling-product--list py-3">
                         <div class="seling-img">
-                            <img [src]="item.image">
+                            <img [src]="item.image" [routerLink]="['/product-details',item.id]">
                             <div class="sale">
                                 Sale
                             </div>
                             <div class="product-panel">
-                                <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
+                                <!-- <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
                                         xml:space="preserve">
                              <g>
                                <g>
@@ -260,10 +300,10 @@
                              </g>
                              <g>
                              </g>
-                             </svg> <span class="ml-2">COMPARE</span> </div>
+                             </svg> <span class="ml-2">COMPARE</span> </div> -->
                                 <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
                                 <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
-                              </svg> <span class="ml-2">ADD TO CART</span></div>
+                              </svg> <span class="ml-2" (click) = "addToCartOne(item)">ADD TO CART</span></div>
                             </div>
                         </div>
                         <div class="selling-content">
