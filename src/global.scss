@@ -1165,9 +1165,15 @@ li {
     color: #222;
     display: inline-block;
     width: 100%;
-    padding: 3px 0px;
+    padding: 10px 0px;
 }
 
 .side-menu ul li span {
-    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sub-menu p {
+    margin: 0px;
+    padding: 0px 0px 5px 15px;
+    font-size: 13px;
 }

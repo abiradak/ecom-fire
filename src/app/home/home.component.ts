@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     this.cart = JSON.parse(localStorage.getItem('cart'));
     this.quantity = 0;
     if (this.cart !== null) {
-      this.cart.items.forEach((element: any) => {
+      this.cart.items.forEach(element => {
         this.quantity = this.quantity + element.quantity;
       });
     }
