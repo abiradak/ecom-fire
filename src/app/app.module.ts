@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ThankyouComponent } from './thankyou/thankyou.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -41,7 +42,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     LoginComponent,
     RegisterComponent,
     ThankyouComponent,
-    AboutusComponent
+    AboutusComponent,
+    HeaderComponent
   ],
   entryComponents: [],
   imports: [

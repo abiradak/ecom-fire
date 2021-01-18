@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { DataService } from './services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +14,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
+    {
+      title: 'Category',
+      url: '/home',
+      icon: 'heart'
+    },
     {
       title: 'Profile',
       url: '/my-account',
@@ -23,23 +30,21 @@ export class AppComponent implements OnInit {
       icon: 'paper-plane'
     },
     {
-      title: 'Category',
-      url: '/home',
-      icon: 'heart'
-    },
-    {
       title: 'About Us',
       url: '/about-us',
       icon: 'heart'
     },
   ];
+
   user: {};
   public labels = [];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private data: DataService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -61,12 +66,15 @@ export class AppComponent implements OnInit {
 
   getUserDetails() {
     this.user = JSON.parse(localStorage.getItem('userDetails'));
-    if (this.user !== null) {
-      this.labels = ['Logout']
-    } else {
-      this.labels = ['Login']
-    }
   }
 
+  logout() {
+    localStorage.removeItem('userDetails');
+    this.data.presentToast('Logged Out successfully', 'success');
+    this.getUserDetails();
+  }
 
+  login() {
+    this.router.navigate(['login']);
+  }
 }

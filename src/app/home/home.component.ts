@@ -53,5 +53,4 @@ export class HomeComponent implements OnInit {
   goToCate(item) {
     this.router.navigate(['item-category', item]);
   }
-
 }
