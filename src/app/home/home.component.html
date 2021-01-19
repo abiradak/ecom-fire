@@ -240,180 +240,11 @@
     <!-- advantage block -->
 
     <!-- best-seller -->
-    <div class="selling-main-product">
-        <div *ngFor="let product of categories" class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="sellting-ttl">
-                        {{ product.data.name }}
-                    </div>
-                </div>
-            </div>
-            <div *ngFor="let item of product.products" class="row over-scroll">
-                <div class="col-12" routerLinkActive="router-link-active" >
-                    <div class="selling-product--list py-3">
-                        <div class="seling-img">
-                            <img [src]="item.image" [routerLink]="['/product-details',item.id]">
-                            <div class="sale">
-                                Sale
-                            </div>
-                            <div class="product-panel">
-                                <!-- <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
-                                        xml:space="preserve">
-                             <g>
-                               <g>
-                                 <path d="M121.805,109.623V21.926c0-2.692-2.181-4.873-4.871-4.873H92.572c-2.691,0-4.871,2.181-4.871,4.873v87.697
-                                   c0,2.693,2.18,4.873,4.871,4.873h24.361C119.624,114.496,121.805,112.316,121.805,109.623z"/>
-                                 <path d="M46.287,114.496h26.797c2.691,0,4.872-2.18,4.872-4.873V12.181c0-2.692-2.181-4.872-4.872-4.872H46.287
-                                   c-2.692,0-4.873,2.18-4.873,4.872v97.442C41.414,112.316,43.594,114.496,46.287,114.496z"/>
-                                 <path d="M4.872,46.286C2.18,46.286,0,48.466,0,51.158v58.465c0,2.693,2.18,4.873,4.872,4.873h24.361
-                                   c2.692,0,4.872-2.18,4.872-4.873V51.158c0-2.692-2.18-4.872-4.872-4.872H4.872z"/>
-                               </g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             <g>
-                             </g>
-                             </svg> <span class="ml-2">COMPARE</span> </div> -->
-                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
-                                <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
-                              </svg> <span class="ml-2" (click) = "addToCartOne(item)">ADD TO CART</span></div>
-                            </div>
-                        </div>
-                        <div class="selling-content">
-                            <!-- <p class="text-upper">{{ item.name }}</p>
-                            <p>Article: <span> 5986964</span></p> -->
-                            <p class="vendor">{{ item.name }}</p>
-                            <p class="dtil">{{ item.description }}</p>
-                        </div>
-                        <div class="gift">
-                            <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
-                          <path d="M10.714 14.88v8.334A1.754 1.754 0 0 1 8.93 25H4.762a2.947 2.947 0 0 1-2.976-2.976V14.88c0-1.012.774-1.786 1.785-1.786H8.93c1.011 0 1.785.774 1.785 1.786zm3.572 0v8.334c0 1.012.774 1.786 1.785 1.786h4.167a2.947 2.947 0 0 0 2.976-2.976V14.88a1.754 1.754 0 0 0-1.785-1.786H16.07a1.754 1.754 0 0 0-1.785 1.786zm8.928-10.713h-7.738l1.607-1.607c.596-.596.596-1.548 0-2.084-.595-.595-1.547-.595-2.083 0l-2.5 2.44-2.5-2.5c-.595-.595-1.548-.595-2.083 0-.596.596-.596 1.548 0 2.084l1.607 1.667H1.786A1.754 1.754 0 0 0 0 5.952V8.93c0 1.011.774 1.785 1.786 1.785h21.428A1.754 1.754 0 0 0 25 8.93V5.952a1.754 1.754 0 0 0-1.786-1.785z"></path>
-                        </svg> <span>Gift</span>
-                        </div>
-                        <div class="price-review d-flex justify-content-between">
-                            <div class="price">
-                                {{ item.price }} RUB <span class="line-thrw"> {{ item.price }} RUB</span>
-                            </div>
-                            <div class="review">
-                                <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"
-                                    shape-rendering="geometricPrecision"><path fill="#FFCD1A" d="M8.00005 0L9.79617 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8.00005 11.0557L3.29777 14.4721L5.09388 8.94427L0.391602 5.52786H6.20394L8.00005 0Z"/><path fill="#FFCD1A" d="M30.0001 0L31.7962 5.52786H37.6085L32.9062 8.94427L34.7023 14.4721L30.0001 11.0557L25.2978 14.4721L27.0939 8.94427L22.3916 5.52786H28.2039L30.0001 0Z"/><path fill="#FFCD1A" d="M52.0001 0L53.7962 5.52786H59.6085L54.9062 8.94427L56.7023 14.4721L52.0001 11.0557L47.2978 14.4721L49.0939 8.94427L44.3916 5.52786H50.2039L52.0001 0Z"/><path fill="#FFCD1A" d="M74.0001 0L75.7962 5.52786H81.6085L76.9062 8.94427L78.7023 14.4721L74.0001 11.0557L69.2978 14.4721L71.0939 8.94427L66.3916 5.52786H72.2039L74.0001 0Z"/><path fill="#FFCD1A" d="M96.0001 0L97.7962 5.52786H103.609L98.9062 8.94427L100.702 14.4721L96.0001 11.0557L91.2978 14.4721L93.0939 8.94427L88.3916 5.52786H94.2039L96.0001 0Z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="col-12">
-                    <div class="selling-product--list py-3">
-                        <div class="seling-img">
-                            <img src="../../assets/images/PourHomme.png">
-                            <div class="sale">
-                                Sale
-                            </div>
-                            <div class="product-panel">
-                                <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
-                                        xml:space="preserve">
-                           <g>
-                             <g>
-                               <path d="M121.805,109.623V21.926c0-2.692-2.181-4.873-4.871-4.873H92.572c-2.691,0-4.871,2.181-4.871,4.873v87.697
-                                 c0,2.693,2.18,4.873,4.871,4.873h24.361C119.624,114.496,121.805,112.316,121.805,109.623z"/>
-                               <path d="M46.287,114.496h26.797c2.691,0,4.872-2.18,4.872-4.873V12.181c0-2.692-2.181-4.872-4.872-4.872H46.287
-                                 c-2.692,0-4.873,2.18-4.873,4.872v97.442C41.414,112.316,43.594,114.496,46.287,114.496z"/>
-                               <path d="M4.872,46.286C2.18,46.286,0,48.466,0,51.158v58.465c0,2.693,2.18,4.873,4.872,4.873h24.361
-                                 c2.692,0,4.872-2.18,4.872-4.873V51.158c0-2.692-2.18-4.872-4.872-4.872H4.872z"/>
-                             </g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           </svg> <span class="ml-2">COMPARE</span> </div>
-                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
-                              <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
-                            </svg> <span class="ml-2">ADD TO CART</span></div>
-                            </div>
-                        </div>
-                        <div class="selling-content">
-                            <p class="text-upper">Man J55441</p>
-                            <p>Article: <span> 5986964</span></p>
-                            <p class="vendor">Berta</p>
-                            <p class="dtil">Classic men's perfume with citrus notes of mandarin and bergamot</p>
-                        </div>
-                        <div class="gift">
-                            <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
-                        <path d="M10.714 14.88v8.334A1.754 1.754 0 0 1 8.93 25H4.762a2.947 2.947 0 0 1-2.976-2.976V14.88c0-1.012.774-1.786 1.785-1.786H8.93c1.011 0 1.785.774 1.785 1.786zm3.572 0v8.334c0 1.012.774 1.786 1.785 1.786h4.167a2.947 2.947 0 0 0 2.976-2.976V14.88a1.754 1.754 0 0 0-1.785-1.786H16.07a1.754 1.754 0 0 0-1.785 1.786zm8.928-10.713h-7.738l1.607-1.607c.596-.596.596-1.548 0-2.084-.595-.595-1.547-.595-2.083 0l-2.5 2.44-2.5-2.5c-.595-.595-1.548-.595-2.083 0-.596.596-.596 1.548 0 2.084l1.607 1.667H1.786A1.754 1.754 0 0 0 0 5.952V8.93c0 1.011.774 1.785 1.786 1.785h21.428A1.754 1.754 0 0 0 25 8.93V5.952a1.754 1.754 0 0 0-1.786-1.785z"></path>
-                      </svg> <span>Gift</span>
-                        </div>
-                        <div class="price-review d-flex justify-content-between">
-                            <div class="price">
-                                4 830 RUB <span class="line-thrw"> 4 830 RUB</span>
-                            </div>
-                            <div class="review">
-                                <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"
-                                    shape-rendering="geometricPrecision"><path fill="#C4C4C4" d="M8.00005 0L9.79617 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8.00005 11.0557L3.29777 14.4721L5.09388 8.94427L0.391602 5.52786H6.20394L8.00005 0Z"/><path fill="#C4C4C4" d="M30.0001 0L31.7962 5.52786H37.6085L32.9062 8.94427L34.7023 14.4721L30.0001 11.0557L25.2978 14.4721L27.0939 8.94427L22.3916 5.52786H28.2039L30.0001 0Z"/><path fill="#C4C4C4" d="M52.0001 0L53.7962 5.52786H59.6085L54.9062 8.94427L56.7023 14.4721L52.0001 11.0557L47.2978 14.4721L49.0939 8.94427L44.3916 5.52786H50.2039L52.0001 0Z"/><path fill="#C4C4C4" d="M74.0001 0L75.7962 5.52786H81.6085L76.9062 8.94427L78.7023 14.4721L74.0001 11.0557L69.2978 14.4721L71.0939 8.94427L66.3916 5.52786H72.2039L74.0001 0Z"/><path fill="#C4C4C4" d="M96.0001 0L97.7962 5.52786H103.609L98.9062 8.94427L100.702 14.4721L96.0001 11.0557L91.2978 14.4721L93.0939 8.94427L88.3916 5.52786H94.2039L96.0001 0Z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-            </div>
-        </div>
-    </div>
+    
     <!-- best-seller -->
     <!-- new item -->
 
-    <!-- <div class="selling-main-product">
+    <div class="selling-main-product">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -422,84 +253,8 @@
                     </div>
                 </div>
             </div>
-            <div *ngFor="let item of newItem" class="row over-scroll">
-                <div class="col-12" [routerLink]="['/product-details']" routerLinkActive="router-link-active" >
-                    <div class="selling-product--list py-3">
-                        <div class="seling-img">
-                            <img src="../../assets/images/Blueseduction.jpg">
-                            <div class="sale neww">
-                                New
-                            </div>
-                            <div class="product-panel">
-                                <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
-                                        xml:space="preserve">
-                           <g>
-                             <g>
-                               <path d="M121.805,109.623V21.926c0-2.692-2.181-4.873-4.871-4.873H92.572c-2.691,0-4.871,2.181-4.871,4.873v87.697
-                                 c0,2.693,2.18,4.873,4.871,4.873h24.361C119.624,114.496,121.805,112.316,121.805,109.623z"/>
-                               <path d="M46.287,114.496h26.797c2.691,0,4.872-2.18,4.872-4.873V12.181c0-2.692-2.181-4.872-4.872-4.872H46.287
-                                 c-2.692,0-4.873,2.18-4.873,4.872v97.442C41.414,112.316,43.594,114.496,46.287,114.496z"/>
-                               <path d="M4.872,46.286C2.18,46.286,0,48.466,0,51.158v58.465c0,2.693,2.18,4.873,4.872,4.873h24.361
-                                 c2.692,0,4.872-2.18,4.872-4.873V51.158c0-2.692-2.18-4.872-4.872-4.872H4.872z"/>
-                             </g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           <g>
-                           </g>
-                           </svg> <span class="ml-2">COMPARE</span> </div>
-                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
-                              <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
-                            </svg> <span class="ml-2">ADD TO CART</span></div>
-                            </div>
-                        </div>
-                        <div class="selling-content">
-                            <p class="vendor">{{ item.name }}</p>
-                            <p class="dtil">{{ item.description }}</p>
-                        </div>
-                        <div class="gift">
-                            <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
-                        <path d="M10.714 14.88v8.334A1.754 1.754 0 0 1 8.93 25H4.762a2.947 2.947 0 0 1-2.976-2.976V14.88c0-1.012.774-1.786 1.785-1.786H8.93c1.011 0 1.785.774 1.785 1.786zm3.572 0v8.334c0 1.012.774 1.786 1.785 1.786h4.167a2.947 2.947 0 0 0 2.976-2.976V14.88a1.754 1.754 0 0 0-1.785-1.786H16.07a1.754 1.754 0 0 0-1.785 1.786zm8.928-10.713h-7.738l1.607-1.607c.596-.596.596-1.548 0-2.084-.595-.595-1.547-.595-2.083 0l-2.5 2.44-2.5-2.5c-.595-.595-1.548-.595-2.083 0-.596.596-.596 1.548 0 2.084l1.607 1.667H1.786A1.754 1.754 0 0 0 0 5.952V8.93c0 1.011.774 1.785 1.786 1.785h21.428A1.754 1.754 0 0 0 25 8.93V5.952a1.754 1.754 0 0 0-1.786-1.785z"></path>
-                      </svg> <span>Gift</span>
-                        </div>
-                        <div class="price-review d-flex justify-content-between">
-                            <div class="price">
-                                {{ item.price }} RUB <span class="line-thrw"> {{ item.price }} RUB</span>
-                            </div>
-                            <div class="review">
-                                <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"
-                                    shape-rendering="geometricPrecision"><path fill="#FFCD1A" d="M8.00005 0L9.79617 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8.00005 11.0557L3.29777 14.4721L5.09388 8.94427L0.391602 5.52786H6.20394L8.00005 0Z"/><path fill="#FFCD1A" d="M30.0001 0L31.7962 5.52786H37.6085L32.9062 8.94427L34.7023 14.4721L30.0001 11.0557L25.2978 14.4721L27.0939 8.94427L22.3916 5.52786H28.2039L30.0001 0Z"/><path fill="#FFCD1A" d="M52.0001 0L53.7962 5.52786H59.6085L54.9062 8.94427L56.7023 14.4721L52.0001 11.0557L47.2978 14.4721L49.0939 8.94427L44.3916 5.52786H50.2039L52.0001 0Z"/><path fill="#FFCD1A" d="M74.0001 0L75.7962 5.52786H81.6085L76.9062 8.94427L78.7023 14.4721L74.0001 11.0557L69.2978 14.4721L71.0939 8.94427L66.3916 5.52786H72.2039L74.0001 0Z"/><path fill="#FFCD1A" d="M96.0001 0L97.7962 5.52786H103.609L98.9062 8.94427L100.702 14.4721L96.0001 11.0557L91.2978 14.4721L93.0939 8.94427L88.3916 5.52786H94.2039L96.0001 0Z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
+            <div class="row over-scroll">
+                <div class="col-12" *ngFor="let item of newItemsArray">
                     <div class="selling-product--list py-3">
                         <div class="seling-img">
                             <img src="../../assets/images/BlueCoolSeductionforMen.png">
@@ -507,7 +262,7 @@
                                 Sale
                             </div>
                             <div class="product-panel">
-                                <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
+                                <!-- <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
                                         xml:space="preserve">
                          <g>
                            <g>
@@ -549,38 +304,128 @@
                          </g>
                          <g>
                          </g>
-                         </svg> <span class="ml-2">COMPARE</span> </div>
+                         </svg> <span class="ml-2">COMPARE</span> </div> -->
                                 <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
                             <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
                           </svg> <span class="ml-2">ADD TO CART</span></div>
                             </div>
                         </div>
                         <div class="selling-content">
-                            <p class="text-upper">Man J55441</p>
-                            <p>Article: <span> 5986964</span></p>
-                            <p class="vendor">Berta</p>
-                            <p class="dtil">Classic men's perfume with citrus notes of mandarin and bergamot</p>
+                            <!-- <p class="text-upper">Man J55441</p>
+                            <p>Article: <span> 5986964</span></p> -->
+                            <p class="vendor">{{ item.name }}</p>
+                            <p [innerHTML] = "item.description"></p>
                         </div>
-                        <div class="gift">
+                        <!-- <div class="gift">
                             <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
                       <path d="M10.714 14.88v8.334A1.754 1.754 0 0 1 8.93 25H4.762a2.947 2.947 0 0 1-2.976-2.976V14.88c0-1.012.774-1.786 1.785-1.786H8.93c1.011 0 1.785.774 1.785 1.786zm3.572 0v8.334c0 1.012.774 1.786 1.785 1.786h4.167a2.947 2.947 0 0 0 2.976-2.976V14.88a1.754 1.754 0 0 0-1.785-1.786H16.07a1.754 1.754 0 0 0-1.785 1.786zm8.928-10.713h-7.738l1.607-1.607c.596-.596.596-1.548 0-2.084-.595-.595-1.547-.595-2.083 0l-2.5 2.44-2.5-2.5c-.595-.595-1.548-.595-2.083 0-.596.596-.596 1.548 0 2.084l1.607 1.667H1.786A1.754 1.754 0 0 0 0 5.952V8.93c0 1.011.774 1.785 1.786 1.785h21.428A1.754 1.754 0 0 0 25 8.93V5.952a1.754 1.754 0 0 0-1.786-1.785z"></path>
                     </svg> <span>Gift</span>
-                        </div>
+                        </div> -->
                         <div class="price-review d-flex justify-content-between">
                             <div class="price">
-                                4 830 RUB <span class="line-thrw"> 4 830 RUB</span>
+                               {{ item.price }} RUB
                             </div>
-                            <div class="review">
+                            <!-- <div class="review">
                                 <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"
                                     shape-rendering="geometricPrecision"><path fill="#C4C4C4" d="M8.00005 0L9.79617 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8.00005 11.0557L3.29777 14.4721L5.09388 8.94427L0.391602 5.52786H6.20394L8.00005 0Z"/><path fill="#C4C4C4" d="M30.0001 0L31.7962 5.52786H37.6085L32.9062 8.94427L34.7023 14.4721L30.0001 11.0557L25.2978 14.4721L27.0939 8.94427L22.3916 5.52786H28.2039L30.0001 0Z"/><path fill="#C4C4C4" d="M52.0001 0L53.7962 5.52786H59.6085L54.9062 8.94427L56.7023 14.4721L52.0001 11.0557L47.2978 14.4721L49.0939 8.94427L44.3916 5.52786H50.2039L52.0001 0Z"/><path fill="#C4C4C4" d="M74.0001 0L75.7962 5.52786H81.6085L76.9062 8.94427L78.7023 14.4721L74.0001 11.0557L69.2978 14.4721L71.0939 8.94427L66.3916 5.52786H72.2039L74.0001 0Z"/><path fill="#C4C4C4" d="M96.0001 0L97.7962 5.52786H103.609L98.9062 8.94427L100.702 14.4721L96.0001 11.0557L91.2978 14.4721L93.0939 8.94427L88.3916 5.52786H94.2039L96.0001 0Z"/></svg>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div> -->
+    </div>
+    <div class="selling-main-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="sellting-ttl">
+                       Best Seller
+                    </div>
+                </div>
+            </div>
+            <div class="row over-scroll">
+                <div class="col-12" *ngFor="let item of bestSeller">
+                    <div class="selling-product--list py-3">
+                        <div class="seling-img">
+                            <img src="../../assets/images/BlueCoolSeductionforMen.png">
+                            <div class="sale">
+                                Sale
+                            </div>
+                            <div class="product-panel">
+                                <!-- <div class="pro-compare"> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15" fill="#ccc" height="20" viewBox="0 0 121.805 121.805" style="enable-background:new 0 0 121.805 121.805;"
+                                        xml:space="preserve">
+                         <g>
+                           <g>
+                             <path d="M121.805,109.623V21.926c0-2.692-2.181-4.873-4.871-4.873H92.572c-2.691,0-4.871,2.181-4.871,4.873v87.697
+                               c0,2.693,2.18,4.873,4.871,4.873h24.361C119.624,114.496,121.805,112.316,121.805,109.623z"/>
+                             <path d="M46.287,114.496h26.797c2.691,0,4.872-2.18,4.872-4.873V12.181c0-2.692-2.181-4.872-4.872-4.872H46.287
+                               c-2.692,0-4.873,2.18-4.873,4.872v97.442C41.414,112.316,43.594,114.496,46.287,114.496z"/>
+                             <path d="M4.872,46.286C2.18,46.286,0,48.466,0,51.158v58.465c0,2.693,2.18,4.873,4.872,4.873h24.361
+                               c2.692,0,4.872-2.18,4.872-4.873V51.158c0-2.692-2.18-4.872-4.872-4.872H4.872z"/>
+                           </g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         <g>
+                         </g>
+                         </svg> <span class="ml-2">COMPARE</span> </div> -->
+                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
+                            <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
+                          </svg> <span class="ml-2">ADD TO CART</span></div>
+                            </div>
+                        </div>
+                        <div class="selling-content">
+                            <!-- <p class="text-upper">Man J55441</p>
+                            <p>Article: <span> 5986964</span></p> -->
+                            <p class="vendor">{{ item.name }}</p>
+                            <p [innerHTML] = "item.description"></p>
+                        </div>
+                        <!-- <div class="gift">
+                            <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
+                      <path d="M10.714 14.88v8.334A1.754 1.754 0 0 1 8.93 25H4.762a2.947 2.947 0 0 1-2.976-2.976V14.88c0-1.012.774-1.786 1.785-1.786H8.93c1.011 0 1.785.774 1.785 1.786zm3.572 0v8.334c0 1.012.774 1.786 1.785 1.786h4.167a2.947 2.947 0 0 0 2.976-2.976V14.88a1.754 1.754 0 0 0-1.785-1.786H16.07a1.754 1.754 0 0 0-1.785 1.786zm8.928-10.713h-7.738l1.607-1.607c.596-.596.596-1.548 0-2.084-.595-.595-1.547-.595-2.083 0l-2.5 2.44-2.5-2.5c-.595-.595-1.548-.595-2.083 0-.596.596-.596 1.548 0 2.084l1.607 1.667H1.786A1.754 1.754 0 0 0 0 5.952V8.93c0 1.011.774 1.785 1.786 1.785h21.428A1.754 1.754 0 0 0 25 8.93V5.952a1.754 1.754 0 0 0-1.786-1.785z"></path>
+                    </svg> <span>Gift</span>
+                        </div> -->
+                        <div class="price-review d-flex justify-content-between">
+                            <div class="price">
+                               {{ item.price }} RUB
+                            </div>
+                            <!-- <div class="review">
+                                <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"
+                                    shape-rendering="geometricPrecision"><path fill="#C4C4C4" d="M8.00005 0L9.79617 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8.00005 11.0557L3.29777 14.4721L5.09388 8.94427L0.391602 5.52786H6.20394L8.00005 0Z"/><path fill="#C4C4C4" d="M30.0001 0L31.7962 5.52786H37.6085L32.9062 8.94427L34.7023 14.4721L30.0001 11.0557L25.2978 14.4721L27.0939 8.94427L22.3916 5.52786H28.2039L30.0001 0Z"/><path fill="#C4C4C4" d="M52.0001 0L53.7962 5.52786H59.6085L54.9062 8.94427L56.7023 14.4721L52.0001 11.0557L47.2978 14.4721L49.0939 8.94427L44.3916 5.52786H50.2039L52.0001 0Z"/><path fill="#C4C4C4" d="M74.0001 0L75.7962 5.52786H81.6085L76.9062 8.94427L78.7023 14.4721L74.0001 11.0557L69.2978 14.4721L71.0939 8.94427L66.3916 5.52786H72.2039L74.0001 0Z"/><path fill="#C4C4C4" d="M96.0001 0L97.7962 5.52786H103.609L98.9062 8.94427L100.702 14.4721L96.0001 11.0557L91.2978 14.4721L93.0939 8.94427L88.3916 5.52786H94.2039L96.0001 0Z"/></svg>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- new-item -->
     <!-- about company -->
     <div class="about-company py-3">
@@ -588,7 +433,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="sellting-ttl">
-                        Perfume shop
+                        About Us
                     </div>
 
                 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +11,24 @@ export class HeaderComponent implements OnInit {
 
   cart: any;
   quantity: any;
+  user: any;
 
-  constructor() { }
+  constructor(
+    private data: DataService,
+    private menuController: MenuController
+  ) { }
 
   ngOnInit() {
+    this.isLogin();
     this.getCart();
+  }
+
+  isLogin() {
+    this.user = JSON.parse(localStorage.getItem('userDetails'));
+  }
+  openMenu() {
+    console.log('ajdahbd');
+    this.menuController.open();
   }
 
   getCart(): void {

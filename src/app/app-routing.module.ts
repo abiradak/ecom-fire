@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ThankyouComponent } from './thankyou/thankyou.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'item-category',
+    path: 'item-category/:id',
     component: ItemcategoryComponent
   },
   {
@@ -70,7 +71,66 @@ const routes: Routes = [
     component: AboutusComponent
   }
 ];
-
+// const routes: Routes = [
+//   {
+//   path: '',
+//   component: HeaderComponent,
+//     children: [
+//       {
+//         path: '',
+//         redirectTo: '/home',
+//         pathMatch: 'full'
+//       },
+//       {
+//         path: 'login',
+//         component: LoginComponent
+//       },
+//       {
+//         path: 'home',
+//         component: HomeComponent
+//       }
+//       ,
+//       {
+//         path: 'item-category/:id',
+//         component: ItemcategoryComponent
+//       },
+//       {
+//         path: 'product-details/:id',
+//         component: ProductdetailsComponent
+//       }
+//       ,
+//       {
+//         path: 'view-cart',
+//         component: ViewcartComponent
+//       }
+//       ,
+//       {
+//         path: 'checkout',
+//         component: CheckoutComponent
+//       },
+//       {
+//         path: 'address',
+//         component: AddressComponent
+//       },
+//       {
+//         path: 'my-account',
+//         component: MyaccountComponent
+//       },
+//       {
+//         path: 'register',
+//         component: RegisterComponent
+//       },
+//       {
+//         path: 'thankyou',
+//         component: ThankyouComponent
+//       },
+//       {
+//         path: 'about-us',
+//         component: AboutusComponent
+//       }
+//     ]
+//   }
+// ];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
