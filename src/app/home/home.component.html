@@ -257,7 +257,7 @@
                 <div class="col-12" *ngFor="let item of newItemsArray">
                     <div class="selling-product--list py-3">
                         <div class="seling-img">
-                            <img src="../../assets/images/BlueCoolSeductionforMen.png">
+                            <img [src] = "item.data.image">
                             <div class="sale">
                                 Sale
                             </div>
@@ -313,8 +313,8 @@
                         <div class="selling-content">
                             <!-- <p class="text-upper">Man J55441</p>
                             <p>Article: <span> 5986964</span></p> -->
-                            <p class="vendor">{{ item.name }}</p>
-                            <p [innerHTML] = "item.description"></p>
+                            <p class="vendor">{{ item.data.name }}</p>
+                            <p [innerHTML] = "item.data.description"></p>
                         </div>
                         <!-- <div class="gift">
                             <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
@@ -323,7 +323,7 @@
                         </div> -->
                         <div class="price-review d-flex justify-content-between">
                             <div class="price">
-                               {{ item.price }} RUB
+                               {{ item.data.price }} RUB
                             </div>
                             <!-- <div class="review">
                                 <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"

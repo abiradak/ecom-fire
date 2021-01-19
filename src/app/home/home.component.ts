@@ -21,38 +21,7 @@ export class HomeComponent implements OnInit {
   isCollapse = true;
   itemCount = 1;
 
-  newItemsArray = [
-            {
-              'inStock': 1,
-              'price': '560',
-              'description': '<p><span>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.</span></p>',
-              'image': '',
-              'isDeleted': 0,
-              'volume': '60',
-              'name': 'Product One',
-              'id': 'YuCFtlGVYTRtiyMwdCfL'
-            },
-            {
-              'isDeleted': 0,
-              'name': 'Denim C Spray',
-              'volume': 200,
-              'image': '',
-              'description': '<p><span>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text.</span></p>',
-              'price': '500',
-              'inStock': 1,
-              'id': 'cHDBi4JEMOLzcwcz97VK'
-            },
-            {
-              'price': '300',
-              'name': 'Denim B Spray',
-              'image': '',
-              'volume': 150,
-              'isDeleted': 0,
-              'description': '<p><span>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</span></p>',
-              'inStock': 1,
-              'id': 'kBRWUPj01UyltPL4bODY'
-            }
-    ];
+  newItemsArray = [];
   bestSeller = [
     {
               'inStock': 1,
@@ -105,15 +74,25 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.menuController.enable(true);
     this.getCategories();
+    this.getProducts();
     this.getCart();
   }
 
   async getCategories(): Promise<void> {
     this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
       this.categories = res.category;
-      console.log('>>>>>>', this.categories);
+      console.log('category data >>>>>>', this.categories);
     }, (err) => {
-      console.log('>>>>>>>' , err);
+      console.log('category data >>>>>>>' , err);
+    });
+  }
+
+  async getProducts(): Promise<void> {
+    this.api.sendHttpCall('' , 'product' , 'get').pipe().subscribe( (res) => {
+      this.newItemsArray = res.products;
+      console.log('pro data >>>>>>', this.newItemsArray);
+    }, (err) => {
+      console.log('category data >>>>>>>' , err);
     });
   }
 
