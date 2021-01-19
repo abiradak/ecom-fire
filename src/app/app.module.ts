@@ -34,6 +34,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { AboutComponent } from './about/about.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,8 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     CarouselModule,

@@ -51,11 +51,10 @@ export class ProductSliderComponent implements OnInit {
     private dataService: DataService,
   ) {
     this.currency = this.dataService.currency;
-  }
-
-  ngOnInit(): void {
     this.getCategoriesFromApi();
   }
+
+  ngOnInit(): void {}
 
   async getCategoriesFromApi(): Promise<void> {
     const url = `/catagories`;

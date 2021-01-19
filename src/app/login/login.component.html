@@ -1,4 +1,5 @@
-<div class="login-register">
+<app-loading [showloader]=showloader></app-loading>
+<div class="login-register" *ngIf="loadPage">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 offset-md-4">
@@ -7,32 +8,52 @@
                         <img src="../../assets/images/logo.png" class="login-logo" alt="logo">
                         <h2>Login</h2>
                     </div>
-                    <form>
+                    <form [formGroup]="userForm" (ngSubmit)="loginUser()">
+                        <!-- Email -->
                         <div class="form-group input-sec">
-                            <input type="text" class="form-control" placeholder="Email">
-                            <span><i class="fa fa-user"></i> </span>
+                            <input type="email" class="form-control" name="email" placeholder="Email *" formControlName="email" [ngClass]="{'is-invalid': userForm.controls?.email?.invalid && userForm.controls?.email?.touched }">
+                            <!-- <span><i class="fa fa-user"></i> </span> -->
+                            <div *ngIf="userForm.controls?.email?.errors?.required" class="invalid-feedback">
+                                Email name is required.
+                            </div>      
+                            <div *ngIf="userForm.controls?.email?.errors?.pattern" class="invalid-feedback">
+                                Email is not valid.
+                            </div>
                         </div>
+                        <!-- Password -->
                         <div class="form-group input-sec">
-                            <input type="password" class="form-control" placeholder="Password">
-                            <span><i class="fa fa-lock"></i> </span>
+                            <input type="password" class="form-control" placeholder="Password *" formControlName="password" [ngClass]="{'is-invalid': userForm.controls?.password?.invalid && userForm.controls?.password?.touched }">
+                            <!-- <span><i class="fa fa-lock"></i> </span> -->
+                            <div *ngIf="userForm.controls?.password?.errors?.required" class="invalid-feedback">
+                                Password is required.
+                            </div>
+                            <div *ngIf="userForm.controls?.password?.errors?.maxlength" class="invalid-feedback">
+                                Password can maximum 15 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.password?.errors?.minlength" class="invalid-feedback">
+                                Password will atleast 8 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.password?.errors?.pattern" class="invalid-feedback">
+                                Password must contain at least one letter and one number.
+                            </div>
                         </div>
                         <div class="forget">
-                            <a href="#">Forgot password?</a>
+                            <a>Forgot password?</a>
                         </div>
-                        <button type="button " class="cstm-submit"> Login</button>
-                        <div class="social-login">
+                        <button type="submit" class="cstm-submit" [disabled]="!userForm.valid"> Login</button>
+                        <!-- <div class="social-login">
                             <p>You can also login through:</p>
                             <div class="social-icon">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a><i class="fa fa-facebook"></i></a></li>
+                                    <li><a><i class="fa fa-vk"></i></a></li>
+                                    <li><a><i class="fa fa-odnoklassniki"></i></a></li>
+                                    <li><a><i class="fa fa-twitter"></i></a></li>
+                                    <li><a><i class="fa fa-youtube"></i></a></li>
+                                    <li><a><i class="fa fa-instagram"></i></a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="create-id">
                             Not Registred? <a [routerLink]="['/register']">Create an account</a>
                         </div>

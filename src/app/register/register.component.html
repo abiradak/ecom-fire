@@ -1,4 +1,5 @@
-<div class="login-register">
+<app-loading [showloader]=showloader></app-loading>
+<div class="login-userForm" *ngIf="loadPage">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 offset-md-4">
@@ -7,50 +8,118 @@
                         <img src="../../assets/images/logo.png" class="login-logo" alt="logo">
                         <h2>Registration</h2>
                     </div>
-                    <form>
+                    <form [formGroup]="userForm" (ngSubmit)="submitUser()">
+                        <!-- Name -->
                         <div class="form-group input-sec">
-                            <input type="text" class="form-control" placeholder="Name *">
+                            <input type="text" class="form-control" placeholder="Name *" name="fullname" formControlName="fullname" [ngClass]="{'is-invalid': userForm.controls?.fullname?.invalid && userForm.controls?.fullname?.touched }">
+                            <div *ngIf="userForm.controls?.fullname?.errors?.required" class="invalid-feedback">
+                                Name is required.
+                            </div>
+                            <div *ngIf="userForm.controls?.fullname?.errors?.maxlength" class="invalid-feedback">
+                                Name can maximum 100 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.fullname?.errors?.minlength" class="invalid-feedback">
+                                Name will atleast 2 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.fullname?.errors?.pattern" class="invalid-feedback">
+                                Name will include only characters.
+                            </div>
                         </div>
+                        <!-- Email -->
                         <div class="form-group input-sec">
-                            <input type="text" class="form-control" placeholder="email *">
+                            <input type="email" class="form-control" name="email" placeholder="Email *" formControlName="email" [ngClass]="{'is-invalid': userForm.controls?.email?.invalid && userForm.controls?.email?.touched }">
+                            <div *ngIf="userForm.controls?.email?.errors?.required" class="invalid-feedback">
+                                Email name is required.
+                            </div>      
+                            <div *ngIf="userForm.controls?.email?.errors?.pattern" class="invalid-feedback">
+                                Email is not valid.
+                            </div>
                         </div>
+                        <!-- Phone -->
                         <div class="form-group input-sec">
-                            <input type="password" class="form-control" placeholder="Password *">
+                            <input type="text" formControlName="phone" [ngClass]="{'is-invalid': userForm.controls?.phone?.invalid && userForm.controls?.phone?.touched }"  class="form-control" name="phone" placeholder="Phone *">
+                            <div *ngIf="userForm.controls?.phone?.errors?.required" class="invalid-feedback">
+                                Phone number is required.
+                            </div>
+                            <div *ngIf="userForm.controls?.phone?.errors?.pattern" class="invalid-feedback">
+                                Phone number is not valid.
+                            </div>
                         </div>
+                        <!-- Password -->
                         <div class="form-group input-sec">
-                            <input type="password" class="form-control" placeholder="Re-enter Password *">
+                            <input type="password" class="form-control" placeholder="Password *" formControlName="password" [ngClass]="{'is-invalid': userForm.controls?.password?.invalid && userForm.controls?.password?.touched }">
+                            <div *ngIf="userForm.controls?.password?.errors?.required" class="invalid-feedback">
+                                Password is required.
+                            </div>
+                            <div *ngIf="userForm.controls?.password?.errors?.maxlength" class="invalid-feedback">
+                                Password can maximum 15 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.password?.errors?.minlength" class="invalid-feedback">
+                                Password will atleast 8 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.password?.errors?.pattern" class="invalid-feedback">
+                                Password must contain at least one letter and one number.
+                            </div>
                         </div>
+                        <!-- Re-enter Password -->
                         <div class="form-group input-sec">
+                            <input type="password" class="form-control" placeholder="Re-enter Password *" formControlName="confPassword" [ngClass]="{'is-invalid': userForm.controls?.confPassword?.invalid && userForm.controls?.confPassword?.touched }">
+                            <div *ngIf="userForm.controls?.confPassword?.errors?.required" class="invalid-feedback">
+                                Confirm password is required.
+                            </div>
+                            <div *ngIf="userForm.controls?.confPassword?.errors?.maxlength" class="invalid-feedback">
+                                Confirm password can maximum 15 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.confPassword?.errors?.minlength" class="invalid-feedback">
+                                Confirm password will atleast 8 characters.
+                            </div>
+                            <div *ngIf="userForm.controls?.confPassword?.errors?.pattern" class="invalid-feedback">
+                                Confirm password must contain at least one letter and one number.
+                            </div>
+                        </div>
+                        <!-- Image -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Image *</label>
+                                    <input type="file" class="form-control-file" #fileInput (change)="fileChangeEvent($event)">
+                                    <div class="error-message">{{imageError}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div *ngIf="isImageSaved" class="shw_img">
+                                    <img style="width: 100px; border: 1px solid #ccc;" [src]="cardImageBase64" />
+                                    <a (click)="removeImage(fileInput)" class="re_move">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group input-sec">
                             <input type="text" class="form-control" placeholder="Company Name *">
                         </div>
                         <div class="form-group input-sec">
-                            <input type="text" class="form-control" placeholder="Phone *">
-                        </div>
-                        <div class="form-group input-sec">
                             <input type="text" class="form-control" placeholder="Fax">
-                        </div>
+                        </div> -->
+                        <!-- T & C -->
                         <div class="form-group">
-
                             <div class="forget float-left text-left">
-                                <input type="checkbox"> Read the user agreement. <a href="#">More details</a>
+                                <input type="checkbox" [checked]="acceptTandC" (click)="changeAcceptTandC()" id="acceptTandC"> Read the user agreement. <a>More details</a>
                             </div>
-
                         </div>
 
-                        <button type="button " class="cstm-submit">Register Now</button>
-                        <div class="social-login">
+                        <button type="submit" class="cstm-submit" [disabled]="!userForm.valid || acceptTandC === false || cardImageBase64 == null">Register Now</button>
+                        <!-- <div class="social-login">
                             <p>You can also login through:</p>
                             <div class="social-icon">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a><i class="fa fa-facebook"></i></a></li>
+                                    <li><a><i class="fa fa-vk"></i></a></li>
+                                    <li><a><i class="fa fa-odnoklassniki"></i></a></li>
+                                    <li><a><i class="fa fa-twitter"></i></a></li>
+                                    <li><a><i class="fa fa-youtube"></i></a></li>
+                                    <li><a><i class="fa fa-instagram"></i></a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="create-id">
                             Already have an account? <a [routerLink]="['/login']">Login</a>
                         </div>

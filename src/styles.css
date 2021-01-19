@@ -8,6 +8,35 @@
         font-size: 16px;
     }
 
+    .shw_img {
+        position: relative;
+    }
+
+    .re_move {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background: #0000005c;
+        width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: bold;
+        opacity: 0;
+    }
+
+    .re_move:hover {
+        color: red;
+    }
+
+    .shw_img:hover .re_move {
+        opacity: 1;
+        cursor: pointer;
+    }
+
     .loder {
         width: 100%;
         background: rgba(0, 0, 0, 0.7);

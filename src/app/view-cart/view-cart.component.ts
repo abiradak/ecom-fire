@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class ViewCartComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
+    private router: Router,
   ) {
     this.currency = this.dataService.currency;
   }
@@ -55,6 +57,14 @@ export class ViewCartComponent implements OnInit {
       this.subTotal += +element.data.price * element.quantity;
     });
     this.total = this.subTotal + this.subTotal * 0.1; // 10% Tax
+  }
+
+  checkout(): void {
+    if (this.dataService.checkLogin()) {
+      this.router.navigate(['check-out']);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
 }

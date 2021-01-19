@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -7,6 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 export class DataService {
 
   currency = 'RUB';
+  nameValidationRegex = /^[a-zA-Z\s-,.\']+$/;
+  emailValidationRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+  phoneValidationRegex = /^[\d+]+$/;
+  passwordValidationRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // -- Minimum eight characters, at least one letter and one number
   toastConfig: object = {
     timeOut: 3000,
     progressBar: true,
@@ -14,6 +19,7 @@ export class DataService {
 
   constructor(
     private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   // --- For showing the success toast
@@ -41,5 +47,19 @@ export class DataService {
       cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
     }
     return cartProducts;
+  }
+
+  checkLogin(): boolean {
+    if (localStorage.getItem('loginData')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkCurrentPage(): any {
+    const currentPage = this.router.url;
+    // console.log('>>>>>>>>', currentPage);
+    return currentPage;
   }
 }

@@ -9,6 +9,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeadermainComponent } from './header/headermain/headermain.component';
 import { HomeComponent } from './home/home.component';
+import { LoginGuard } from './login.guard';
 import { LoginComponent } from './login/login.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { MyAccountComponent } from './my-account/my-account.component';
@@ -67,12 +68,14 @@ const routes: Routes = [
       ,
       {
         path: 'check-out',
-        component: CheckoutComponent
+        component: CheckoutComponent,
+        canActivate: [LoginGuard],
       }
       ,
       {
         path: 'myAccount',
-        component: MyAccountComponent
+        component: MyAccountComponent,
+        canActivate: [LoginGuard],
       } ,
       {
         path: 'about-us',
