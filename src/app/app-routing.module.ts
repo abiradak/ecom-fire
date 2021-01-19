@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { ThankyouComponent } from './thankyou/thankyou.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { HeaderComponent } from './header/header.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
   {
     path: 'about-us',
     component: AboutusComponent
+  },
+  {
+    path: 'forget-password',
+    component: ForgetpasswordComponent
   }
 ];
 // const routes: Routes = [

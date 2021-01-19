@@ -3,18 +3,16 @@
     <div class="logo-section">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 text-center pt-2"><img src="../../assets/images/logo.png" class="img-fluid w-50 mx-auto"> </div>
-                <div class="col-sm-12 py-4">
-                    <div class="contact-number d-flex justify-content-between align-items-center">
-                        <div class="call-icon"><svg viewBox="0 0 21 21" width="25" height="25" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="x_phone_top">
-                <path d="M1.8.75L1.95.6c.9-.9 2.35-.75 3.1.25L7.8 4.8c.55.8.45 1.9-.25 2.6l-.15.15c-.5.5-.6 1.25-.25 1.85 1.1 1.85 2.6 3.3 4.4 4.4.6.35 1.4.25 1.85-.25l.15-.15c.7-.7 1.8-.8 2.6-.25l3.95 2.75c1.05.7 1.15 2.2.25 3.1l-.15.15a6.202 6.202 0 0 1-7.7.85C7.75 17 3.85 13.15.85 8.35-.6 5.95-.25 2.8 1.8.75z"></path>
-              </svg></div>
+                <div class="col-sm-12 text-center pt-3"><img src="../../assets/images/logo.png" class="img-fluid w-50 mx-auto"> </div>
+                <div class="col-sm-12 py-3">
+                    <div class="contact-number text-center">
+                        <!-- <div class="call-icon text-right"></div> -->
                         <div class="address">
+                            <h5> +7 (000) 000-00-00</h5>
                             <p>09:00 to 22:00</p>
-                            <h5>+7 (000) 000-00-00</h5>
                             <a href="#">Request a call</a>
                         </div>
-                        <div class="togle-add">
+                        <!-- <div class="togle-add">
                             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#ccc" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;" xml:space="preserve">
                           <g>
                             <path d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751
@@ -52,7 +50,7 @@
                           <g>
                           </g>
                           </svg>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -82,7 +80,7 @@
         <div class="container">
             <div class="row">
                 <div *ngFor="let item of categories| slice:0:catEnd" class="col-sm-12 mb-3">
-                    <div class="single-product-list text-center"   (click) = "goToCate(item)">
+                    <div class="single-product-list text-center" (click)="goToCate(item)">
                         <img src="../../assets/images/formen.png">
                         <p>PERFUMERY</p>
                         <h3>{{ item.data.name }}</h3>
@@ -99,7 +97,7 @@
             </div>
         </div>
         <div *ngIf="isCollapse === true" class="see-all">
-            <h6 (click) = "allCatList()">See All <br> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#2BB409" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;"
+            <h6 (click)="allCatList()">See All <br> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#2BB409" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;"
                     xml:space="preserve">
             <g>
               <path d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751
@@ -139,7 +137,7 @@
             </svg></h6>
         </div>
         <div *ngIf="isCollapse === false" class="see-all">
-            <h6 (click) = "collapseCatList()">Collapse <br> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#2BB409" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;"
+            <h6 (click)="collapseCatList()">Collapse <br> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13" height="13" fill="#2BB409" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;"
                     xml:space="preserve">
             <g>
               <path d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751
@@ -240,7 +238,7 @@
     <!-- advantage block -->
 
     <!-- best-seller -->
-    
+
     <!-- best-seller -->
     <!-- new item -->
 
@@ -305,7 +303,7 @@
                          <g>
                          </g>
                          </svg> <span class="ml-2">COMPARE</span> </div> -->
-                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
+                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#fff" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
                             <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
                           </svg> <span class="ml-2">ADD TO CART</span></div>
                             </div>
@@ -314,7 +312,7 @@
                             <!-- <p class="text-upper">Man J55441</p>
                             <p>Article: <span> 5986964</span></p> -->
                             <p class="vendor">{{ item.name }}</p>
-                            <p [innerHTML] = "item.description"></p>
+                            <p [innerHTML]="item.description"></p>
                         </div>
                         <!-- <div class="gift">
                             <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
@@ -323,7 +321,7 @@
                         </div> -->
                         <div class="price-review d-flex justify-content-between">
                             <div class="price">
-                               {{ item.price }} RUB
+                                {{ item.price }} RUB
                             </div>
                             <!-- <div class="review">
                                 <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"
@@ -340,7 +338,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="sellting-ttl">
-                       Best Seller
+                        Best Seller
                     </div>
                 </div>
             </div>
@@ -396,7 +394,7 @@
                          <g>
                          </g>
                          </svg> <span class="ml-2">COMPARE</span> </div> -->
-                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#ccc" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
+                                <div class="add-cart "><svg viewBox="0 0 22 22" width="20" height="20" fill="#fff" xmlns="http://www.w3.org/2000/svg" id="buy_btn_icon">
                             <path d="M6.757 3.667l-.262-1.31C6.233.995 5.08 0 3.666 0H1.361C.681 0 .051.471 0 1.152c-.052.786.524 1.467 1.31 1.467h2.357c.105 0 .262.105.262.262L6.18 13.986a2.621 2.621 0 0 0 2.777 2.095l9.742-.733c1.257-.105 2.253-1.048 2.41-2.253l.89-6.443c.21-1.571-1.047-2.985-2.619-2.985H6.757zM7.857 22a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19zm9.428 0a2.095 2.095 0 1 0 0-4.19 2.095 2.095 0 0 0 0 4.19z"></path>
                           </svg> <span class="ml-2">ADD TO CART</span></div>
                             </div>
@@ -405,7 +403,7 @@
                             <!-- <p class="text-upper">Man J55441</p>
                             <p>Article: <span> 5986964</span></p> -->
                             <p class="vendor">{{ item.name }}</p>
-                            <p [innerHTML] = "item.description"></p>
+                            <p [innerHTML]="item.description"></p>
                         </div>
                         <!-- <div class="gift">
                             <svg viewBox="0 0 25 25" width="20" height="20" fill="#2BB409" xmlns="http://www.w3.org/2000/svg" id="gift_icon">
@@ -414,7 +412,7 @@
                         </div> -->
                         <div class="price-review d-flex justify-content-between">
                             <div class="price">
-                               {{ item.price }} RUB
+                                {{ item.price }} RUB
                             </div>
                             <!-- <div class="review">
                                 <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xml:space="preserve" x="0px" y="0px" width="104px" height="15px" viewBox="0 0 104 15" preserveAspectRatio="none"
