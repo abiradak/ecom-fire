@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
     this.getUserDetails();
-    this.getCategories();
+    // this.getCategories();
   }
 
 
@@ -97,12 +97,12 @@ export class AppComponent implements OnInit {
     this.router.navigate(['about-us']);
   }
 
-  async getCategories(): Promise<void> {
-    this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
-      this.categories = res.category;
-      console.log('>>>>>>', this.categories);
-    }, (err) => {
-      console.log('>>>>>>>' , err);
-    });
-  }
+  // async getCategories(): Promise<void> {
+  //   this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
+  //     this.categories = res.category;
+  //     console.log('>>>>>>', this.categories);
+  //   }, (err) => {
+  //     console.log('>>>>>>>' , err);
+  //   });
+  // }
 }

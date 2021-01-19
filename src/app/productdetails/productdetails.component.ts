@@ -10,7 +10,7 @@ import { DataService } from '../services/data.service';
 })
 export class ProductdetailsComponent implements OnInit {
   details = {};
-
+  isLoading = false;
   itemCount = 1;
   productId: any;
   cart: any;
@@ -22,17 +22,20 @@ export class ProductdetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getCategoryDetails();
+    this.productDetails();
   }
 
-  async getCategoryDetails(): Promise<void> {
+  async productDetails(): Promise<void> {
+    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     this.api.sendHttpCall('' , `product/${id}` , 'get').pipe().subscribe( (res) => {
-      console.log('id >>>>', res);
+      console.log('product >>>>', res);
       this.details = res.product.data;
       this.productId = res.product.id;
+      this.isLoading = false;
       console.log('details', this.details);
     }, (err) => {
+      this.isLoading = false;
       console.log('>>>>>>>' , err);
     });
   }
@@ -62,17 +65,17 @@ export class ProductdetailsComponent implements OnInit {
         localStorage.setItem('cart', JSON.stringify(this.cart));
       }
     } else {
-      const items = []
+      const items = [];
       const itemObj = {
         product: this.details,
         productId: this.productId,
         quantity: this.itemCount,
         status: 'Pending'
-      }
+      };
       items.push(itemObj);
       const payload = {
-        items: items
-      }
+        items
+      };
       localStorage.setItem('cart', JSON.stringify(payload));
     }
     // this.itemCount = 1;
@@ -93,11 +96,11 @@ export class ProductdetailsComponent implements OnInit {
   // }
 
   increaseCounter() {
-    this.itemCount = this.itemCount+1;
+    this.itemCount = this.itemCount + 1;
   }
 
   decreaseCounter() {
-    this.itemCount = this.itemCount-1;
+    this.itemCount = this.itemCount - 1 ;
     if (this.itemCount === 1) {
       this.itemCount = 1;
     }

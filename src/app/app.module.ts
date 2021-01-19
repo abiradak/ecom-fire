@@ -26,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
 import { ThankyouComponent } from './thankyou/thankyou.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { HeaderComponent } from './header/header.component';
+import { LoadingComponent } from './services/loading';
 
 
 
@@ -43,7 +44,8 @@ import { HeaderComponent } from './header/header.component';
     RegisterComponent,
     ThankyouComponent,
     AboutusComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoadingComponent
   ],
   entryComponents: [],
   imports: [

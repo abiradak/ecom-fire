@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-itemcategory',
@@ -8,61 +10,76 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ItemcategoryComponent implements OnInit {
 
-  details = {
-    "id": "APwCOf1NKAb5GcIXTKtI",
-    "data": {
-        "isDeleted": 0,
-        "isActive": 1,
-        "name": "Category Two",
-        "description": "Demo Description",
-        "products": [
-            "cHDBi4JEMOLzcwcz97VK",
-            "YuCFtlGVYTRtiyMwdCfL",
-            "kBRWUPj01UyltPL4bODY"
-        ],
-        "image": "hello.jpg"
-    },
-    "products": [
-        {
-            "inStock": 1,
-            "image": "",
-            "price": "560",
-            "name": "Product One",
-            "volume": "60",
-            "isDeleted": 0,
-            "description": "<p><span>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</span></p>",
-            "id": "YuCFtlGVYTRtiyMwdCfL"
-        },
-        {
-            "description": "<p><span>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</span></p>",
-            "volume": 200,
-            "isDeleted": 0,
-            "name": "Denim C Spray",
-            "image": "",
-            "price": "500",
-            "inStock": 1,
-            "id": "cHDBi4JEMOLzcwcz97VK"
-        },
-        {
-            "name": "Denim B Spray",
-            "image": "",
-            "price": "300",
-            "description": "<p><span>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</span></p>",
-            "volume": 150,
-            "isDeleted": 0,
-            "inStock": 1,
-            "id": "kBRWUPj01UyltPL4bODY"
-        }
-    ]
-}
+  details = {};
+  isLoading = false;
+  products = [];
+  cart: any;
+  itemCount = 1;
 
   constructor(
     private route: ActivatedRoute,
+    private api: ApiService,
+    private data: DataService
   ) { }
 
   ngOnInit() {
     // const data = this.route.snapshot.params;
     // console.log('data',  data);
+    this.getCategoryData();
+  }
+
+  getCategoryData() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.isLoading = true;
+    this.api.sendHttpCall('' , `category/${id}` , 'get').pipe().subscribe( (res) => {
+      console.log('res', res);
+      this.details = res.category.data;
+      this.products = res.category.products;
+      this.isLoading = false;
+    }, (err) => {
+      this.isLoading = false;
+      console.log('category data >>>>>>>' , err);
+    });
+  }
+
+  addToCartOne(item: any) {
+    this.cart = JSON.parse(localStorage.getItem('cart'));
+    if (this.cart !== null) {
+      if (this.cart.items.find(x => x.productId === item.id)) {
+        const index = this.cart.items.findIndex((x: any) => x.productId === item.id);
+        const newItem = {
+          product: item,
+          productId: item.id,
+          quantity: this.cart.items[index].quantity + this.itemCount,
+          status: 'Pending'
+        };
+        this.cart.items[index] = newItem;
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+      } else {
+        const newItem = {
+          product: item,
+          productId: item.id,
+          quantity: this.itemCount,
+          status: 'Pending'
+        };
+        this.cart.items.push(newItem);
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+      }
+    } else {
+      const items = [];
+      const itemObj = {
+        product: item,
+        productId: item.id,
+        quantity: this.itemCount,
+        status: 'Pending'
+      };
+      items.push(itemObj);
+      const payload = {
+        items
+      };
+      localStorage.setItem('cart', JSON.stringify(payload));
+    }
+    this.data.presentToast('Added To cart' , 'success');
   }
 
 }
