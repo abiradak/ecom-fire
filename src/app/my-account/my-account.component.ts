@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyAccountComponent implements OnInit {
 
+  currentTab = 1;
+  profileData = null;
+
   constructor() { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('loginData')) {
+      this.profileData = JSON.parse(localStorage.getItem('loginData'));
+      console.log('this.profileData: ', this.profileData);
+    }
+  }
+
+  changeTab(currentTab): void {
+    this.currentTab = currentTab;
   }
 
 }
