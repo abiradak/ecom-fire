@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-product-slider',
@@ -49,6 +50,7 @@ export class ProductSliderComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private dataService: DataService,
+    private globalService: GlobalService,
   ) {
     this.currency = this.dataService.currency;
     this.getCategoriesFromApi();
@@ -60,7 +62,7 @@ export class ProductSliderComponent implements OnInit {
     const url = `/catagories`;
     this.showloader = true;
     this.apiService.sendHttpCallWithToken('', url , 'get').subscribe((response) => {
-      // console.log('getCategoriesFromApi response: ' , response);
+      console.log('getCategoriesFromApi response: ' , response);
       this.showloader = false;
       if (response.category && response.category.length > 0) {
         this.categories = response.category;
@@ -77,10 +79,10 @@ export class ProductSliderComponent implements OnInit {
     const url = `/product`;
     this.showloader = true;
     this.apiService.sendHttpCallWithToken('', url , 'get').subscribe((response) => {
-      // console.log('getProductsFromApi response: ' , response);
+      console.log('getProductsFromApi response: ' , response);
       this.showloader = false;
-      if (response.product && response.product.length > 0) {
-        this.newProducts = response.product;
+      if (response.product && response.products.length > 0) {
+        this.newProducts = response.products;
       }
     }, (error: any) => {
       console.log('getProductsFromApi errors: ' , error);
@@ -103,21 +105,27 @@ export class ProductSliderComponent implements OnInit {
       } else {
         const cartProduct = {
           id: product.id,
-          data: product.data,
+          data: product,
           quantity: 1
         };
         cartProducts.push(cartProduct);
         this.dataService.setCartItem(cartProducts);
+        this.globalService.publishSomeData({
+          updateCart: true,
+        });
         this.dataService.showInfo('Product added to cart');
       }
     } else {
       const cartProduct = {
         id: product.id,
-        data: product.data,
+        data: product,
         quantity: 1
       };
       cartProducts.push(cartProduct);
       this.dataService.setCartItem(cartProducts);
+      this.globalService.publishSomeData({
+        updateCart: true,
+      });
       this.dataService.showInfo('Product added to cart');
     }
     // console.log('addToCart cartProducts: ', cartProducts);

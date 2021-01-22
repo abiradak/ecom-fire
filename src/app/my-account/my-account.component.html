@@ -1,9 +1,13 @@
+<app-loading [showloader]=showloader></app-loading>
 <div class="account-details">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mt-4">
                 <div class=" bgg-white p-2 mb-3">
-                    <div class="profile-dp"><img src="../../assets/images/avatar7.png" class="img-radius"></div>
+                    <div class="profile-dp">
+                        <img src="../../assets/images/avatar7.png" class="img-radius" *ngIf="isImageSaved === false">
+                        <img [src]="cardImageBase64" class="img-radius" *ngIf="isImageSaved === true">
+                    </div>
                     <div class="profile-dtails pl-4">
                         <p>Hello,</p>
                         <h3>{{profileData?.name}}</h3>
@@ -158,13 +162,13 @@
                     </div>
                     <div class="single-slink">
                         <a style="cursor: pointer;" (click)="changeTab(2)">Profile Information</a>
-                        <a style="cursor: pointer;" (click)="changeTab(3)">Manage Addresses</a>
+                        <!-- <a style="cursor: pointer;" (click)="changeTab(3)">Manage Addresses</a> -->
                     </div>
                 </div>
             </div>
             <div class="col-md-8 my-4">
                 <div class="bgg-white p-3">
-                    <!--  onclick my order -->
+                    <!--  My order -->
                     <div *ngIf="currentTab === 1">
                         <div class="border d-flex justify-content-between   p-1 mb-2">
                             <div class="div">
@@ -338,11 +342,91 @@
                     </svg></span>
                         </div>
                     </div>
-                    <!--  onclick my order -->
-
+                    <!--  Personal Details -->
                     <div class="edit-profile" *ngIf="currentTab === 2">
+                        <form [formGroup]="userForm" (ngSubmit)="submitUser(fileInput)">
+                            <!-- Name -->
+                            <div class="row py-2">
+                                <div class="col-md-12">
+                                    <span>Personal Information</span> 
+                                    <a (click)="enabledInputs()" style="cursor: pointer;" *ngIf="!isEditable">Edit</a>
+                                    <a (click)="disbledInputs()" style="cursor: pointer;" *ngIf="isEditable">Cancel</a>
+                                </div>
+                                <div class="col-md-2">
+                                    <span>Name * </span>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="Name" name="fullname" formControlName="fullname" [ngClass]="{'is-invalid': userForm.controls?.fullname?.invalid && userForm.controls?.fullname?.touched }">
+                                    <div *ngIf="userForm.controls?.fullname?.errors?.required" class="invalid-feedback">
+                                        Name is required.
+                                    </div>
+                                    <div *ngIf="userForm.controls?.fullname?.errors?.maxlength" class="invalid-feedback">
+                                        Name can maximum 100 characters.
+                                    </div>
+                                    <div *ngIf="userForm.controls?.fullname?.errors?.minlength" class="invalid-feedback">
+                                        Name will atleast 2 characters.
+                                    </div>
+                                    <div *ngIf="userForm.controls?.fullname?.errors?.pattern" class="invalid-feedback">
+                                        Name will include only characters.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Email -->
+                            <div class="row py-2">
+                                <div class="col-md-2">
+                                    <span>Email * </span>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid': userForm.controls?.email?.invalid && userForm.controls?.email?.touched }" [disable]="isEditable">
+                                    <div *ngIf="userForm.controls?.email?.errors?.required" class="invalid-feedback">
+                                        Email name is required.
+                                    </div>      
+                                    <div *ngIf="userForm.controls?.email?.errors?.pattern" class="invalid-feedback">
+                                        Email is not valid.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Phone -->
+                            <div class="row py-2">
+                                <div class="col-md-2">
+                                    <span>Phone * </span>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" formControlName="phone" [ngClass]="{'is-invalid': userForm.controls?.phone?.invalid && userForm.controls?.phone?.touched }"  class="form-control" name="phone" placeholder="Phone">
+                                    <div *ngIf="userForm.controls?.phone?.errors?.required" class="invalid-feedback">
+                                        Phone number is required.
+                                    </div>
+                                    <div *ngIf="userForm.controls?.phone?.errors?.pattern" class="invalid-feedback">
+                                        Phone number is not valid.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Image -->
+                            <div class="row py-2" *ngIf="isEditable">
+                                <div class="col-md-2">
+                                    <span>Image</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <!-- <label>Image</label> -->
+                                        <input type="file" class="form-control-file" #fileInput (change)="fileChangeEvent($event)">
+                                        <div class="error-message">{{imageError}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <a (click)="removeImage(fileInput)" *ngIf="isImageSaved && isImageChanged" style="cursor: pointer;">Remove</a>
+                                    <!-- <div *ngIf="isImageSaved" class="shw_img">
+                                        <img style="width: 100px;" [src]="cardImageBase64" />
+                                        <a (click)="removeImage(fileInput)" *ngIf="isImageChanged" class="re_move">Remove</a>
+                                    </div> -->
+                                </div>
+                            </div>
 
-                        <form>
+                            <div class="row py-2" *ngIf="isEditable">
+                                <div class="col-md-4"> <button type="submit" class="btn btn-success cstm-btn" [disabled]="userId == null || !userForm.valid">SAVE</button> </div>
+                            </div>
+                        </form>
+                        <!-- <form>
                             <div class="row py-4">
                                 <div class="col-md-12"><span>Personal Information</span> <a>Edit</a></div>
                                 <div class="col-md-4"><input type="text" class="form-control" placeholder="First Name"></div>
@@ -371,9 +455,6 @@
                                 <div class="col-md-4"> <button type="button" class="btn btn-success cstm-btn">SAVE</button> </div>
                             </div>
                         </form>
-
-
-                        <!-- Modal -->
                         <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -403,16 +484,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
-                                  </div> -->
                                 </div>
                             </div>
-                        </div>
-                        <!-- modal   -->
+                        </div> -->
                     </div>
-                    <!-- new address -->
+                    <!-- New address -->
                     <div class="new-address" *ngIf="currentTab === 3">
                         <h4>ADD A NEW ADDRESS</h4>
                         <form>
@@ -453,7 +529,7 @@
                             </div>
                         </form>
                     </div>
-                    <!-- new address -->
+                    <!-- Address List -->
                     <div class="card my-3" *ngIf="currentTab === 3">
                         <div class="save-address border-bottom  p-3">
                             <div class="addtype d-flex justify-content-between my-2">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-view-cart',
@@ -16,6 +17,7 @@ export class ViewCartComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
+    private globalService: GlobalService,
     private router: Router,
   ) {
     this.currency = this.dataService.currency;
@@ -23,8 +25,8 @@ export class ViewCartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartProducts = this.dataService.getCartItem();
+    console.log('this.cartProducts: ', this.cartProducts);
     this.calculatetotal();
-    // console.log('this.cartProducts: ', this.cartProducts);
   }
 
   updateCart(index, updateType): void {
@@ -48,6 +50,9 @@ export class ViewCartComponent implements OnInit {
     this.cartProducts.splice(index, 1);
     this.dataService.setCartItem(this.cartProducts);
     this.calculatetotal();
+    this.globalService.publishSomeData({
+      updateCart: true,
+    });
     this.dataService.showInfo('Product removed from cart');
   }
 
