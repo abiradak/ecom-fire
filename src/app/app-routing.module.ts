@@ -10,6 +10,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
@@ -80,6 +81,11 @@ const routes: Routes = [
       {
         path: 'orders',
         component: OrderListComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'order-details/:orderId',
+        component: OrderDetailsComponent,
         canActivate: [AdminGuard],
       },
     ]

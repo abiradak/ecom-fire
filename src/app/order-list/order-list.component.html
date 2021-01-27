@@ -26,7 +26,9 @@
                                 <td>{{item.data.dphone}}</td>
                                 <td>{{item.data.totalprice}}</td>
                                 <td>{{item.data.items.length}}</td>
-                                <td></td>
+                                <td>
+                                    <button class="btn btn-raised btn-primary btn-sm" (click)="viewDetails(item.id)">View Details</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -124,7 +124,7 @@ export class BrandEditComponent implements OnInit {
       if (error.message) {
         this.dataService.showError(error.message);
       } else {
-        this.dataService.showError('Unable to load brand list!');
+        this.dataService.showError('Unable to load brand details!');
       }
       this.router.navigate(['/brand-list']);
     });

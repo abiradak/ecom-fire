@@ -26,6 +26,7 @@ import { BrandEditComponent } from './brand-edit/brand-edit.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { OrderListComponent } from './order-list/order-list.component';
     LoginComponent,
     UserListComponent,
     OrderListComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
