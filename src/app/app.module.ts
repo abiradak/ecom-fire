@@ -24,6 +24,8 @@ import { BrandAddComponent } from './brand-add/brand-add.component';
 import { BrandListComponent } from './brand-list/brand-list.component';
 import { BrandEditComponent } from './brand-edit/brand-edit.component';
 import { LoginComponent } from './login/login.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { OrderListComponent } from './order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { LoginComponent } from './login/login.component';
     BrandListComponent,
     BrandEditComponent,
     LoginComponent,
+    UserListComponent,
+    OrderListComponent,
   ],
   imports: [
     BrowserModule,

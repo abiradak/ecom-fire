@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DataService {
 
   currency = '$';
+  maxFileSize = 500000; // -- 500kb (20971520 = 20mb)
   nameValidationRegex = /^[0-9a-zA-Z\s-,.\']+$/;
   priceValidationRegex = /^\d{0,8}(\.\d{1,4})?$/;
   toastConfig: object = {

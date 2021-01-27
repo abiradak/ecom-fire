@@ -10,9 +10,11 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
+import { OrderListComponent } from './order-list/order-list.component';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   {
@@ -68,6 +70,16 @@ const routes: Routes = [
       {
         path: 'brand-edit/:brandId',
         component: BrandEditComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'users',
+        component: UserListComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'orders',
+        component: OrderListComponent,
         canActivate: [AdminGuard],
       },
     ]

@@ -19,6 +19,7 @@ export class CategoryEditComponent implements OnInit {
   categoryForm: FormGroup;
   nameValidationRegex: any;
   priceValidationRegex: any;
+  maxFileSize;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -67,6 +68,7 @@ export class CategoryEditComponent implements OnInit {
   ) {
     this.nameValidationRegex = this.dataService.nameValidationRegex;
     this.priceValidationRegex = this.dataService.priceValidationRegex;
+    this.maxFileSize = this.dataService.maxFileSize;
 
     this.categoryForm = this.fb.group({
       // tslint:disable-next-line:max-line-length
@@ -214,13 +216,13 @@ export class CategoryEditComponent implements OnInit {
     this.cardImageBase64 = this.categoryData.image;
     if (fileInput.target.files && fileInput.target.files[0]) {
       // -- Size Filter Bytes
-      const maxSize = 20971520;
+      const maxSize = this.maxFileSize;
       const allowedTypes = ['image/png', 'image/jpeg'];
       const maxHeight = 15200;
       const maxWidth = 25600;
 
       if (fileInput.target.files[0].size > maxSize) {
-        this.imageError = 'Maximum size allowed is ' + maxSize / 1000 + 'Mb';
+        this.imageError = 'Maximum size allowed is ' + maxSize / 1000 + 'KB';
         return false;
       }
 

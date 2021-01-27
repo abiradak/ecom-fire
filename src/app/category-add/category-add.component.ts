@@ -15,6 +15,7 @@ export class CategoryAddComponent implements OnInit {
 
   categoryForm: FormGroup;
   nameValidationRegex: any;
+  maxFileSize;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -58,6 +59,7 @@ export class CategoryAddComponent implements OnInit {
     private apiService: ApiService,
   ) {
     this.nameValidationRegex = this.dataService.nameValidationRegex;
+    this.maxFileSize = this.dataService.maxFileSize;
     this.categoryForm = this.fb.group({
       // tslint:disable-next-line:max-line-length
       categoryname: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(2), Validators.pattern(this.nameValidationRegex)]),
@@ -133,13 +135,13 @@ export class CategoryAddComponent implements OnInit {
     this.imageError = null;
     if (fileInput.target.files && fileInput.target.files[0]) {
       // -- Size Filter Bytes
-      const maxSize = 20971520;
+      const maxSize = this.maxFileSize;
       const allowedTypes = ['image/png', 'image/jpeg'];
       const maxHeight = 15200;
       const maxWidth = 25600;
 
       if (fileInput.target.files[0].size > maxSize) {
-        this.imageError = 'Maximum size allowed is ' + maxSize / 1000 + 'Mb';
+        this.imageError = 'Maximum size allowed is ' + maxSize / 1000 + 'KB';
         return false;
       }
 
@@ -192,32 +194,32 @@ export class CategoryAddComponent implements OnInit {
   async submitCategory(): Promise<void> {
     if (this.categoryForm.valid && this.cardImageBase64 !== null) {
       const url = 'category/add';
-        const payload = {
-          name: this.categoryForm.value.categoryname,
-          image: this.cardImageBase64,
-          description: this.categoryForm.value.categorydesc,
-        };
-        // console.log('submitCategory payload: ', payload);
-        this.showloader = true;
-        this.apiService.sendHttpCallWithToken(payload, url, 'post').subscribe((response) => {
-          console.log('submitCategory response: ' , response);
-          this.showloader = false;
-          if (response.status === 200) {
-            this.dataService.showSuccess(response.message);
-          } else if (response.status === 400) {
-            this.dataService.showError(response.message);
-          } else {
-            this.dataService.showError('Unable to add category');
-          }
-        }, (error) => {
-          console.log('submitCategory error: ' , error);
-          this.showloader = false;
-          if (error.message) {
-            this.dataService.showError(error.message);
-          } else {
-            this.dataService.showError('Unable to add category');
-          }
-        });
+      const payload = {
+        name: this.categoryForm.value.categoryname,
+        image: this.cardImageBase64,
+        description: this.categoryForm.value.categorydesc,
+      };
+      // console.log('submitCategory payload: ', payload);
+      this.showloader = true;
+      this.apiService.sendHttpCallWithToken(payload, url, 'post').subscribe((response) => {
+        console.log('submitCategory response: ' , response);
+        this.showloader = false;
+        if (response.status === 200) {
+          this.dataService.showSuccess(response.message);
+        } else if (response.status === 400) {
+          this.dataService.showError(response.message);
+        } else {
+          this.dataService.showError('Unable to add category');
+        }
+      }, (error) => {
+        console.log('submitCategory error: ' , error);
+        this.showloader = false;
+        if (error.message) {
+          this.dataService.showError(error.message);
+        } else {
+          this.dataService.showError('Unable to add category');
+        }
+      });
     } else {
       this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.categoryForm.controls).forEach((field) => {
@@ -227,7 +229,6 @@ export class CategoryAddComponent implements OnInit {
       });
     }
   }
-  
 
   resetForm(element): void {
     this.categoryForm.patchValue({

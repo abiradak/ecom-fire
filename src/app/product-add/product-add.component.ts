@@ -16,6 +16,7 @@ export class ProductAddComponent implements OnInit {
   productForm: FormGroup;
   nameValidationRegex: any;
   priceValidationRegex: any;
+  maxFileSize;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -60,6 +61,7 @@ export class ProductAddComponent implements OnInit {
   ) {
     this.nameValidationRegex = this.dataService.nameValidationRegex;
     this.priceValidationRegex = this.dataService.priceValidationRegex;
+    this.maxFileSize = this.dataService.maxFileSize;
 
     this.productForm = this.fb.group({
       // tslint:disable-next-line:max-line-length
@@ -128,7 +130,6 @@ export class ProductAddComponent implements OnInit {
     });
   }
 
-
   onItemSelect(item: any): void  {
     // console.log('onItemSelect: ', item);
     this.selectedItems.push(item);
@@ -153,18 +154,17 @@ export class ProductAddComponent implements OnInit {
     // console.log('onDeSelectAll this.selectedItems: ', this.selectedItems);
   }
 
-
   fileChangeEvent(fileInput: any): boolean {
     this.imageError = null;
     if (fileInput.target.files && fileInput.target.files[0]) {
       // -- Size Filter Bytes
-      const maxSize = 20971520;
+      const maxSize = this.maxFileSize;
       const allowedTypes = ['image/png', 'image/jpeg'];
       const maxHeight = 15200;
       const maxWidth = 25600;
 
       if (fileInput.target.files[0].size > maxSize) {
-        this.imageError = 'Maximum size allowed is ' + maxSize / 1000 + 'Mb';
+        this.imageError = 'Maximum size allowed is ' + maxSize / 1000 + 'KB';
         return false;
       }
 
@@ -262,6 +262,7 @@ export class ProductAddComponent implements OnInit {
       });
     }
   }
+
   resetForm(element): void {
     this.productForm.patchValue({
       productname: '',

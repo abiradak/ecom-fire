@@ -222,6 +222,20 @@
                         </ul>
                     </div>
                 </li>
+                <!-- User List -->
+                <li class="nav-item" [ngClass]="currentPage == '/users'? 'active' : ''">
+                    <a class="nav-link text-truncate" style="padding-left: 15px;" (click)="navigateTo('users')">
+                        <svg height="40px" viewBox="0 0 384 384" width="40px" fill="#7e7f86" xmlns="http://www.w3.org/2000/svg"><path d="m96 272h192v32h-192zm0 0"/><path d="m192 252.238281 118.414062-172.238281h-236.828124zm0-56.476562-57.585938-83.761719h115.171876zm0 0"/><path d="m0 384h384v-384h-384zm32-352h320v320h-320zm0 0"/></svg>
+                        <span [ngClass]="showMainMenu === true ? '' : 'd-none'">Users</span>
+                    </a>
+                </li>
+                <!-- Order List -->
+                <li class="nav-item" [ngClass]="currentPage == '/orders'? 'active' : ''">
+                    <a class="nav-link text-truncate" style="padding-left: 15px;" (click)="navigateTo('orders')">
+                        <svg height="40px" viewBox="0 0 384 384" width="40px" fill="#7e7f86" xmlns="http://www.w3.org/2000/svg"><path d="m96 272h192v32h-192zm0 0"/><path d="m192 252.238281 118.414062-172.238281h-236.828124zm0-56.476562-57.585938-83.761719h115.171876zm0 0"/><path d="m0 384h384v-384h-384zm32-352h320v320h-320zm0 0"/></svg>
+                        <span [ngClass]="showMainMenu === true ? '' : 'd-none'">Orders</span>
+                    </a>
+                </li>
                 <!-- Sign Out -->
                 <li class="nav-item" (click)="signOut()">
                     <a class="nav-link text-truncate" style="padding-left: 15px;">

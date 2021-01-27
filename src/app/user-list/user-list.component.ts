@@ -5,13 +5,13 @@ import { DataService } from '../services/data.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-brand-list',
-  templateUrl: './brand-list.component.html',
-  styleUrls: ['./brand-list.component.css']
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class BrandListComponent implements OnInit {
+export class UserListComponent implements OnInit {
 
-  public brandList: any = [];
+  public userList: any = [];
   dtOptions: DataTables.Settings = {};
   showloader = false;
 
@@ -28,34 +28,34 @@ export class BrandListComponent implements OnInit {
       processing: true
     };
 
-    // this.getBrandFromApi();
+    this.getUserFromApi();
   }
 
-  async getBrandFromApi(): Promise<void> {
-    const url = 'brands';
+  async getUserFromApi(): Promise<void> {
+    const url = 'users';
     this.showloader = true;
     this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
-      // console.log('getBrandFromApi response: ' , response);
+      // console.log('getUserFromApi response: ' , response);
       this.showloader = false;
-      if (response.brand && response.brand.length > 0) {
-        this.brandList = response.brand;
+      if (response.users && response.users.length > 0) {
+        this.userList = response.users;
       } else {
-        this.brandList = [];
-        this.dataService.showError('No brand found!');
+        this.userList = [];
+        this.dataService.showError('No user found!');
       }
-      // console.log('this.brandList: ', this.brandList);
+      // console.log('this.userList: ', this.userList);
     }, (error) => {
-      console.log('getBrandFromApi error: ' , error);
+      console.log('getUserFromApi error: ' , error);
       this.showloader = false;
-      this.dataService.showError('Unable to load brand list!');
+      this.dataService.showError('Unable to load user list!');
     });
   }
 
-  editBrand(brandDetails): void {
-    this.router.navigate(['/brand-edit/' + brandDetails.id]);
+  editUser(userDetails): void {
+    this.router.navigate(['/user-edit/' + userDetails.id]);
   }
 
-  confirmDelete(brandId, index): void {
+  confirmDelete(userId, index): void {
     Swal.fire({
       title: 'Are you sure want to remove?',
       text: 'You will not be able to recover this record!',
@@ -65,38 +65,38 @@ export class BrandListComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.value) {
-        this.deleteBrand(brandId, index);
+        this.deleteUser(userId, index);
       } else if (result.dismiss === Swal.DismissReason.cancel) { }
     });
   }
 
-  async deleteBrand(brandId, index): Promise<void> {
-    if (brandId !== null) {
-      const url = 'brand/delete/' + brandId;
+  async deleteUser(userId, index): Promise<void> {
+    if (userId !== null) {
+      const url = 'user/delete/' + userId;
       this.showloader = true;
       this.apiService.sendHttpCallWithToken('', url, 'delete').subscribe((response) => {
-        // console.log('deleteBrand response: ' , response);
+        // console.log('deleteuser response: ' , response);
         this.showloader = false;
         if (response.status === 200) {
-          this.brandList.splice(index, 1); // -- Remove the item from brandList array
+          this.userList.splice(index, 1); // -- Remove the item from userList array
           // this.dataService.showSuccess(response.message);
           Swal.fire(
             'Deleted!',
-            'Brand has been deleted',
+            'User has been deleted',
             'success'
           );
         } else if (response.status === 400) {
           this.dataService.showError(response.message);
         } else {
-          this.dataService.showError('Unable to delete brand');
+          this.dataService.showError('Unable to delete user');
         }
       }, (error) => {
         this.showloader = false;
-        console.log('deleteBrand error: ' , error);
+        console.log('deleteUser error: ' , error);
         if (error.message) {
           this.dataService.showError(error.message);
         } else {
-          this.dataService.showError('Unable to delete brand');
+          this.dataService.showError('Unable to delete user');
         }
       });
     } else {
