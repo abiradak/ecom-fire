@@ -25,6 +25,22 @@
                                                         <div class="form-body">
                                                             <!-- Product Name -->
                                                             <div class="form-group">
+                                                                <label for="products">Select Catagories *</label>
+                                                                <ng-multiselect-dropdown
+                                                                    name="catagories"
+                                                                    [placeholder]="'Select Catagories'"
+                                                                    [settings]="dropdownSettings"
+                                                                    [data]="categoryList"
+                                                                    formControlName="category"
+                                                                    (onSelect)="onItemSelect($event)"(onDeSelect)="onItemDeSelect($event)"
+                                                                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)" [ngClass]="{'is-invalid': productForm.controls?.category?.invalid && productForm.controls?.category?.touched }"
+                                                                >
+                                                                </ng-multiselect-dropdown><div *ngIf="productForm.controls?.category?.errors?.required" class="invalid-feedback">
+                                                                    Category  is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- Product Name -->
+                                                            <div class="form-group">
                                                                 <label for="eventInput1">Product Name *</label>
                                                                 <input type="text" id="eventInput1" class="form-control" name="fullname" formControlName="productname" [ngClass]="{'is-invalid': productForm.controls?.productname?.invalid && productForm.controls?.productname?.touched }">
                                                                 <div *ngIf="productForm.controls?.productname?.errors?.required" class="invalid-feedback">

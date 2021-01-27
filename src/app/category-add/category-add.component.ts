@@ -62,7 +62,7 @@ export class CategoryAddComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       categoryname: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(2), Validators.pattern(this.nameValidationRegex)]),
       categorydesc: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      products: new FormControl(null, [Validators.required]),
+      // products: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -77,7 +77,7 @@ export class CategoryAddComponent implements OnInit {
       allowSearchFilter: true
     };
 
-    this.getProductFromApi();
+    // this.getProductFromApi();
   }
 
   onItemSelect(item: any): void  {
@@ -191,17 +191,11 @@ export class CategoryAddComponent implements OnInit {
 
   async submitCategory(): Promise<void> {
     if (this.categoryForm.valid && this.cardImageBase64 !== null) {
-      if (this.selectedItems.length > 0) {
-        const products = [];
-        this.selectedItems.forEach(element => {
-          products.push(element.id);
-        });
-        const url = 'category/add';
+      const url = 'category/add';
         const payload = {
           name: this.categoryForm.value.categoryname,
           image: this.cardImageBase64,
           description: this.categoryForm.value.categorydesc,
-          products
         };
         // console.log('submitCategory payload: ', payload);
         this.showloader = true;
@@ -224,9 +218,6 @@ export class CategoryAddComponent implements OnInit {
             this.dataService.showError('Unable to add category');
           }
         });
-      } else {
-        this.dataService.showError('Please select a product'); // --- Display error message
-      }
     } else {
       this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.categoryForm.controls).forEach((field) => {
@@ -236,6 +227,7 @@ export class CategoryAddComponent implements OnInit {
       });
     }
   }
+  
 
   resetForm(element): void {
     this.categoryForm.patchValue({

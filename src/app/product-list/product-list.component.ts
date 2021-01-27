@@ -40,8 +40,8 @@ export class ProductListComponent implements OnInit {
     this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
       // console.log('getProductFromApi response: ' , response);
       this.showloader = false;
-      if (response.product && response.product.length > 0) {
-        this.productList = response.product;
+      if (response.products && response.products.length > 0) {
+        this.productList = response.products;
       } else {
         this.productList = [];
         this.dataService.showError('No product found!');

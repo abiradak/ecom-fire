@@ -4,6 +4,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
 import * as _ from 'lodash';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-product-add',
@@ -48,6 +49,9 @@ export class ProductAddComponent implements OnInit {
   isImageSaved = false;
   cardImageBase64: string = null;
   editorError: string;
+  categoryList =  [];
+  selectedItems = [];
+  dropdownSettings: IDropdownSettings;
 
   constructor(
     private fb: FormBuilder,
@@ -63,10 +67,92 @@ export class ProductAddComponent implements OnInit {
       productdesc: new FormControl('', [Validators.required, Validators.minLength(2)]),
       productprice: new FormControl('', [Validators.required, Validators.pattern(this.priceValidationRegex)]),
       productvolume: new FormControl('', [Validators.required]),
+      category: new FormControl('', [Validators.required])
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      allowSearchFilter: true
+    };
+    this.getCategoryFromApi();
+  }
+
+  // async getCategoryFromApi(): Promise<void> {
+  //   const url = 'catagories';
+  //   this.showloader = true;
+  //   this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
+  //     // console.log('getCategoryFromApi response: ' , response);
+  //     this.showloader = false;
+  //     if (response.category && response.category.length > 0) {
+  //       this.categoryList = response.category;
+  //     } else {
+  //       this.categoryList = [];
+  //       this.dataService.showError('No category found!');
+  //     }
+  //     // console.log('this.categoryList: ', this.categoryList);
+  //   }, (error) => {
+  //     console.log('getCategoryFromApi error: ' , error);
+  //     this.showloader = false;
+  //     this.dataService.showError('Unable to load category list!');
+  //   });
+  // }
+
+  async getCategoryFromApi(): Promise<void> {
+    const url = 'catagories';
+    this.showloader = true;
+    this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
+      console.log('getProductFromApi response: ' , response);
+      this.showloader = false;
+      this.categoryList = [];
+      if (response.category && response.category.length > 0) {
+        response.category.forEach(element => {
+          this.categoryList.push({
+            id: element.id,
+            name: element.data.name
+          });
+        });
+      } else {
+        this.dataService.showError('No category found!');
+      }
+      // console.log('this.productList: ', this.productList);
+    }, (error) => {
+      console.log('getProductFromApi error: ' , error);
+      this.showloader = false;
+      this.dataService.showError('Unable to load category list!');
+    });
+  }
+
+
+  onItemSelect(item: any): void  {
+    // console.log('onItemSelect: ', item);
+    this.selectedItems.push(item);
+    // console.log('onItemSelect this.selectedItems: ', this.selectedItems);
+  }
+
+  onItemDeSelect(item: any): void  {
+    // console.log('onItemDeSelect: ', item);
+    this.selectedItems = this.selectedItems.filter(data => data.id !== item.id);
+    // console.log('onItemDeSelect this.selectedItems: ', this.selectedItems);
+  }
+
+  onSelectAll(items: any): void  {
+    // console.log('onSelectAll: ', items);
+    this.selectedItems = items;
+    // console.log('onSelectAll this.selectedItems: ', this.selectedItems);
+  }
+
+  onDeSelectAll(items: any): void  {
+    // console.log('onDeSelectAll: ', items);
+    this.selectedItems = [];
+    // console.log('onDeSelectAll this.selectedItems: ', this.selectedItems);
+  }
+
 
   fileChangeEvent(fileInput: any): boolean {
     this.imageError = null;
@@ -130,36 +216,43 @@ export class ProductAddComponent implements OnInit {
 
   async submitProduct(): Promise<void> {
     if (this.productForm.valid && this.cardImageBase64 !== null) {
-      const url = 'product/add';
-
-      const payload = {
-        name: this.productForm.value.productname,
-        price: this.productForm.value.productprice,
-        volume: this.productForm.value.productvolume,
-        image: this.cardImageBase64,
-        description: this.productForm.value.productdesc,
-      };
-      // console.log('submitProduct payload: ', payload);
-      this.showloader = true;
-      this.apiService.sendHttpCallWithToken(payload, url, 'post').subscribe((response) => {
-        console.log('submitProduct response: ' , response);
-        this.showloader = false;
-        if (response.status === 200) {
-          this.dataService.showSuccess(response.message);
-        } else if (response.status === 400) {
-          this.dataService.showError(response.message);
-        } else {
-          this.dataService.showError('Unable to add product');
-        }
-      }, (error) => {
-        console.log('submitProduct error: ' , error);
-        this.showloader = false;
-        if (error.message) {
-          this.dataService.showError(error.message);
-        } else {
-          this.dataService.showError('Unable to add product');
-        }
-      });
+      if (this.selectedItems.length > 0) {
+        const categories = [];
+        this.selectedItems.forEach(element => {
+          categories.push(element.id);
+        });
+        const url = 'product/add';
+        const payload = {
+          name: this.productForm.value.productname,
+          price: this.productForm.value.productprice,
+          volume: this.productForm.value.productvolume,
+          image: this.cardImageBase64,
+          description: this.productForm.value.productdesc,
+          category: categories
+        };
+        this.showloader = true;
+        this.apiService.sendHttpCallWithToken(payload, url, 'post').subscribe((response) => {
+          console.log('submitProduct response: ' , response);
+          this.showloader = false;
+          if (response.status === 200) {
+            this.dataService.showSuccess(response.message);
+          } else if (response.status === 400) {
+            this.dataService.showError(response.message);
+          } else {
+            this.dataService.showError('Unable to add product');
+          }
+        }, (error) => {
+          console.log('submitCategory error: ' , error);
+          this.showloader = false;
+          if (error.message) {
+            this.dataService.showError(error.message);
+          } else {
+            this.dataService.showError('Unable to add product');
+          }
+        });
+      } else {
+        this.dataService.showError('Please select a category'); // --- Display error message
+      }
     } else {
       this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.productForm.controls).forEach((field) => {
@@ -169,7 +262,6 @@ export class ProductAddComponent implements OnInit {
       });
     }
   }
-
   resetForm(element): void {
     this.productForm.patchValue({
       productname: '',
