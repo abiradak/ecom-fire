@@ -40,22 +40,6 @@
                                                                     Category name will include only characters.
                                                                 </div>
                                                             </div>
-                                                            <!-- Category Products -->
-                                                            <div class="form-group">
-                                                                <label for="products">Select Products *</label>
-                                                                <ng-multiselect-dropdown
-                                                                    name="products"
-                                                                    [placeholder]="'Select Products'"
-                                                                    [settings]="dropdownSettings"
-                                                                    [data]="productList"
-                                                                    formControlName="products"
-                                                                    (onSelect)="onItemSelect($event)"(onDeSelect)="onItemDeSelect($event)"
-                                                                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)" [ngClass]="{'is-invalid': categoryForm.controls?.products?.invalid && categoryForm.controls?.products?.touched }"
-                                                                >
-                                                                </ng-multiselect-dropdown><div *ngIf="categoryForm.controls?.products?.errors?.required" class="invalid-feedback">
-                                                                    Category products is required.
-                                                                </div>
-                                                            </div>
                                                             <!-- Category Image -->
                                                             <div class="row">
                                                                 <div class="col-md-6">

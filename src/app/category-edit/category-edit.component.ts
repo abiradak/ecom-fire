@@ -5,7 +5,6 @@ import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
 import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-category-edit',
@@ -54,10 +53,6 @@ export class CategoryEditComponent implements OnInit {
   isImageChanged = false;
   cardImageBase64: string = null;
   editorError: string;
-  productList = [];
-  selectedItems = [];
-  selectedItemsOld = [];
-  dropdownSettings: IDropdownSettings;
 
   constructor(
     private router: Router,
@@ -74,7 +69,6 @@ export class CategoryEditComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       categoryname: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(2), Validators.pattern(this.nameValidationRegex)]),
       categorydesc: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      products: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -85,16 +79,6 @@ export class CategoryEditComponent implements OnInit {
       this.dataService.showError('Category details not found.'); // --- Display error message
       this.router.navigate(['/category-list']);
     } else {
-      this.dropdownSettings = {
-        singleSelection: false,
-        idField: 'id',
-        textField: 'name',
-        selectAllText: 'Select All',
-        unSelectAllText: 'UnSelect All',
-        // itemsShowLimit: 3,
-        allowSearchFilter: true
-      };
-
       this.getCategory();
     }
   }
@@ -105,20 +89,17 @@ export class CategoryEditComponent implements OnInit {
     this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
       // console.log('getCategory response: ' , response);
       this.showloader = false;
-      this.categoryData = response;
-      this.populateCategoryData();
-      this.getProductFromApi();
-      // if (response.category) {
-      //   this.categoryData = response.category;
-      //   this.populateCategoryData();
-      // } else {
-      //   if (response.message) {
-      //     this.dataService.showError(response.message);
-      //   } else {
-      //     this.dataService.showError('No category found!');
-      //   }
-      //   // this.router.navigate(['/category-list']);
-      // }
+      if (response.category.data) {
+        this.categoryData = response.category.data;
+        this.populateCategoryData();
+      } else {
+        if (response.message) {
+          this.dataService.showError(response.message);
+        } else {
+          this.dataService.showError('No category found!');
+        }
+        // this.router.navigate(['/category-list']);
+      }
       // console.log('this.categoryData: ', this.categoryData);
     }, (error) => {
       console.log('getCategory error: ' , error);
@@ -140,74 +121,6 @@ export class CategoryEditComponent implements OnInit {
     this.categoryForm.patchValue({
       categoryname: this.categoryData.name,
       categorydesc: this.categoryData.description,
-    });
-  }
-
-  onItemSelect(item: any): void  {
-    // console.log('onItemSelect: ', item);
-    this.selectedItems.push(item);
-    // console.log('onItemSelect this.selectedItems: ', this.selectedItems);
-  }
-
-  onItemDeSelect(item: any): void  {
-    // console.log('onItemDeSelect: ', item);
-    this.selectedItems = this.selectedItems.filter(data => data.id !== item.id);
-    // console.log('onItemDeSelect this.selectedItems: ', this.selectedItems);
-  }
-
-  onSelectAll(items: any): void  {
-    // console.log('onSelectAll: ', items);
-    this.selectedItems = items;
-    // console.log('onSelectAll this.selectedItems: ', this.selectedItems);
-  }
-
-  onDeSelectAll(items: any): void  {
-    // console.log('onDeSelectAll: ', items);
-    this.selectedItems = [];
-    // console.log('onDeSelectAll this.selectedItems: ', this.selectedItems);
-  }
-
-  async getProductFromApi(): Promise<void> {
-    const url = 'product';
-    this.showloader = true;
-    this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
-      console.log('getProductFromApi response: ' , response);
-      this.showloader = false;
-      this.productList = [];
-      this.selectedItems = [];
-      const categoryProducts = JSON.parse(this.categoryData.products);
-      // console.log('categoryProducts: ', categoryProducts);
-      if (response.product && response.product.length > 0) {
-        response.product.forEach(element => {
-          this.productList.push({
-            id: element.id,
-            name: element.data.name
-          });
-          if (categoryProducts.length > 0) {
-            categoryProducts.forEach(element1 => {
-              if (element1 === element.id) {
-                this.selectedItems.push({
-                  id: element.id,
-                  name: element.data.name
-                });
-              }
-            });
-          }
-        });
-        if (this.selectedItems.length > 0) {
-          this.selectedItemsOld = this.selectedItems;
-          this.categoryForm.patchValue({
-            products: this.selectedItems,
-          });
-        }
-      } else {
-        this.dataService.showError('No product found!');
-      }
-      // console.log('this.productList: ', this.productList);
-    }, (error) => {
-      console.log('getProductFromApi error: ' , error);
-      this.showloader = false;
-      this.dataService.showError('Unable to load product list!');
     });
   }
 
@@ -283,51 +196,41 @@ export class CategoryEditComponent implements OnInit {
 
   async submitCategory(image): Promise<void> {
     if (this.categoryForm.valid) {
-      if (this.selectedItems.length > 0) {
-        const products = [];
-        this.selectedItems.forEach(element => {
-          products.push(element.id);
-        });
-        const url = 'category/edit/' + this.categoryId;
-        const payload = {
-          name: this.categoryForm.value.categoryname,
-          image: this.cardImageBase64,
-          description: this.categoryForm.value.categorydesc,
-          products
-        };
-        if (this.cardImageBase64 === null) {
-          delete payload.image;
-        }
-        this.showloader = true;
-        // console.log('submitCategory payload: ', payload);
-        this.apiService.sendHttpCallWithToken(payload, url, 'patch').subscribe((response) => {
-          // console.log('submitCategory response: ' , response);
-          this.showloader = false;
-          if (response.status === 200) {
-            this.dataService.showSuccess(response.message);
-            this.categoryData.image = this.cardImageBase64;
-            this.categoryData.name = this.categoryForm.value.categoryname;
-            this.categoryData.description = this.categoryForm.value.categorydesc;
-            this.selectedItemsOld = this.selectedItems;
-            this.isImageChanged = false;
-            image.value = '';
-          } else if (response.status === 400) {
-            this.dataService.showError(response.message);
-          } else {
-            this.dataService.showError('Unable to edit category');
-          }
-        }, (error) => {
-          console.log('submitCategory error: ' , error);
-          this.showloader = false;
-          if (error.message) {
-            this.dataService.showError(error.message);
-          } else {
-            this.dataService.showError('Unable to edit category');
-          }
-        });
-      } else {
-        this.dataService.showError('Please select a product'); // --- Display error message
+      const url = 'category/edit/' + this.categoryId;
+      const payload = {
+        name: this.categoryForm.value.categoryname,
+        image: this.cardImageBase64,
+        description: this.categoryForm.value.categorydesc,
+      };
+      if (this.cardImageBase64 === null) {
+        delete payload.image;
       }
+      this.showloader = true;
+      // console.log('submitCategory payload: ', payload);
+      this.apiService.sendHttpCallWithToken(payload, url, 'patch').subscribe((response) => {
+        // console.log('submitCategory response: ' , response);
+        this.showloader = false;
+        if (response.status === 200) {
+          this.dataService.showSuccess(response.message);
+          this.categoryData.image = this.cardImageBase64;
+          this.categoryData.name = this.categoryForm.value.categoryname;
+          this.categoryData.description = this.categoryForm.value.categorydesc;
+          this.isImageChanged = false;
+          image.value = '';
+        } else if (response.status === 400) {
+          this.dataService.showError(response.message);
+        } else {
+          this.dataService.showError('Unable to edit category');
+        }
+      }, (error) => {
+        console.log('submitCategory error: ' , error);
+        this.showloader = false;
+        if (error.message) {
+          this.dataService.showError(error.message);
+        } else {
+          this.dataService.showError('Unable to edit category');
+        }
+      });
     } else {
       this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.categoryForm.controls).forEach((field) => {
@@ -339,11 +242,9 @@ export class CategoryEditComponent implements OnInit {
   }
 
   resetForm(element): void {
-    this.selectedItems = this.selectedItemsOld;
     this.categoryForm.patchValue({
       categoryname: this.categoryData.name,
       categorydesc: this.categoryData.description,
-      products: this.selectedItems,
     });
 
     if (this.isImageChanged) {

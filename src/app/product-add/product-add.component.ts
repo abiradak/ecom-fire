@@ -51,7 +51,9 @@ export class ProductAddComponent implements OnInit {
   cardImageBase64: string = null;
   editorError: string;
   categoryList =  [];
-  selectedItems = [];
+  selectedCategories = [];
+  brandsList =  [];
+  selectedBrands = [];
   dropdownSettings: IDropdownSettings;
 
   constructor(
@@ -69,7 +71,8 @@ export class ProductAddComponent implements OnInit {
       productdesc: new FormControl('', [Validators.required, Validators.minLength(2)]),
       productprice: new FormControl('', [Validators.required, Validators.pattern(this.priceValidationRegex)]),
       productvolume: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required])
+      category: new FormControl('', [Validators.required]),
+      brands: new FormControl('')
     });
   }
 
@@ -119,6 +122,7 @@ export class ProductAddComponent implements OnInit {
             name: element.data.name
           });
         });
+        this.getBrandsFromApi();
       } else {
         this.dataService.showError('No category found!');
       }
@@ -130,28 +134,77 @@ export class ProductAddComponent implements OnInit {
     });
   }
 
+  async getBrandsFromApi(): Promise<void> {
+    const url = 'brands';
+    this.showloader = true;
+    this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
+      console.log('getBrandsFromApi response: ' , response);
+      this.showloader = false;
+      this.brandsList = [];
+      if (response.brand && response.brand.length > 0) {
+        response.brand.forEach(element => {
+          this.brandsList.push({
+            id: element.id,
+            name: element.data.name
+          });
+        });
+      } else {
+        this.dataService.showError('No brand found!');
+      }
+      // console.log('this.brandsList: ', this.brandsList);
+    }, (error) => {
+      console.log('getBrandsFromApi error: ' , error);
+      this.showloader = false;
+      this.dataService.showError('Unable to load brand list!');
+    });
+  }
+
   onItemSelect(item: any): void  {
     // console.log('onItemSelect: ', item);
-    this.selectedItems.push(item);
-    // console.log('onItemSelect this.selectedItems: ', this.selectedItems);
+    this.selectedCategories.push(item);
+    // console.log('onItemSelect this.selectedCategories: ', this.selectedCategories);
   }
 
   onItemDeSelect(item: any): void  {
     // console.log('onItemDeSelect: ', item);
-    this.selectedItems = this.selectedItems.filter(data => data.id !== item.id);
-    // console.log('onItemDeSelect this.selectedItems: ', this.selectedItems);
+    this.selectedCategories = this.selectedCategories.filter(data => data.id !== item.id);
+    // console.log('onItemDeSelect this.selectedCategories: ', this.selectedCategories);
   }
 
   onSelectAll(items: any): void  {
     // console.log('onSelectAll: ', items);
-    this.selectedItems = items;
-    // console.log('onSelectAll this.selectedItems: ', this.selectedItems);
+    this.selectedCategories = items;
+    // console.log('onSelectAll this.selectedCategories: ', this.selectedCategories);
   }
 
   onDeSelectAll(items: any): void  {
     // console.log('onDeSelectAll: ', items);
-    this.selectedItems = [];
-    // console.log('onDeSelectAll this.selectedItems: ', this.selectedItems);
+    this.selectedCategories = [];
+    // console.log('onDeSelectAll this.selectedCategories: ', this.selectedCategories);
+  }
+
+  onItemSelect1(item: any): void  {
+    // console.log('onItemSelect: ', item);
+    this.selectedBrands.push(item);
+    // console.log('onItemSelect this.selectedBrands: ', this.selectedBrands);
+  }
+
+  onItemDeSelect1(item: any): void  {
+    // console.log('onItemDeSelect: ', item);
+    this.selectedBrands = this.selectedBrands.filter(data => data.id !== item.id);
+    // console.log('onItemDeSelect this.selectedBrands: ', this.selectedBrands);
+  }
+
+  onSelectAll1(items: any): void  {
+    // console.log('onSelectAll: ', items);
+    this.selectedBrands = items;
+    // console.log('onSelectAll this.selectedBrands: ', this.selectedBrands);
+  }
+
+  onDeSelectAll1(items: any): void  {
+    // console.log('onDeSelectAll: ', items);
+    this.selectedBrands = [];
+    // console.log('onDeSelectAll this.selectedBrands: ', this.selectedBrands);
   }
 
   fileChangeEvent(fileInput: any): boolean {
@@ -216,11 +269,17 @@ export class ProductAddComponent implements OnInit {
 
   async submitProduct(): Promise<void> {
     if (this.productForm.valid && this.cardImageBase64 !== null) {
-      if (this.selectedItems.length > 0) {
+      if (this.selectedCategories.length > 0) {
         const categories = [];
-        this.selectedItems.forEach(element => {
+        this.selectedCategories.forEach(element => {
           categories.push(element.id);
         });
+        const brands = [];
+        if (this.selectedBrands.length > 0) {
+          this.selectedBrands.forEach(element => {
+            brands.push(element.id);
+          });
+        }
         const url = 'product/add';
         const payload = {
           name: this.productForm.value.productname,
@@ -228,7 +287,8 @@ export class ProductAddComponent implements OnInit {
           volume: this.productForm.value.productvolume,
           image: this.cardImageBase64,
           description: this.productForm.value.productdesc,
-          category: categories
+          category: categories,
+          brand: brands
         };
         this.showloader = true;
         this.apiService.sendHttpCallWithToken(payload, url, 'post').subscribe((response) => {

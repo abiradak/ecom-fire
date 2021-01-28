@@ -13,16 +13,16 @@
                             <tr>
                                 <th style="width: 20%">Name</th>
                                 <th style="width: 45%">Description</th>
-                                <th style="width: 10%">Total Products</th>
+                                <!-- <th style="width: 10%">Total Products</th> -->
                                 <th style="width: 10%">Image</th>
-                                <th style="width: 15%"></th>
+                                <th style="width: 25%"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of brandList; let i = index" [ngStyle]="{'display':item.data.isDeleted === 1 ? 'none' : '' }">
                                 <td>{{item.data.name}}</td>
                                 <td [innerHtml]="(item.data.description.length > 200)? (item.data.description | slice:0:200)+'...' : (item.data.description)"></td>
-                                <td>{{item.products.length}}</td>
+                                <!-- <td>{{item.products.length}}</td> -->
                                 <td>
                                     <ng-container *ngIf=item.data.image>
                                         <img style="width: 100px;" [src]="item.data.image" />

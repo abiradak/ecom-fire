@@ -28,7 +28,7 @@ export class BrandListComponent implements OnInit {
       processing: true
     };
 
-    // this.getBrandFromApi();
+    this.getBrandFromApi();
   }
 
   async getBrandFromApi(): Promise<void> {

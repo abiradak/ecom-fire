@@ -5,6 +5,7 @@ import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
 import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-product-edit',
@@ -53,6 +54,13 @@ export class ProductEditComponent implements OnInit {
   isImageChanged = false;
   cardImageBase64: string = null;
   editorError: string;
+  categoryList =  [];
+  selectedCategories = [];
+  selectedCategoriesOld = [];
+  brandsList =  [];
+  selectedBrands = [];
+  selectedBrandsOld = [];
+  dropdownSettings: IDropdownSettings;
 
   constructor(
     private router: Router,
@@ -71,6 +79,8 @@ export class ProductEditComponent implements OnInit {
       productdesc: new FormControl('', [Validators.required, Validators.minLength(2)]),
       productprice: new FormControl('', [Validators.required, Validators.pattern(this.priceValidationRegex)]),
       productvolume: new FormControl('', [Validators.required]),
+      category: new FormControl('', [Validators.required]),
+      brands: new FormControl('')
     });
   }
 
@@ -81,8 +91,118 @@ export class ProductEditComponent implements OnInit {
       this.dataService.showError('Product details not found.'); // --- Display error message
       this.router.navigate(['/product-list']);
     } else {
-      this.getProduct();
+      this.dropdownSettings = {
+        singleSelection: false,
+        idField: 'id',
+        textField: 'name',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        allowSearchFilter: true
+      };
+      this.getCategoryFromApi();
     }
+  }
+
+  async getCategoryFromApi(): Promise<void> {
+    const url = 'catagories';
+    this.showloader = true;
+    this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
+      console.log('getProductFromApi response: ' , response);
+      this.showloader = false;
+      this.categoryList = [];
+      if (response.category && response.category.length > 0) {
+        response.category.forEach(element => {
+          this.categoryList.push({
+            id: element.id,
+            name: element.data.name
+          });
+        });
+      } else {
+        this.dataService.showError('No category found!');
+      }
+      this.getBrandsFromApi();
+      // console.log('this.productList: ', this.productList);
+    }, (error) => {
+      console.log('getProductFromApi error: ' , error);
+      this.getBrandsFromApi();
+      this.showloader = false;
+      this.dataService.showError('Unable to load category list!');
+    });
+  }
+
+  async getBrandsFromApi(): Promise<void> {
+    const url = 'brands';
+    this.showloader = true;
+    this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
+      console.log('getBrandsFromApi response: ' , response);
+      this.showloader = false;
+      this.brandsList = [];
+      if (response.brand && response.brand.length > 0) {
+        response.brand.forEach(element => {
+          this.brandsList.push({
+            id: element.id,
+            name: element.data.name
+          });
+        });
+      } else {
+        this.dataService.showError('No brand found!');
+      }
+      this.getProduct();
+      // console.log('this.brandsList: ', this.brandsList);
+    }, (error) => {
+      console.log('getBrandsFromApi error: ' , error);
+      this.getProduct();
+      this.showloader = false;
+      this.dataService.showError('Unable to load brand list!');
+    });
+  }
+
+  onItemSelect(item: any): void  {
+    // console.log('onItemSelect: ', item);
+    this.selectedCategories.push(item);
+    // console.log('onItemSelect this.selectedCategories: ', this.selectedCategories);
+  }
+
+  onItemDeSelect(item: any): void  {
+    // console.log('onItemDeSelect: ', item);
+    this.selectedCategories = this.selectedCategories.filter(data => data.id !== item.id);
+    // console.log('onItemDeSelect this.selectedCategories: ', this.selectedCategories);
+  }
+
+  onSelectAll(items: any): void  {
+    // console.log('onSelectAll: ', items);
+    this.selectedCategories = items;
+    // console.log('onSelectAll this.selectedCategories: ', this.selectedCategories);
+  }
+
+  onDeSelectAll(items: any): void  {
+    // console.log('onDeSelectAll: ', items);
+    this.selectedCategories = [];
+    // console.log('onDeSelectAll this.selectedCategories: ', this.selectedCategories);
+  }
+
+  onItemSelect1(item: any): void  {
+    // console.log('onItemSelect: ', item);
+    this.selectedBrands.push(item);
+    // console.log('onItemSelect this.selectedBrands: ', this.selectedBrands);
+  }
+
+  onItemDeSelect1(item: any): void  {
+    // console.log('onItemDeSelect: ', item);
+    this.selectedBrands = this.selectedBrands.filter(data => data.id !== item.id);
+    // console.log('onItemDeSelect this.selectedBrands: ', this.selectedBrands);
+  }
+
+  onSelectAll1(items: any): void  {
+    // console.log('onSelectAll: ', items);
+    this.selectedBrands = items;
+    // console.log('onSelectAll this.selectedBrands: ', this.selectedBrands);
+  }
+
+  onDeSelectAll1(items: any): void  {
+    // console.log('onDeSelectAll: ', items);
+    this.selectedBrands = [];
+    // console.log('onDeSelectAll this.selectedBrands: ', this.selectedBrands);
   }
 
   async getProduct(): Promise<void> {
@@ -126,6 +246,32 @@ export class ProductEditComponent implements OnInit {
       productvolume: this.productData.data.volume,
       productdesc: this.productData.data.description,
     });
+    this.selectedCategories = [];
+    if (this.productData.category.length > 0) {
+      this.productData.category.forEach(element => {
+        this.selectedCategories.push({
+          id: element.id,
+          name: element.name
+        });
+      });
+      this.selectedCategoriesOld = this.selectedCategories;
+      this.productForm.patchValue({
+        category: this.selectedCategories,
+      });
+    }
+    this.selectedBrands = [];
+    if (this.productData.brand.length > 0) {
+      this.productData.brand.forEach(element => {
+        this.selectedBrands.push({
+          id: element.id,
+          name: element.name
+        });
+      });
+      this.selectedBrandsOld = this.selectedBrands;
+      this.productForm.patchValue({
+        brands: this.selectedBrands,
+      });
+    }
   }
 
   fileChangeEvent(fileInput: any): boolean {
@@ -200,45 +346,63 @@ export class ProductEditComponent implements OnInit {
 
   async submitProduct(element): Promise<void> {
     if (this.productForm.valid && this.cardImageBase64 !== null) {
-      const url = 'product/edit/' + this.productId;
-      const payload = {
-        name: this.productForm.value.productname,
-        price: this.productForm.value.productprice,
-        volume: this.productForm.value.productvolume,
-        image: this.cardImageBase64,
-        description: this.productForm.value.productdesc,
-      };
-      if (this.cardImageBase64 === null) {
-        delete payload.image;
+      if (this.selectedCategories.length > 0) {
+        const categories = [];
+        this.selectedCategories.forEach(element1 => {
+          categories.push(element1.id);
+        });
+        const brands = [];
+        if (this.selectedBrands.length > 0) {
+          this.selectedBrands.forEach(element1 => {
+            brands.push(element1.id);
+          });
+        }
+        const url = 'product/edit/' + this.productId;
+        const payload = {
+          name: this.productForm.value.productname,
+          price: this.productForm.value.productprice,
+          volume: this.productForm.value.productvolume,
+          image: this.cardImageBase64,
+          description: this.productForm.value.productdesc,
+          category: categories,
+          brand: brands
+        };
+        if (this.cardImageBase64 === null) {
+          delete payload.image;
+        }
+        this.showloader = true;
+        // console.log('submitProduct payload: ', payload);
+        this.apiService.sendHttpCallWithToken(payload, url, 'patch').subscribe((response) => {
+          // console.log('submitProduct response: ' , response);
+          this.showloader = false;
+          if (response.status === 200) {
+            this.dataService.showSuccess(response.message);
+            this.productData.data.image = this.cardImageBase64;
+            this.productData.data.name = this.productForm.value.productname;
+            this.productData.data.description = this.productForm.value.productdesc;
+            this.productData.data.price = this.productForm.value.productprice;
+            this.productData.data.volume = this.productForm.value.productvolume;
+            this.selectedCategoriesOld = this.selectedCategories;
+            this.selectedBrandsOld = this.selectedBrands;
+            this.isImageChanged = false;
+            element.value = '';
+          } else if (response.status === 400) {
+            this.dataService.showError(response.message);
+          } else {
+            this.dataService.showError('Unable to edit product');
+          }
+        }, (error) => {
+          console.log('submitProduct error: ' , error);
+          this.showloader = false;
+          if (error.message) {
+            this.dataService.showError(error.message);
+          } else {
+            this.dataService.showError('Unable to edit product');
+          }
+        });
+      } else {
+        this.dataService.showError('Please select a category'); // --- Display error message
       }
-      this.showloader = true;
-      // console.log('submitProduct payload: ', payload);
-      this.apiService.sendHttpCallWithToken(payload, url, 'patch').subscribe((response) => {
-        // console.log('submitProduct response: ' , response);
-        this.showloader = false;
-        if (response.status === 200) {
-          this.dataService.showSuccess(response.message);
-          this.productData.data.image = this.cardImageBase64;
-          this.productData.data.name = this.productForm.value.productname;
-          this.productData.data.description = this.productForm.value.productdesc;
-          this.productData.data.price = this.productForm.value.productprice;
-          this.productData.data.volume = this.productForm.value.productvolume;
-          this.isImageChanged = false;
-          element.value = '';
-        } else if (response.status === 400) {
-          this.dataService.showError(response.message);
-        } else {
-          this.dataService.showError('Unable to edit product');
-        }
-      }, (error) => {
-        console.log('submitProduct error: ' , error);
-        this.showloader = false;
-        if (error.message) {
-          this.dataService.showError(error.message);
-        } else {
-          this.dataService.showError('Unable to edit product');
-        }
-      });
     } else {
       this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.productForm.controls).forEach((field) => {
@@ -250,11 +414,15 @@ export class ProductEditComponent implements OnInit {
   }
 
   resetForm(element): void {
+    this.selectedCategories = this.selectedCategoriesOld;
+    this.selectedBrands = this.selectedBrandsOld;
     this.productForm.patchValue({
       productname: this.productData.data.name,
       productprice: this.productData.data.price,
       productvolume: this.productData.data.volume,
       productdesc: this.productData.data.description,
+      category: this.selectedCategories,
+      brands: this.selectedBrands,
     });
 
     if (this.isImageChanged) {

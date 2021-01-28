@@ -5,7 +5,6 @@ import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
 import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-brand-edit',
@@ -53,10 +52,6 @@ export class BrandEditComponent implements OnInit {
   isImageChanged = false;
   cardImageBase64: string = null;
   editorError: string;
-  productList = [];
-  selectedItems = [];
-  selectedItemsOld = [];
-  dropdownSettings: IDropdownSettings;
 
   constructor(
     private router: Router,
@@ -72,7 +67,6 @@ export class BrandEditComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       brandname: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(2), Validators.pattern(this.nameValidationRegex)]),
       branddesc: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      products: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -83,16 +77,6 @@ export class BrandEditComponent implements OnInit {
       this.dataService.showError('Brand details not found.'); // --- Display error message
       this.router.navigate(['/brand-list']);
     } else {
-      this.dropdownSettings = {
-        singleSelection: false,
-        idField: 'id',
-        textField: 'name',
-        selectAllText: 'Select All',
-        unSelectAllText: 'UnSelect All',
-        // itemsShowLimit: 3,
-        allowSearchFilter: true
-      };
-
       this.getBrand();
     }
   }
@@ -103,20 +87,17 @@ export class BrandEditComponent implements OnInit {
     this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
       // console.log('getBrand response: ' , response);
       this.showloader = false;
-      this.brandData = response;
-      this.populateBrandData();
-      this.getProductFromApi();
-      // if (response.brand) {
-      //   this.brandData = response.brand;
-      //   this.populateBrandData();
-      // } else {
-      //   if (response.message) {
-      //     this.dataService.showError(response.message);
-      //   } else {
-      //     this.dataService.showError('No brand found!');
-      //   }
-      //   // this.router.navigate(['/brand-list']);
-      // }
+      if (response.brand.data) {
+        this.brandData = response.brand.data;
+        this.populateBrandData();
+      } else {
+        if (response.message) {
+          this.dataService.showError(response.message);
+        } else {
+          this.dataService.showError('No brand found!');
+        }
+        // this.router.navigate(['/brand-list']);
+      }
       // console.log('this.brandData: ', this.brandData);
     }, (error) => {
       console.log('getBrand error: ' , error);
@@ -138,74 +119,6 @@ export class BrandEditComponent implements OnInit {
     this.brandForm.patchValue({
       brandname: this.brandData.name,
       branddesc: this.brandData.description,
-    });
-  }
-
-  onItemSelect(item: any): void  {
-    // console.log('onItemSelect: ', item);
-    this.selectedItems.push(item);
-    // console.log('onItemSelect this.selectedItems: ', this.selectedItems);
-  }
-
-  onItemDeSelect(item: any): void  {
-    // console.log('onItemDeSelect: ', item);
-    this.selectedItems = this.selectedItems.filter(data => data.id !== item.id);
-    // console.log('onItemDeSelect this.selectedItems: ', this.selectedItems);
-  }
-
-  onSelectAll(items: any): void  {
-    // console.log('onSelectAll: ', items);
-    this.selectedItems = items;
-    // console.log('onSelectAll this.selectedItems: ', this.selectedItems);
-  }
-
-  onDeSelectAll(items: any): void  {
-    // console.log('onDeSelectAll: ', items);
-    this.selectedItems = [];
-    // console.log('onDeSelectAll this.selectedItems: ', this.selectedItems);
-  }
-
-  async getProductFromApi(): Promise<void> {
-    const url = 'product';
-    this.showloader = true;
-    this.apiService.sendHttpCallWithToken('', url, 'get').subscribe((response) => {
-      console.log('getProductFromApi response: ' , response);
-      this.showloader = false;
-      this.productList = [];
-      this.selectedItems = [];
-      const brandProducts = JSON.parse(this.brandData.products);
-      // console.log('brandProducts: ', brandProducts);
-      if (response.product && response.product.length > 0) {
-        response.product.forEach(element => {
-          this.productList.push({
-            id: element.id,
-            name: element.data.name
-          });
-          if (brandProducts.length > 0) {
-            brandProducts.forEach(element1 => {
-              if (element1 === element.id) {
-                this.selectedItems.push({
-                  id: element.id,
-                  name: element.data.name
-                });
-              }
-            });
-          }
-        });
-        if (this.selectedItems.length > 0) {
-          this.selectedItemsOld = this.selectedItems;
-          this.brandForm.patchValue({
-            products: this.selectedItems,
-          });
-        }
-      } else {
-        this.dataService.showError('No product found!');
-      }
-      // console.log('this.productList: ', this.productList);
-    }, (error) => {
-      console.log('getProductFromApi error: ' , error);
-      this.showloader = false;
-      this.dataService.showError('Unable to load product list!');
     });
   }
 
@@ -281,51 +194,41 @@ export class BrandEditComponent implements OnInit {
 
   async submitBrand(image): Promise<void> {
     if (this.brandForm.valid) {
-      if (this.selectedItems.length > 0) {
-        const products = [];
-        this.selectedItems.forEach(element => {
-          products.push(element.id);
-        });
-        const url = 'brand/edit/' + this.brandId;
-        const payload = {
-          name: this.brandForm.value.brandname,
-          image: this.cardImageBase64,
-          description: this.brandForm.value.branddesc,
-          products
-        };
-        if (this.cardImageBase64 === null) {
-          delete payload.image;
-        }
-        this.showloader = true;
-        // console.log('submitBrand payload: ', payload);
-        this.apiService.sendHttpCallWithToken(payload, url, 'patch').subscribe((response) => {
-          // console.log('submitBrand response: ' , response);
-          this.showloader = false;
-          if (response.status === 200) {
-            this.dataService.showSuccess(response.message);
-            this.brandData.image = this.cardImageBase64;
-            this.brandData.name = this.brandForm.value.brandname;
-            this.brandData.description = this.brandForm.value.branddesc;
-            this.selectedItemsOld = this.selectedItems;
-            this.isImageChanged = false;
-            image.value = '';
-          } else if (response.status === 400) {
-            this.dataService.showError(response.message);
-          } else {
-            this.dataService.showError('Unable to edit brand');
-          }
-        }, (error) => {
-          console.log('submitBrand error: ' , error);
-          this.showloader = false;
-          if (error.message) {
-            this.dataService.showError(error.message);
-          } else {
-            this.dataService.showError('Unable to edit brand');
-          }
-        });
-      } else {
-        this.dataService.showError('Please select a product'); // --- Display error message
+      const url = 'brand/edit/' + this.brandId;
+      const payload = {
+        name: this.brandForm.value.brandname,
+        image: this.cardImageBase64,
+        description: this.brandForm.value.branddesc,
+      };
+      if (this.cardImageBase64 === null) {
+        delete payload.image;
       }
+      this.showloader = true;
+      // console.log('submitBrand payload: ', payload);
+      this.apiService.sendHttpCallWithToken(payload, url, 'patch').subscribe((response) => {
+        // console.log('submitBrand response: ' , response);
+        this.showloader = false;
+        if (response.status === 200) {
+          this.dataService.showSuccess(response.message);
+          this.brandData.image = this.cardImageBase64;
+          this.brandData.name = this.brandForm.value.brandname;
+          this.brandData.description = this.brandForm.value.branddesc;
+          this.isImageChanged = false;
+          image.value = '';
+        } else if (response.status === 400) {
+          this.dataService.showError(response.message);
+        } else {
+          this.dataService.showError('Unable to edit brand');
+        }
+      }, (error) => {
+        console.log('submitBrand error: ' , error);
+        this.showloader = false;
+        if (error.message) {
+          this.dataService.showError(error.message);
+        } else {
+          this.dataService.showError('Unable to edit brand');
+        }
+      });
     } else {
       this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.brandForm.controls).forEach((field) => {
@@ -337,11 +240,9 @@ export class BrandEditComponent implements OnInit {
   }
 
   resetForm(element): void {
-    this.selectedItems = this.selectedItemsOld;
     this.brandForm.patchValue({
       brandname: this.brandData.name,
       branddesc: this.brandData.description,
-      products: this.selectedItems,
     });
 
     if (this.isImageChanged) {

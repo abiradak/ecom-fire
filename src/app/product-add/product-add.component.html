@@ -23,7 +23,7 @@
                                                 <div class="row justify-content-md-center">
                                                     <div class="col-md-6">
                                                         <div class="form-body">
-                                                            <!-- Product Name -->
+                                                            <!-- Select Catagories -->
                                                             <div class="form-group">
                                                                 <label for="products">Select Catagories *</label>
                                                                 <ng-multiselect-dropdown
@@ -37,6 +37,23 @@
                                                                 >
                                                                 </ng-multiselect-dropdown><div *ngIf="productForm.controls?.category?.errors?.required" class="invalid-feedback">
                                                                     Category  is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- Select Brands -->
+                                                            <div class="form-group">
+                                                                <label for="products">Select Brands</label>
+                                                                <ng-multiselect-dropdown
+                                                                    name="brands"
+                                                                    [placeholder]="'Select Brands'"
+                                                                    [settings]="dropdownSettings"
+                                                                    [data]="brandsList"
+                                                                    formControlName="brands" 
+                                                                    (onSelect)="onItemSelect1($event)" (onDeSelect)="onItemDeSelect1($event)" 
+                                                                    (onSelectAll)="onSelectAll1($event)" (onDeSelectAll)="onDeSelectAll1($event)" [ngClass]="{'is-invalid': productForm.controls?.brands?.invalid && productForm.controls?.brands?.touched }"
+                                                                >
+                                                                </ng-multiselect-dropdown>
+                                                                <div *ngIf="productForm.controls?.brands?.errors?.required" class="invalid-feedback">
+                                                                    Brands  is required.
                                                                 </div>
                                                             </div>
                                                             <!-- Product Name -->
