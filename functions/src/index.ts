@@ -13,8 +13,10 @@ const main = express();
 
 const productCollection = 'product';
 const categoryCollection = 'category';
-const subscriberCollection = 'subscriber';
-const contentCollection = 'content';
+const brandCollection = 'brand';
+const userCollection = 'user';
+const orderCollection = 'order';
+const addressCollection = 'address';
 
 main.use('/api/v1', app);
 main.use(bodyParser.json());
@@ -35,31 +37,52 @@ interface product {
     volume: number,
     inStock: number,
     isDeleted: number,
+    category: [],
+    brand: [],
 }
 
 interface category {
     name: String,
     description: string,
+    image: string,
     isActive: number,
     isDeleted: number,
-    products: string
 }
 
-interface subscriber {
+interface brand {
+    name: String,
+    description: string,
+    image: string,
+    isActive: number,
+    isDeleted: number,
+}
+
+interface user {
     name: String,
     email: String,
     phone: String,
-    message: String,
-    courseId: String,
+    password: string,
+    image: string,
     isActive: number,
     isDeleted: number,
 }
 
-interface content {
-    name: String,
-    description: String,
-    position: number,
+interface order {
+    userid: string,
+    items: [],
+    totalprice: string,
+    status: string,
+    daddress: string,
     isActive: number,
+    isDeleted: number,
+    orderno: number,
+    dphone: string,
+    date: Date
+}
+
+interface address {
+    userid: string,
+    address: string,
     isDeleted: number,
 }
 
@@ -73,6 +96,8 @@ app.post('/product/add', async (req, res) => {
             image: req.body['image'],
             price: req.body['price'],
             volume: req.body['volume'],
+            category: req.body['category'],
+            brand: req.body['brand'],
             inStock: 1,
             isDeleted: 0,
         }
@@ -110,8 +135,10 @@ app.patch('/product/edit/:productId', async (req, res) => {
 });
 
 // -- View a product
-app.get('/product/:productId', (req, res) => {
+app.get('/product/:productId', async (req, res) => {
     const productId = req.params.productId; 
+    const categoryQuerySnapshot = await db.collection(categoryCollection).get();
+    const brandQuerySnapshot = await db.collection(brandCollection).get();
     db.collection(productCollection).doc(productId).get()
     .then((product: any) => {
         if(!product.exists) throw new Error(JSON.stringify({
@@ -119,7 +146,37 @@ app.get('/product/:productId', (req, res) => {
             'status': 200,
         }));
         if (product.data().isDeleted === 0) {
-            res.status(200).json({'product': {id: product.id, data: product.data()}});
+            const category : any[] = [];
+            product.data().category.forEach((element: any) => {
+                categoryQuerySnapshot.forEach((cat: any) => {
+                    if (element === cat.id) {
+                        const obj = {
+                            id: cat.id,
+                            name: cat.data().name,
+                        };
+                        category.push(obj);
+                    }
+                });
+            });
+            const brand : any[] = [];
+            product.data().brand.forEach((element: any) => {
+                brandQuerySnapshot.forEach((brnd: any) => {
+                    if (element === brnd.id) {
+                        const obj = {
+                            id: brnd.id,
+                            name: brnd.data().name,
+                        };
+                        brand.push(obj);
+                    }
+                });
+            });
+            const productObj = { 
+                id: product.id,
+                data: product.data(),
+                category,
+                brand,
+            };
+            res.status(200).json({'product': productObj});
         } else {
             res.status(200).send({
                 'message': 'Product already deleted!',
@@ -138,19 +195,49 @@ app.get('/product/:productId', (req, res) => {
 app.get('/product', async (req, res) => {
     try {
         const productQuerySnapshot = await db.collection(productCollection).get();
-        const product: any[] = [];
-        productQuerySnapshot.forEach((doc) => {
-            if (doc.data().isDeleted === 0) {
-                product.push({
-                    id: doc.id,
-                    data:doc.data(),
+        const categoryQuerySnapshot = await db.collection(categoryCollection).get();
+        const brandQuerySnapshot = await db.collection(brandCollection).get();
+
+        const products: any[] = [];
+        productQuerySnapshot.forEach((product: any) => {
+            const catagoryArray = product.data().category;
+            if (product.data().isDeleted === 0 && catagoryArray.length > 0) {
+                const category: any[] = [];
+                categoryQuerySnapshot.forEach((cat: any) => {
+                    catagoryArray.forEach((elem: any) => {
+                        if(cat.id === elem) {
+                            const obj = {
+                                id: cat.id,
+                                name: cat.data().name,
+                            };
+                            category.push(obj);
+                        }
+                    });
                 });
-            }
+                const brand : any[] = [];
+                product.data().brand.forEach((element: any) => {
+                    brandQuerySnapshot.forEach((brnd: any) => {
+                        if (element === brnd.id) {
+                            const obj = {
+                                id: brnd.id,
+                                name: brnd.data().name,
+                            };
+                            brand.push(obj);
+                        }
+                    });
+                });
+                products.push({
+                    id: product.id,
+                    data: product.data(),
+                    category,
+                    brand,
+                });
+            } 
         });
-        res.status(200).json({'product': product});
+        res.status(200).json({'products': products});
     } catch (error) {
         res.status(500).send({
-            'message': 'Product list not found!',
+            'message': 'products list not found!',
             'status': 500,
             'error': error,
         });
@@ -196,13 +283,13 @@ app.delete('/product/delete/:productId', async (req, res) => {
 // -- Product related APIs - end
 
 // -- Category related APIs - start
-// -- Add a new enquiry
+// -- Add a new category
 app.post('/category/add', async (req, res) => {
     try {
         const category: category = {
             name: req.body['name'],
             description: req.body['description'],
-            products: JSON.stringify(req.body['products']),
+            image: req.body['image'],
             isActive: 1,
             isDeleted: 0,
         }
@@ -226,51 +313,106 @@ app.post('/category/add', async (req, res) => {
 app.patch('/category/edit/:categoryId', async (req, res) => {
     try {
         await firebaseHelper.firestoreHelper.updateDocument(db, categoryCollection, req.params.categoryId, req.body);
-        res.status(200).send(`Category updated.`);
+        res.status(200).send({
+            'message': 'Category updated',
+            'status': 200,
+        });
     } catch (error) {
-        res.status(400).send(`Unable to update category!!!`);
+        res.status(400).send({
+            'message': 'Unable to update category!!!',
+            'status': 400,
+        });
     }
 });
 
 // -- View a category
-app.get('/category/:categoryId', (req, res) => {
-    firebaseHelper.firestoreHelper
-        .getDocument(db, categoryCollection, req.params.categoryId)
-        .then(doc => res.status(200).send(doc))
-        .catch(error => res.status(400).send(`Cannot get category: ${error}`));
+app.get('/category/:categoryId', async (req, res) => {
+        const categoryId = req.params.categoryId; 
+        const productQuerySnapshot = await db.collection(productCollection).get();
+        db.collection(categoryCollection).doc(categoryId).get()
+        .then((category: any) => {
+            if(!category.exists) throw new Error(JSON.stringify({
+                'message': 'Product not found!',
+                'status': 200,
+            }));
+            if (category.data().isDeleted === 0) {
+                const products : any[] = [];
+                productQuerySnapshot.forEach((product: any) => {
+                    if(product.data().category && product.data().category.length > 0 && product.data().category.indexOf(categoryId) !== -1) {
+                        const obj = product.data();
+                        obj.id = product.id;
+                        products.push(obj);
+                    }
+                });
+                const categoryObj = { 
+                    id: category.id,
+                    data: category.data(),
+                    products,
+                };
+                res.status(200).json({'category': categoryObj});
+            } else {
+                res.status(200).send({
+                    'message': 'Product already deleted!',
+                    'status': 200,
+                });
+            }
+        })
+        .catch(error => res.status(500).send({
+            'message': 'Product not found!',
+            'status': 500,
+            'error': error,
+        }));    
 });
 
-// -- View all enquiries
+// -- View all category
 app.get('/catagories', async (req, res) => {
     try {
         const categoryQuerySnapshot = await db.collection(categoryCollection).get();
         const productQuerySnapshot = await db.collection(productCollection).get();
 
         const categories: any[] = [];
-        categoryQuerySnapshot.forEach((category) => {
-            const productsArray = JSON.parse(category.data().products);
-            if (category.data().isDeleted === 0 && productsArray.length > 0) {
+        categoryQuerySnapshot.forEach((category: any) => {
+            if (category.data().isDeleted === 0) {
                 const products: any[] = [];
-                productQuerySnapshot.forEach((product) => {
-                    productsArray.forEach((elem: any) => {
-                        if(product.id === elem) {
-                            const obj = product.data();
-                            obj.id = product.id;
-                            products.push(obj);
-                        }
-                    });
+                productQuerySnapshot.forEach((product: any) => {
+                    if(product.data().category && product.data().category.length > 0 && product.data().category.indexOf(category.id) !== -1) {
+                        const obj = product.data();
+                        obj.id = product.id;
+                        products.push(obj);
+                    }
                 });
                 categories.push({
                     id: category.id,
                     data:category.data(),
                     products,
                 });
-            }
+            } 
         });
         res.status(200).json({'category': categories});
     } catch (error) {
         res.status(500).send({
             'message': 'category list not found!',
+            'status': 500,
+            'error': error,
+        });
+    }
+
+
+    try {
+        const productQuerySnapshot = await db.collection(productCollection).get();
+        const product: any[] = [];
+        productQuerySnapshot.forEach((doc) => {
+            if (doc.data().isDeleted === 0) {
+                product.push({
+                    id: doc.id,
+                    data:doc.data(),
+                });
+            }
+        });
+        res.status(200).json({'product': product});
+    } catch (error) {
+        res.status(500).send({
+            'message': 'Product list not found!',
             'status': 500,
             'error': error,
         });
@@ -315,219 +457,612 @@ app.delete('/category/delete/:categoryId', async (req, res) => {
 });
 // -- category related APIs - end
 
-// -- Subscriber related APIs - start
-// -- Add a new subscriber
-app.post('/subscriber/add', async (req, res) => {
+// -- Brand related APIs - start
+// -- Add a new brand
+app.post('/brand/add', async (req, res) => {
     try {
-        const subscriber: subscriber = {
+        const brand: brand = {
             name: req.body['name'],
-            email: req.body['email'],
-            phone: req.body['phone'],
-            message: req.body['message'],
-            courseId: req.body['courseId'],
+            description: req.body['description'],
+            image: req.body['image'],
             isActive: 1,
             isDeleted: 0,
         }
         const newDoc = await firebaseHelper.firestoreHelper
-            .createNewDocument(db, subscriberCollection, subscriber);
+            .createNewDocument(db, brandCollection, brand);
         res.status(200).send({
-            'message': 'Created a new subscriber',
+            'message': 'Brand Created',
             'id': newDoc.id,
             'status': 200,
         });
     } catch (error) {
         res.status(400).send({
-            'message': 'Subscriber should contains name, email, phone, message, course!',
+            'message': 'Brand should contains name, description, products!',
             'status': 400,
             'error': error,
         });
     }
 });
 
-// -- Update a subscriber
-app.patch('/subscriber/edit/:subscriberId', async (req, res) => {
+// -- Update a brand
+app.patch('/brand/edit/:brandId', async (req, res) => {
     try {
-        await firebaseHelper.firestoreHelper.updateDocument(db, subscriberCollection, req.params.subscriberId, req.body);
+        await firebaseHelper.firestoreHelper.updateDocument(db, brandCollection, req.params.brandId, req.body);
         res.status(200).send({
-            'message': 'Subscriber updated',
+            'message': 'Brand updated',
             'status': 200,
         });
     } catch (error) {
         res.status(400).send({
-            'message': 'Unable to update subscriber!',
+            'message': 'Unable to update brand!!!',
             'status': 400,
-            'error': error,
         });
     }
 });
 
-// -- View a subscriber
-app.get('/subscriber/:subscriberId', (req, res) => {
-    firebaseHelper.firestoreHelper
-        .getDocument(db, subscriberCollection, req.params.subscriberId)
-        .then(doc => res.status(200).send(doc))
-        .catch(error => res.status(400).send(`Cannot get subscriber: ${error}`));
-});
-
-// -- View all subscribers
-app.get('/subscribers', async (req, res) => {
-    try {
-        const subscriberQuerySnapshot = await db.collection(subscriberCollection).get();
-        const courseQuerySnapshot = await db.collection(productCollection).get();
-
-        const subscribers: any[] = [];
-        subscriberQuerySnapshot.forEach((subscriber) => {
-            if (subscriber.data().isDeleted === 0) {
-                let courseDetails: any;
-                courseQuerySnapshot.forEach((course) => {
-                    if(course.id === subscriber.data().courseId) {
-                        courseDetails = course.data();
-                    }
-                });
-                subscribers.push({
-                    id: subscriber.id,
-                    data:subscriber.data(),
-                    courseDetails,
+// -- View a brand
+app.get('/brand/:brandId', async (req, res) => {
+        const brandId = req.params.brandId; 
+        // const productQuerySnapshot = await db.collection(productCollection).get();
+        db.collection(brandCollection).doc(brandId).get()
+        .then((brand: any) => {
+            if(!brand.exists) throw new Error(JSON.stringify({
+                'message': 'Brand not found!',
+                'status': 200,
+            }));
+            if (brand.data().isDeleted === 0) {
+                // const products : any[] = [];
+                // productQuerySnapshot.forEach((product: any) => {
+                //     if(product.data().brand && product.data().brand.length > 0 && product.data().brand.indexOf(brandId) !== -1) {
+                //         const obj = product.data();
+                //         obj.id = product.id;
+                //         products.push(obj);
+                //     }
+                // });
+                const brandObj = { 
+                    id: brand.id,
+                    data: brand.data(),
+                    // products,
+                };
+                res.status(200).json({'brand': brandObj});
+            } else {
+                res.status(200).send({
+                    'message': 'Brand already deleted!',
+                    'status': 200,
                 });
             }
+        })
+        .catch(error => res.status(500).send({
+            'message': 'Brand not found!',
+            'status': 500,
+            'error': error,
+        }));    
+});
+
+// -- View all brand
+app.get('/brands', async (req, res) => {
+    try {
+        const brandQuerySnapshot = await db.collection(brandCollection).get();
+        // const productQuerySnapshot = await db.collection(productCollection).get();
+
+        const brands: any[] = [];
+        brandQuerySnapshot.forEach((brand: any) => {
+            if (brand.data().isDeleted === 0) {
+                // const products: any[] = [];
+                // productQuerySnapshot.forEach((product: any) => {
+                //     if(product.data().brand && product.data().brand.length > 0 && product.data().brand.indexOf(brand.id) !== -1) {
+                //         const obj = product.data();
+                //         obj.id = product.id;
+                //         products.push(obj);
+                //     }
+                // });
+                brands.push({
+                    id: brand.id,
+                    data:brand.data(),
+                    // products,
+                });
+            } 
         });
-        res.status(200).json({'subscribers': subscribers});
+        res.status(200).json({'brand': brands});
     } catch (error) {
         res.status(500).send({
-            'message': 'Subscriber list not found!',
+            'message': 'Brand list not found!',
             'status': 500,
             'error': error,
         });
     }
-});
 
-// -- Delete(Hard) a subscriber 
-app.delete('/subscriber/:subscriberId', async (req, res) => {
+
     try {
-        await firebaseHelper.firestoreHelper.deleteDocument(db, subscriberCollection, req.params.subscriberId);
-        res.status(200).send({
-            'message': 'Subscriber deleted',
-            'status': 200,
-        });
-    } catch (error) {
-        res.status(400).send({
-            'message': 'Unable to delete subscriber!',
-            'status': 400,
-            'error': error,
-        });
-    }
-});
-
-// -- Delete(soft) a subscriber
-app.delete('/subscriber/delete/:subscriberId', async (req, res) => {
-    try {
-        const body = {
-            isDeleted: 1,
-        };
-        await firebaseHelper.firestoreHelper.updateDocument(db, subscriberCollection, req.params.subscriberId, body);
-        res.status(200).send({
-            'message': 'Subscriber deleted',
-            'status': 200,
-        });
-    } catch (error) {
-        res.status(400).send({
-            'message': 'Unable to delete subscriber!',
-            'status': 400,
-            'error': error,
-        });
-    }
-});
-// -- Subscriber related APIs - end
-
-// -- Content related APIs - start
-// -- Add a new content
-app.post('/content/add', async (req, res) => {
-    try {
-        const content: content = {
-            name: req.body['name'],
-            description: req.body['description'],
-            position: req.body['position'],
-            isActive: 1,
-            isDeleted: 0,
-        }
-        const newDoc = await firebaseHelper.firestoreHelper.createNewDocument(db, contentCollection, content);
-        res.status(200).send({
-            'message': 'Created a new content',
-            'id': newDoc.id,
-            'status': 200,
-        });
-    } catch (error) {
-        res.status(400).send({
-            'message': 'Content should contains name, description, short name!',
-            'status': 400,
-            'error': error,
-        });
-    }
-});
-
-// -- Update a content
-app.patch('/content/edit/:contentId', async (req, res) => {
-    try {
-        await firebaseHelper.firestoreHelper.updateDocument(db, contentCollection, req.params.contentId, req.body);
-        res.status(200).send({
-            'message': 'Content updated',
-            'status': 200,
-        });
-    } catch (error) {
-        res.status(400).send({
-            'message': 'Unable to update content!',
-            'status': 400,
-            'error': error,
-        });
-    }
-});
-
-// -- View a content
-app.get('/content/:contentId', (req, res) => {
-    const contentId = req.params.contentId; 
-    db.collection(contentCollection).doc(contentId).get()
-    .then((content: any) => {
-        if(!content.exists) throw new Error(JSON.stringify({
-            'message': 'Content not found!',
-            'status': 200,
-        }));
-        if (content.data().isDeleted === 0) {
-            res.status(200).json({'content': {id: content.id, data: content.data()}});
-        } else {
-            res.status(200).send({
-                'message': 'Content already deleted!',
-                'status': 200,
-            });
-        }
-    })
-    .catch(error => res.status(500).send({
-        'message': 'Content not found!',
-        'status': 500,
-        'error': error,
-    }));
-});
-
-// -- View all contents
-app.get('/contents', async (req, res) => {
-    try {
-        const contentQuerySnapshot = await db.collection(contentCollection).get();
-        const content: any[] = [];
-        contentQuerySnapshot.forEach((doc) => {
+        const productQuerySnapshot = await db.collection(productCollection).get();
+        const product: any[] = [];
+        productQuerySnapshot.forEach((doc) => {
             if (doc.data().isDeleted === 0) {
-                content.push({
+                product.push({
                     id: doc.id,
                     data:doc.data(),
                 });
             }
         });
-        res.status(200).json({'content': content});
+        res.status(200).json({'product': product});
     } catch (error) {
         res.status(500).send({
-            'message': 'Content list not found!',
+            'message': 'Product list not found!',
             'status': 500,
             'error': error,
         });
     }
 });
-// -- Content related APIs - end
 
+// -- Delete(Hard) a brand 
+app.delete('/brand/:brandId', async (req, res) => {
+    try {
+        await firebaseHelper.firestoreHelper.deleteDocument(db, brandCollection, req.params.brandId);
+        res.status(200).send({
+            'message': 'Brand deleted',
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Unable to delete brand!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+// -- Delete(soft) a brand
+app.delete('/brand/delete/:brandId', async (req, res) => {
+    try {
+        const body = {
+            isDeleted: 1,
+        };
+        await firebaseHelper.firestoreHelper.updateDocument(db, brandCollection, req.params.brandId, body);
+        res.status(200).send({
+            'message': 'Brand deleted',
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Unable to delete brand!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+// -- brand related APIs - end
+
+// -- User related APIs - start
+// -- Add a new user
+app.post('/user/add', async (req, res) => {
+    try {
+        const user: user = {
+            name: req.body['name'],
+            email: req.body['email'],
+            phone: req.body['phone'],
+            password: req.body['password'],
+            image: req.body['image'],
+            isActive: 1,
+            isDeleted: 0,
+        }
+
+        const userQuerySnapshot = await db.collection(userCollection).where('email' , '==', req.body['email']).get();
+
+        if (!userQuerySnapshot.empty) {
+            res.status(400).send({
+                'message': 'User Already Created With this email id',
+                'status': 400,
+            });
+        } else {
+            const newDoc = await firebaseHelper.firestoreHelper
+                .createNewDocument(db, userCollection, user);
+            res.status(200).send({
+                'message': 'User Successfully Registered!',
+                'id': newDoc.id,
+                'status': 200,
+            });
+        }
+    } catch (error) {
+        res.status(400).send({
+            'message': 'user should contains name, email, phone , password!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+// -- Update a user
+app.patch('/user/edit/:userId', async (req, res) => {
+    try {
+        await firebaseHelper.firestoreHelper.updateDocument(db, userCollection, req.params.userId, req.body);
+        res.status(200).send({
+            'message': 'user updated',
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Unable to update user!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+// -- View a user
+app.get('/user/:userId', (req, res) => {
+    firebaseHelper.firestoreHelper
+        .getDocument(db, userCollection, req.params.userId)
+        .then((doc: any) => res.status(200).send(doc))
+        .catch((error: any) => res.status(400).send(`Cannot get user: ${error}`));
+});
+
+// -- View all users
+app.get('/users', async (req, res) => {
+    try {
+        const userQuerySnapshot = await db.collection(userCollection).get();
+        const users: any[] = [];
+        userQuerySnapshot.forEach((doc) => {
+            if (doc.data().isDeleted === 0) {
+                users.push({
+                    id: doc.id,
+                    data:doc.data(),
+                });
+            }
+        });
+        res.status(200).json({'users': users});
+    } catch (error) {
+        res.status(500).send({
+            'message': 'Users list not found!',
+            'status': 500,
+            'error': error,
+        });
+    }
+});
+
+// -- Delete(Hard) a user 
+app.delete('/user/:userId', async (req, res) => {
+    try {
+        await firebaseHelper.firestoreHelper.deleteDocument(db, userCollection, req.params.userId);
+        res.status(200).send({
+            'message': 'user deleted',
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Unable to delete user!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+// -- Delete(soft) a user
+app.delete('/user/delete/:userId', async (req, res) => {
+    try {
+        const body = {
+            isDeleted: 1,
+        };
+        await firebaseHelper.firestoreHelper.updateDocument(db, userCollection, req.params.userId, body);
+        res.status(200).send({
+            'message': 'user deleted',
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Unable to delete user!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+// -- user related APIs - end
+
+// -- Login Api -- //
+app.post('/login', async (req, res) => {
+    try {
+        const userQuerySnapshot = await db.collection(userCollection).where('email' , '==' , req.body['email'].toLowerCase()).get();
+        if(!userQuerySnapshot.empty) {
+            const user = userQuerySnapshot.docs[0].data();
+            user.id = userQuerySnapshot.docs[0].id;
+            if (user.password === req.body['password']) {
+                res.status(200).send({
+                    'message': 'User Logged In',
+                    'status': 200,
+                    'data': user,
+                });
+            } else {
+                res.status(401).send({
+                    'message': 'Wrong Password!',
+                    'status': 401,
+                });
+            }
+        } else {
+            res.status(401).send({
+                'message': 'No User Found Please Register!',
+                'status': 401,
+            });
+        }
+
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Enter Both Fields!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+// -- Login Api -- //
+
+// -- Order related APIs - start
+// -- Add a new order with pending
+app.post('/order/add', async (req, res) => {
+    try {
+        const order: order = {
+            userid: req.body['userid'],
+            items: req.body['items'],
+            totalprice: req.body['totalprice'],
+            status: req.body['status'],
+            daddress: req.body['daddress'],
+            dphone: req.body['dphone'],
+            orderno: Math.floor(Math.random() * 100000000),
+            date: new Date(),
+            isActive: 1,
+            isDeleted: 0,
+        }
+        const newDoc = await firebaseHelper.firestoreHelper.createNewDocument(db, orderCollection, order);
+        res.status(200).send({
+            'message': 'Created a new order',
+            'id': newDoc.id,
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'order should contains userid , items , totalprice !',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+
+app.post('/confirmorder', async (req, res) => {
+    try {
+        const order: order = {
+            userid: req.body['userid'],
+            items: req.body['items'],
+            totalprice: req.body['totalprice'],
+            status: req.body['status'],
+            daddress: req.body['daddress'],
+            dphone: req.body['dphone'],
+            orderno: Math.floor(Math.random() * 100000000),
+            isActive: 1,
+            date: new Date(),
+            isDeleted: 0,
+        }
+        const newDoc = await firebaseHelper.firestoreHelper.createNewDocument(db, orderCollection, order);
+        res.status(200).send({
+            'message': 'Created a new order',
+            'id': newDoc.id,
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'order should contains userid , items , totalprice !',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+// -- Update a order
+app.patch('/order/edit/:orderId', async (req, res) => {
+    try {
+        await firebaseHelper.firestoreHelper.updateDocument(db, orderCollection, req.params.orderId, req.body);
+        res.status(200).send({
+            'message': 'order updated',
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Unable to update order!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+app.get('/order/:userID', async (req, res) => {
+    try {
+        const orderQuerySnapshot = await db.collection(orderCollection).get();
+        const productQuerySnapshot = await db.collection(productCollection).get();
+        const userData = await db.collection(userCollection).get();
+        
+        const orders: any[] = [];
+        let userObj = {};
+        orderQuerySnapshot.forEach((doc) => {
+            if (doc.data().isDeleted === 0 && doc.data().userid === req.params.userID) {
+                const items: any[] = [];
+                doc.data().items.forEach((element: any) => {
+                    productQuerySnapshot.forEach ((product: any) => {
+                        if (product.id === element) {
+                            items.push(product.data());
+                        }
+                    });
+                });
+                userData.forEach((docs) => {
+                    if (docs.id === doc.data().userid) {
+                        userObj = docs.data()
+                    }
+                });
+                doc.data().items = items;
+                orders.push({
+                    id: doc.id,
+                    data:doc.data(),
+                    items: items,
+                    user: userObj,
+                });
+            }
+        });
+        res.status(200).json({'orders': orders});
+    } catch (error) {
+        res.status(500).send({
+            'message': 'Order list not found!',
+            'status': 500,
+            'error': error,
+        });
+    }
+});
+
+app.get('/pendingorders', async (req, res) => {
+    try {
+        const orderQuerySnapshot = await db.collection(orderCollection).get();
+        const productQuerySnapshot = await db.collection(productCollection).get();
+        const userData = await db.collection(userCollection).get();
+        
+        const orders: any[] = [];
+        let userObj = {};
+        orderQuerySnapshot.forEach((doc) => {
+            if (doc.data().isDeleted === 0 && doc.data().status === 'Pending') {
+                const items: any[] = [];
+                doc.data().items.forEach((element: any) => {
+                    productQuerySnapshot.forEach ((product: any) => {
+                        if (product.id === element) {
+                            items.push(product.data());
+                        }
+                    });
+                });
+                userData.forEach((docs) => {
+                    if (docs.id === doc.data().userid) {
+                        userObj = docs.data()
+                    }
+                });
+                doc.data().items = items;
+                orders.push({
+                    id: doc.id,
+                    data:doc.data(),
+                    items: items,
+                    user: userObj,
+                });
+            }
+        });
+        res.status(200).json({'orders': orders});
+    } catch (error) {
+        res.status(500).send({
+            'message': 'Order list not found!',
+            'status': 500,
+            'error': error,
+        });
+    }
+});
+
+app.get('/confirmorders', async (req, res) => {
+    try {
+        const orderQuerySnapshot = await db.collection(orderCollection).get();
+        const orders: any[] = [];
+        orderQuerySnapshot.forEach((doc) => {
+            if (doc.data().isDeleted === 0 && doc.data().status === 'Confirm') {
+                orders.push({
+                    id: doc.id,
+                    data:doc.data(),
+                });
+            }
+        });
+        res.status(200).json({'orders': orders});
+    } catch (error) {
+        res.status(500).send({
+            'message': 'Orders list not found!',
+            'status': 500,
+            'error': error,
+        });
+    }
+});
+
+// -- View a order
+app.get('/order/:orderId', (req, res) => {
+    const orderId = req.params.orderId; 
+    db.collection(orderCollection).doc(orderId).get()
+    .then((order: any) => {
+        if(!order.exists) throw new Error(JSON.stringify({
+            'message': 'order not found!',
+            'status': 200,
+        }));
+        if (order.data().isDeleted === 0) {
+            res.status(200).json({'order': {id: order.id, data: order.data()}});
+        } else {
+            res.status(200).send({
+                'message': 'order already deleted!',
+                'status': 200,
+            });
+        }
+    })
+    .catch(error => res.status(500).send({
+        'message': 'order not found!',
+        'status': 500,
+        'error': error,
+    }));
+});
+// -- Order related APIs - end
+
+// -- Address rel api starts
+app.post('/address/add', async (req, res) => {
+    try {
+        const address: address = {
+            userid: req.body['userid'],
+            address: req.body['address'],
+            isDeleted: 0,
+        }
+        const newDoc = await firebaseHelper.firestoreHelper
+            .createNewDocument(db, addressCollection, address);
+        res.status(200).send({
+            'message': 'Address Saved',
+            'id': newDoc.id,
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Address can not blank!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+app.patch('/address/edit/:addressId', async (req, res) => {
+    try {
+        await firebaseHelper.firestoreHelper.updateDocument(db, addressCollection, req.params.addressId, req.body);
+        res.status(200).send({
+            'message': 'Address updated',
+            'status': 200,
+        });
+    } catch (error) {
+        res.status(400).send({
+            'message': 'Unable to update address!',
+            'status': 400,
+            'error': error,
+        });
+    }
+});
+
+// Get address by UserId
+app.get('/address/:userID', async (req, res) => {
+    try {
+        const addressQuerySnapshot = await db.collection(addressCollection).get();
+        const address: any[] = [];
+        addressQuerySnapshot.forEach((doc) => {
+            if (doc.data().isDeleted === 0 && doc.data().userid === req.params.userID) {
+                address.push({
+                    id: doc.id,
+                    data:doc.data(),
+                });
+            }
+        });
+        res.status(200).json({'address': address});
+    } catch (error) {
+        res.status(500).send({
+            'message': 'address list not found!',
+            'status': 500,
+            'error': error,
+        });
+    }
+});
+// -- Address rel api starts
