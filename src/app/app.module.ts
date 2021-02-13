@@ -27,6 +27,9 @@ import { ThankyouComponent } from './thankyou/thankyou.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { HeaderComponent } from './header/header.component';
 import { LoadingComponent } from './services/loading';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { Globals } from './services/global';
+import { EventEmitterService } from './services/event-emitter.service';
 
 
 
@@ -45,7 +48,8 @@ import { LoadingComponent } from './services/loading';
     ThankyouComponent,
     AboutusComponent,
     HeaderComponent,
-    LoadingComponent
+    LoadingComponent,
+    ForgetpasswordComponent
   ],
   entryComponents: [],
   imports: [
@@ -62,6 +66,8 @@ import { LoadingComponent } from './services/loading';
     StatusBar,
     SplashScreen,
     DataService,
+    EventEmitterService,
+    Globals,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

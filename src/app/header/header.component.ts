@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { DataService } from '../services/data.service';
+import { EventEmitterService } from '../services/event-emitter.service';
 
 @Component({
   selector: 'app-header',
@@ -15,19 +16,33 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private data: DataService,
-    private menuController: MenuController
+    private menuController: MenuController,
+    private eventEmitterService: EventEmitterService,
   ) { }
 
   ngOnInit() {
     this.isLogin();
     this.getCart();
+    // this.data.currentMessage.subscribe((qty) => {
+    //   console.log('qty', qty);
+    // });
+
+    if (this.eventEmitterService.subsVar === undefined) {
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeCartFunction
+      .subscribe((name: string) => {
+        this.getCart();
+      });
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeLoginSuccess
+      .subscribe((name: string) => {
+        this.isLogin();
+      });
+    }
   }
 
-  isLogin() {
+  isLogin(): void {
     this.user = JSON.parse(localStorage.getItem('userDetails'));
   }
   openMenu() {
-    console.log('ajdahbd');
     this.menuController.open();
   }
 

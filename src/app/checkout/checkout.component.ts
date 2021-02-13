@@ -15,6 +15,9 @@ export class CheckoutComponent implements OnInit {
   address: any;
   hidden = false;
   isLoading = false;
+  itemIDArray = [];
+  addresses = [];
+  reveiverphone: any;
 
   constructor(
     private router: Router,
@@ -40,12 +43,16 @@ export class CheckoutComponent implements OnInit {
       // tslint:disable-next-line: no-string-literal
       this.cart['items'].forEach(element => {
         this.subTotal = (element.quantity * element.product.price) + this.subTotal;
+        this.itemIDArray.push(element.productId);
       });
     }
   }
 
   getUserDetails() {
     this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    if (this.userDetails !== null) {
+      this.getAddress();
+    }
   }
 
   changeAddress() {
@@ -70,26 +77,40 @@ export class CheckoutComponent implements OnInit {
   }
 
   dispatch() {
+    console.log('id array >>>>', this.itemIDArray);
     this.isLoading = true;
     const payLoad = {
       userid: this.userDetails.id,
       // tslint:disable-next-line: no-string-literal
-      items: this.cart['items'],
+      items: this.itemIDArray,
       totalprice: this.subTotal,
       status: 'Pending',
       daddress: this.address,
+      dphone: this.reveiverphone
     };
     this.api.sendHttpCall(payLoad, `order/add` , 'post').pipe().subscribe( (res) => {
       console.log('order add response >>>>', res);
       if (res.status === 200) {
         this.data.presentToast(res.message, 'success');
+        localStorage.removeItem('cart');
+        this.router.navigate(['thankyou']);
       }
       this.isLoading = false;
     }, (err) => {
       this.isLoading = false;
       console.log('>>>>>>>' , err);
     });
+  }
 
-    // this.router.navigate(['thankyou']);
+  getAddress() {
+    this.isLoading = true;
+    this.api.sendHttpCall('', `address/${this.userDetails.id}` , 'get').pipe().subscribe( (res) => {
+      console.log('address >>>>', res.address);
+      this.addresses = res.address;
+      this.isLoading = false;
+    }, (err) => {
+      this.isLoading = false;
+      console.log('>>>>>>>' , err);
+    });
   }
 }

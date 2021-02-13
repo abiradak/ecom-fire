@@ -5,6 +5,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { DataService } from './services/data.service';
 import { Router } from '@angular/router';
 import { ApiService } from './services/api.service';
+import { Globals } from './services/global';
+import { EventEmitterService } from './services/event-emitter.service';
+
 
 
 @Component({
@@ -29,7 +32,9 @@ export class AppComponent implements OnInit {
     private data: DataService,
     private router: Router,
     private api: ApiService,
-    private menuController: MenuController
+    private menuController: MenuController,
+    private global: Globals,
+    private event: EventEmitterService
   ) {
     this.initializeApp();
   }
@@ -43,12 +48,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.menuController.enable(true);
+    this.getCategories();
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
     this.getUserDetails();
-    // this.getCategories();
   }
 
 
@@ -58,6 +63,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('userDetails');
+    this.event.onLoginHeader();
     this.data.presentToast('Logged Out successfully', 'success');
     this.getUserDetails();
     this.menuController.close();
@@ -89,7 +95,7 @@ export class AppComponent implements OnInit {
 
   goToCatDe(item: any) {
     this.menuController.close();
-    this.router.navigate(['item-category', 1]);
+    this.router.navigate(['item-category', item ]);
   }
 
   goToAboutUs() {
@@ -97,12 +103,13 @@ export class AppComponent implements OnInit {
     this.router.navigate(['about-us']);
   }
 
-  // async getCategories(): Promise<void> {
-  //   this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
-  //     this.categories = res.category;
-  //     console.log('>>>>>>', this.categories);
-  //   }, (err) => {
-  //     console.log('>>>>>>>' , err);
-  //   });
-  // }
+  async getCategories(): Promise<void> {
+    this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
+      this.categories = res.category;
+      this.global.category = this.categories;
+      console.log('>>>>>>', this.categories);
+    }, (err) => {
+      console.log('>>>>>>>' , err);
+    });
+  }
 }

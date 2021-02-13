@@ -27,7 +27,7 @@ export class DataService {
   isLoading: boolean;
   userinfo: any;
 
-  emitChange(data: string) {
+  emitChange(data: any) {
     this.emitChangeSource.next(data);
   }
 
@@ -40,7 +40,7 @@ export class DataService {
     // private storage: Storage,
   ) { }
 
-  changeMessage(message: string) {
+  changeMessage(message: any) {
     this.messageSource.next(message);
   }
 

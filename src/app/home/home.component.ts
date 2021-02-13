@@ -5,6 +5,7 @@ import { MenuController } from '@ionic/angular';
 import { HeaderComponent } from '../header/header.component';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
+import { Globals } from '../services/global';
 
 
 
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private dataService: DataService,
-    private menuController: MenuController
+    private menuController: MenuController,
+    private globals: Globals
   ) { }
 
   slideOpts1 = {
@@ -46,20 +48,24 @@ export class HomeComponent implements OnInit {
     this.getCart();
   }
 
-  async getCategories(): Promise<void> {
-    this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
-      this.categories = res.category;
+  getCategories() {
+    this.categories = this.globals.category;
+    if (this.categories.length === 0 ) {
+      this.api.sendHttpCall('' , 'catagories' , 'get').pipe().subscribe( (res) => {
+        this.categories = res.category;
+        console.log('>>>>>>', this.categories);
+      }, (err) => {
+        console.log('>>>>>>>' , err);
+      });
+    }
+    console.log('global data >>>>>', this.categories);
+    if (this.categories && this.categories.length > 0) {
       this.categories.forEach((element: any) => {
         if (element.data.name === 'Best Seller') {
           this.bestSeller = element.products;
         }
       });
-      this.isLoading = false;
-      console.log('best seller', this.bestSeller);
-    }, (err) => {
-      this.isLoading = false;
-      console.log('category data >>>>>>>' , err);
-    });
+    }
   }
 
   async getProducts(): Promise<void> {
@@ -68,8 +74,10 @@ export class HomeComponent implements OnInit {
       this.newItemsArray = res.products;
       this.getCategories();
       console.log('pro data >>>>>>', this.newItemsArray);
+      this.isLoading = false;
     }, (err) => {
       this.isLoading = false;
+      this.getCategories();
       console.log('category data >>>>>>>' , err);
     });
   }
@@ -78,7 +86,7 @@ export class HomeComponent implements OnInit {
     this.cart = JSON.parse(localStorage.getItem('cart'));
     this.quantity = 0;
     if (this.cart !== null) {
-      this.cart.items.forEach(element => {
+      this.cart.items.forEach((element: any) => {
         this.quantity = this.quantity + element.quantity;
       });
     }

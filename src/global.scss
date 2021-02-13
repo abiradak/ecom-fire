@@ -166,7 +166,7 @@ li {
     width: 60px;
     height: 60px;
     text-align: center;
-    line-height: 60px;
+    line-height: 55px;
 }
 
 .advan-text p {
@@ -962,7 +962,7 @@ li {
 .login-frm-back {
     background: #fff;
     position: relative;
-    top: -110px;
+    top: -120px;
     padding: 25px 10px;
     margin: 10px auto;
     width: 88%;
@@ -1156,9 +1156,9 @@ li {
 // sidebar
 .side-menu {
     width: 100%;
-    border-bottom: 1px solid #e8e8e8;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    // border-bottom: 1px solid #e8e8e8;
+    // margin-bottom: 10px;
+    // padding-bottom: 10px;
 }
 
 .side-menu ul li {
@@ -1226,3 +1226,15 @@ li {
 
 
 // Loader
+.side-logo {
+    width: 100%;
+    text-align: center;
+}
+
+.side-logo img {
+    width: 120px;
+}
+
+.swiper-pagination-bullet-active {
+    background: #2bb409;
+}

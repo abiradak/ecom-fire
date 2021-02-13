@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-address',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddressComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private api: ApiService,
+    private data: DataService
+  ) { }
 
   ngOnInit() {}
 

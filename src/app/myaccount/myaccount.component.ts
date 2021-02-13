@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -8,13 +9,17 @@ import { DataService } from '../services/data.service';
 })
 export class MyaccountComponent implements OnInit {
   user = {};
+  orders = [];
+  isLoading = false;
 
   constructor(
-    private dataSer: DataService
+    private dataSer: DataService,
+    private api: ApiService
   ) { }
 
   ngOnInit() {
     this.getUserDetails();
+    this.getOrders();
   }
 
   back() {
@@ -25,4 +30,16 @@ export class MyaccountComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('userDetails'));
   }
 
+  async getOrders(): Promise<void> {
+    this.isLoading = true;
+    // tslint:disable-next-line: no-string-literal
+    this.api.sendHttpCall('' , `order/${this.user['id']}` , 'get').pipe().subscribe( (res) => {
+      this.orders = res.orders;
+      console.log('order >>>>>>', this.orders);
+      this.isLoading = false;
+    }, (err) => {
+      this.isLoading = false;
+      console.log('>>>>>>>' , err);
+    });
+  }
 }

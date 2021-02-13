@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
+import { EventEmitterService } from '../services/event-emitter.service';
+
 
 @Component({
   selector: 'app-itemcategory',
@@ -19,7 +21,8 @@ export class ItemcategoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private data: DataService
+    private data: DataService,
+    private event: EventEmitterService
   ) { }
 
   ngOnInit() {
@@ -79,6 +82,8 @@ export class ItemcategoryComponent implements OnInit {
       };
       localStorage.setItem('cart', JSON.stringify(payload));
     }
+    this.ngOnInit();
+    this.event.onCartAdd();
     this.data.presentToast('Added To cart' , 'success');
   }
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { EventEmitterService } from '../services/event-emitter.service';
+
 
 @Component({
   selector: 'app-viewcart',
@@ -13,7 +15,8 @@ export class ViewcartComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private route: Router
+    private route: Router,
+    private event: EventEmitterService
   ) { }
 
   ngOnInit() {
@@ -34,6 +37,7 @@ export class ViewcartComponent implements OnInit {
   calculation(): void {
     this.subTotal = 0;
     if (this.cart !== null) {
+      // tslint:disable-next-line: no-string-literal
       this.cart['items'].forEach(element => {
         this.subTotal = (element.quantity * element.product.price) + this.subTotal;
       });
@@ -44,6 +48,7 @@ export class ViewcartComponent implements OnInit {
   checkout() {
     const isLogin = this.dataService.isLogin();
     if (isLogin === true) {
+      // this.route.navigate(['login']);
       this.proceed();
     } else {
       this.route.navigate(['login']);
@@ -51,35 +56,44 @@ export class ViewcartComponent implements OnInit {
   }
 
   updateCart(index: number, updateType: string): void {
+    // tslint:disable-next-line: no-string-literal
     let currentQty = this.cart['items'][index].quantity;
     if (updateType === 'add') {
       currentQty++;
+      // tslint:disable-next-line: no-string-literal
       this.cart['items'][index].quantity = currentQty;
       localStorage.setItem('cart', JSON.stringify(this.cart));
       this.getCartData();
     } else {
       if (currentQty > 1) {
         currentQty--;
+        // tslint:disable-next-line: no-string-literal
         this.cart['items'][index].quantity = currentQty;
         localStorage.setItem('cart', JSON.stringify(this.cart));
         this.getCartData();
       }
     }
+    this.event.onCartAdd();
     this.dataService.presentToast('cart updated', 'success');
   }
 
   deleteFromCart(index: number): void {
+    // tslint:disable-next-line: no-string-literal
     this.cart['items'].forEach(element => {
+      // tslint:disable-next-line: no-string-literal
       if (this.cart['items'].indexOf(element) === index) {
+        // tslint:disable-next-line: no-string-literal
         this.cart['items'].splice(index, 1);
       }
     });
     localStorage.setItem('cart', JSON.stringify(this.cart));
     this.dataService.presentToast('Item Removed', 'success');
     this.getCartData();
+    this.event.onCartAdd();
   }
 
   proceed() {
+    // tslint:disable-next-line: no-string-literal
     if (this.cart && this.cart['items'].length > 0) {
       this.route.navigate(['checkout']);
     } else {

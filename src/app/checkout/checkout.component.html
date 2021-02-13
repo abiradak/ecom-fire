@@ -7,12 +7,47 @@
             <div class="row">
                 <div class="col-12">
                     <div class="cart-list my-3 p-2 address-cart">
-                        <h5>{{ userDetails.name }} <span> Office </span></h5>
-                        <p *ngIf="!address">Kovalchuk D. Ul., bld. 75, appt. 16, Novosibirsk, Novosibirskaya oblast</p>
+                        <h5>{{ userDetails.name }}</h5>
+
+                        <div class="select-address" *ngIf="addresses && addresses.length > 0">
+                            <div class="container-fluid">
+                                <div class="row" *ngFor="let item of addresses; let i = index;">
+                                    <div class="col-md-12">
+                    
+                                        <div  class="radio-button border-bottom my-2">
+                                            <label for="yess{{i}}" class="radio-button__label-wrapper">
+                                            <span>
+                                              <div class="address-cart" >
+                                                <!-- <div class="d-flex justify-content-between">
+                                                  <h5>John Robins <span> Office </span></h5>
+                                                  <span class="edit-add">Edit</span>
+                                                </div> -->
+                                                <p>{{ item.data.address }}</p>
+                                              </div>
+                                            </span>
+                                            <input  type="radio" 
+                                                name="sharing_preference" 
+                                                id="yess{{i}}"
+                                                (click) = "address = item.data.address" 
+                                                value="item.data.address" 
+                                                class="radio-button__input"
+                                            >
+                                            <div  class="radio-button__custom-indicator"></div>
+                                          </label>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <p *ngIf="address">{{ address }}</p>
-                        <p>{{ userDetails.phone }}</p>
                         <textarea class="form-control my-2" [hidden]="hidden" [(ngModel)]="address" rows="5" placeholder="Enter new address"></textarea>
                         <button type="button" class="btn btn-success mt-2 btn-2-cstm btn-cstm" (click) = "changeAddress()">Change or Add Address</button>
+                        <p>Receiver No: {{ reveiverphone }}</p>
+                        <input type="number" [(ngModel)]="reveiverphone" id="" class="form-control my-2">
                     </div>
                     <div class="cart-list my-3 p-2" *ngFor="let item of cart.items">
                         <div class="row no-gutters">

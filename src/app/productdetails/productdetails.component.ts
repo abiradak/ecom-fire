@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
+import { EventEmitterService } from '../services/event-emitter.service';
 
 @Component({
   selector: 'app-productdetails',
@@ -19,6 +20,7 @@ export class ProductdetailsComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute,
     private dataService: DataService,
+    private event: EventEmitterService
   ) { }
 
   ngOnInit() {
@@ -78,22 +80,10 @@ export class ProductdetailsComponent implements OnInit {
       };
       localStorage.setItem('cart', JSON.stringify(payload));
     }
+    this.event.onCartAdd();
     // this.itemCount = 1;
     this.dataService.presentToast('Added To cart' , 'success');
   }
-
-
-  // addToCart(): void {
-  //   const playLoad = {
-  //     product: this.details,
-  //     productId: this.productId,
-  //     quantity: this.itemCount,
-  //     status: 'Pending'
-  //   }
-
-  //   localStorage.setItem('cart', JSON.stringify(playLoad));
-  //   this.dataService.presentToast('Added To cart' , 'success');
-  // }
 
   increaseCounter() {
     this.itemCount = this.itemCount + 1;
