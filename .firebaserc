@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "apple-pie-cc605"
+  },
+  "targets": {
+    "apple-pie-cc605": {
+      "hosting": {
+        "ecom.bluexch.com": [
+          "p-ecom"
+        ]
+      }
+    }
+  }
+}

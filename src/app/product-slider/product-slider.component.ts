@@ -54,6 +54,7 @@ export class ProductSliderComponent implements OnInit {
   ) {
     this.currency = this.dataService.currency;
     this.getCategoriesFromApi();
+    this.getProductsFromApi();
   }
 
   ngOnInit(): void {}
@@ -67,11 +68,10 @@ export class ProductSliderComponent implements OnInit {
       if (response.category && response.category.length > 0) {
         this.categories = response.category;
       }
-      this.getProductsFromApi();
+      // this.getProductsFromApi();
     }, (error: any) => {
       console.log('getCategoriesFromApi errors: ' , error);
       this.showloader = false;
-      this.getProductsFromApi();
     });
   }
 
