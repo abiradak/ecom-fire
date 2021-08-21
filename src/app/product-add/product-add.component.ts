@@ -86,6 +86,7 @@ export class ProductAddComponent implements OnInit {
       allowSearchFilter: true
     };
     this.getCategoryFromApi();
+    this.getBrandsFromApi();
   }
 
   // async getCategoryFromApi(): Promise<void> {
@@ -122,7 +123,6 @@ export class ProductAddComponent implements OnInit {
             name: element.data.name
           });
         });
-        this.getBrandsFromApi();
       } else {
         this.dataService.showError('No category found!');
       }
