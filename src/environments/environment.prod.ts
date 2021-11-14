@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://us-central1-apple-pie-cc605.cloudfunctions.net/webApi/api/v1'
+  apiUrl: 'https://us-central1-responsenet-231407.cloudfunctions.net/webApi2/api/v1'
 };

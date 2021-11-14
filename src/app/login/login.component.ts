@@ -55,37 +55,42 @@ export class LoginComponent implements OnInit {
       // console.log('loginUser credentials: ', credentials);
       const url  = `/login`;
       this.showloader = true;
-
-      this.apiService.sendHttpCallWithToken(credentials , url , 'post').subscribe(response => {
-        // console.log('loginUser response: ', response);
-        this.showloader = false;
-        if (response.status === 200) {
-          this.dataService.showSuccess(response.message);
-          // this.dataService.showSuccess('Login successful');
-          if (response.data) {
-            localStorage.setItem('loginData', JSON.stringify(response.data));
-            this.router.navigate(['check-out']);
-            this.globalService.publishSomeData({
-              isLoggedin: true,
-            });
-          } else {
-            this.dataService.showError('User details not found');
-          }
-        } else if (response.status === 400) {
-          this.dataService.showError(response.message);
-        } else {
-          this.dataService.showError('Unable to register');
-        }
-      }, (error) => {
-        this.showloader = false;
-        console.log('loginUser error: ' , error);
-        this.dataService.showError('Unable to login');
-        // if (error.message) {
-        //   this.dataService.showError(error.message);
-        // } else {
-        //   this.dataService.showError('Unable to register, please check your internet');
-        // }
+      localStorage.setItem('loginData', JSON.stringify(credentials));
+      this.globalService.publishSomeData({
+        isLoggedin: true,
       });
+      this.router.navigate(['check-out']);
+
+      // this.apiService.sendHttpCallWithToken(credentials , url , 'post').subscribe(response => {
+      //   // console.log('loginUser response: ', response);
+      //   this.showloader = false;
+      //   if (response.status === 200) {
+      //     this.dataService.showSuccess(response.message);
+      //     // this.dataService.showSuccess('Login successful');
+      //     if (response.data) {
+      //       localStorage.setItem('loginData', JSON.stringify(response.data));
+      //       this.router.navigate(['check-out']);
+      //       this.globalService.publishSomeData({
+      //         isLoggedin: true,
+      //       });
+      //     } else {
+      //       this.dataService.showError('User details not found');
+      //     }
+      //   } else if (response.status === 400) {
+      //     this.dataService.showError(response.message);
+      //   } else {
+      //     this.dataService.showError('Unable to register');
+      //   }
+      // }, (error) => {
+      //   this.showloader = false;
+      //   console.log('loginUser error: ' , error);
+      //   this.dataService.showError('Unable to login');
+      //   // if (error.message) {
+      //   //   this.dataService.showError(error.message);
+      //   // } else {
+      //   //   this.dataService.showError('Unable to register, please check your internet');
+      //   // }
+      // });
     } else {
       this.dataService.showError('Please fill require details'); // --- Display error message
       Object.keys(this.userForm.controls).forEach((field) => {

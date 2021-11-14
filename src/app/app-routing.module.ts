@@ -30,9 +30,11 @@ const routes: Routes = [
     path: '',
     component: HeadermainComponent,
     children: [
-      { path: '',
+      {
+        path: '',
         redirectTo: '/home',
-        pathMatch: 'full' },
+        pathMatch: 'full'
+      },
       {
         path: 'banner',
         component: BannerComponent
@@ -64,8 +66,7 @@ const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
-      }
-      ,
+      },
       {
         path: 'check-out',
         component: CheckoutComponent,
@@ -76,7 +77,7 @@ const routes: Routes = [
         path: 'myAccount',
         component: MyAccountComponent,
         canActivate: [LoginGuard],
-      } ,
+      },
       {
         path: 'about-us',
         component: AboutHomeComponent
@@ -142,4 +143,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 
- }
+}

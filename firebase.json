@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "target": "ecom.bluexch.com",
+    "target": "emoinu.responsenet.org",
     "public": "dist/perfumeweb",
     "ignore": [
       "firebase.json",

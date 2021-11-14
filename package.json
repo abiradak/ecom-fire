@@ -26,6 +26,7 @@
     "ngx-owl-carousel-o": "^5.0.0",
     "ngx-toastr": "^13.2.0",
     "owl.carousel": "^2.3.4",
+    "razorpay": "^2.0.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.10.2"
