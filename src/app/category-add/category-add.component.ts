@@ -206,6 +206,8 @@ export class CategoryAddComponent implements OnInit {
         this.showloader = false;
         if (response.status === 200) {
           this.dataService.showSuccess(response.message);
+          this.categoryForm.reset();
+          this.cardImageBase64 = null;
         } else if (response.status === 400) {
           this.dataService.showError(response.message);
         } else {

@@ -26,72 +26,123 @@
                                                             <!-- Select Catagories -->
                                                             <div class="form-group">
                                                                 <label for="products">Select Catagories *</label>
-                                                                <ng-multiselect-dropdown
-                                                                    name="catagories"
+                                                                <ng-multiselect-dropdown name="catagories"
                                                                     [placeholder]="'Select Catagories'"
-                                                                    [settings]="dropdownSettings"
-                                                                    [data]="categoryList"
+                                                                    [settings]="dropdownSettings" [data]="categoryList"
                                                                     formControlName="category"
-                                                                    (onSelect)="onItemSelect($event)"(onDeSelect)="onItemDeSelect($event)"
-                                                                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)" [ngClass]="{'is-invalid': productForm.controls?.category?.invalid && productForm.controls?.category?.touched }"
-                                                                >
-                                                                </ng-multiselect-dropdown><div *ngIf="productForm.controls?.category?.errors?.required" class="invalid-feedback">
-                                                                    Category  is required.
+                                                                    (onSelect)="onItemSelect($event)"
+                                                                    (onDeSelect)="onItemDeSelect($event)"
+                                                                    (onSelectAll)="onSelectAll($event)"
+                                                                    (onDeSelectAll)="onDeSelectAll($event)"
+                                                                    [ngClass]="{'is-invalid': productForm.controls?.category?.invalid && productForm.controls?.category?.touched }">
+                                                                </ng-multiselect-dropdown>
+                                                                <div *ngIf="productForm.controls?.category?.errors?.required"
+                                                                    class="invalid-feedback">
+                                                                    Category is required.
                                                                 </div>
                                                             </div>
                                                             <!-- Select Brands -->
                                                             <div class="form-group">
                                                                 <label for="products">Select Brands</label>
-                                                                <ng-multiselect-dropdown
-                                                                    name="brands"
+                                                                <ng-multiselect-dropdown name="brands"
                                                                     [placeholder]="'Select Brands'"
-                                                                    [settings]="dropdownSettings"
-                                                                    [data]="brandsList"
-                                                                    formControlName="brands" 
-                                                                    (onSelect)="onItemSelect1($event)" (onDeSelect)="onItemDeSelect1($event)" 
-                                                                    (onSelectAll)="onSelectAll1($event)" (onDeSelectAll)="onDeSelectAll1($event)" [ngClass]="{'is-invalid': productForm.controls?.brands?.invalid && productForm.controls?.brands?.touched }"
-                                                                >
+                                                                    [settings]="dropdownSettings" [data]="brandsList"
+                                                                    formControlName="brands"
+                                                                    (onSelect)="onItemSelect1($event)"
+                                                                    (onDeSelect)="onItemDeSelect1($event)"
+                                                                    (onSelectAll)="onSelectAll1($event)"
+                                                                    (onDeSelectAll)="onDeSelectAll1($event)"
+                                                                    [ngClass]="{'is-invalid': productForm.controls?.brands?.invalid && productForm.controls?.brands?.touched }">
                                                                 </ng-multiselect-dropdown>
-                                                                <div *ngIf="productForm.controls?.brands?.errors?.required" class="invalid-feedback">
-                                                                    Brands  is required.
+                                                                <div *ngIf="productForm.controls?.brands?.errors?.required"
+                                                                    class="invalid-feedback">
+                                                                    Brands is required.
                                                                 </div>
                                                             </div>
                                                             <!-- Product Name -->
                                                             <div class="form-group">
                                                                 <label for="eventInput1">Product Name *</label>
-                                                                <input type="text" id="eventInput1" class="form-control" name="fullname" formControlName="productname" [ngClass]="{'is-invalid': productForm.controls?.productname?.invalid && productForm.controls?.productname?.touched }">
-                                                                <div *ngIf="productForm.controls?.productname?.errors?.required" class="invalid-feedback">
+                                                                <input type="text" id="eventInput1" class="form-control"
+                                                                    name="fullname" formControlName="productname"
+                                                                    [ngClass]="{'is-invalid': productForm.controls?.productname?.invalid && productForm.controls?.productname?.touched }">
+                                                                <div *ngIf="productForm.controls?.productname?.errors?.required"
+                                                                    class="invalid-feedback">
                                                                     Product name is required.
                                                                 </div>
-                                                                <div *ngIf="productForm.controls?.productname?.errors?.maxlength" class="invalid-feedback">
+                                                                <div *ngIf="productForm.controls?.productname?.errors?.maxlength"
+                                                                    class="invalid-feedback">
                                                                     Product name can maximum 100 characters.
                                                                 </div>
-                                                                <div *ngIf="productForm.controls?.productname?.errors?.minlength" class="invalid-feedback">
+                                                                <div *ngIf="productForm.controls?.productname?.errors?.minlength"
+                                                                    class="invalid-feedback">
                                                                     Product name will atleast 2 characters.
                                                                 </div>
-                                                                <div *ngIf="productForm.controls?.productname?.errors?.pattern" class="invalid-feedback">
+                                                                <div *ngIf="productForm.controls?.productname?.errors?.pattern"
+                                                                    class="invalid-feedback">
                                                                     Product name will include only characters.
                                                                 </div>
                                                             </div>
                                                             <!-- Product Price -->
                                                             <div class="form-group">
                                                                 <label for="Productprice">Product Price *</label>
-                                                                <input type="text" id="productprice" class="form-control" name="productprice" formControlName="productprice" [ngClass]="{'is-invalid': productForm.controls?.productprice?.invalid && productForm.controls?.productprice?.touched }">
-                                                                <div *ngIf="productForm.controls?.productprice?.errors?.required" class="invalid-feedback">
+                                                                <input type="text" id="productprice"
+                                                                    class="form-control" name="productprice"
+                                                                    formControlName="productprice"
+                                                                    [ngClass]="{'is-invalid': productForm.controls?.productprice?.invalid && productForm.controls?.productprice?.touched }">
+                                                                <div *ngIf="productForm.controls?.productprice?.errors?.required"
+                                                                    class="invalid-feedback">
                                                                     Product price is required.
                                                                 </div>
-                                                                <div *ngIf="productForm.controls?.productprice?.errors?.pattern" class="invalid-feedback">
+                                                                <div *ngIf="productForm.controls?.productprice?.errors?.pattern"
+                                                                    class="invalid-feedback">
                                                                     Invalid product price.
+                                                                </div>
+                                                            </div>
+                                                            <!-- Product X -- Price -->
+                                                            <div class="form-group">
+                                                                <label for="Productprice">Product X Price *</label>
+                                                                <input type="text" id="productxprice"
+                                                                    class="form-control" name="producxtprice"
+                                                                    formControlName="productxprice"
+                                                                    [ngClass]="{'is-invalid': productForm.controls?.productxprice?.invalid && productForm.controls?.productxprice?.touched }">
+                                                                <div *ngIf="productForm.controls?.productxprice?.errors?.required"
+                                                                    class="invalid-feedback">
+                                                                    Product X price is required.
+                                                                </div>
+                                                                <div *ngIf="productForm.controls?.productxprice?.errors?.pattern"
+                                                                    class="invalid-feedback">
+                                                                    Invalid X product price.
+                                                                </div>
+                                                            </div>
+                                                             <!-- Product Off -->
+                                                             <div class="form-group">
+                                                                <label for="Productprice">Off</label>
+                                                                <input type="text" id="productxprice"
+                                                                    class="form-control" name="off"
+                                                                    formControlName="off"
+                                                                    [ngClass]="{'is-invalid': productForm.controls?.off?.invalid && productForm.controls?.off?.touched }">
+                                                                <div *ngIf="productForm.controls?.off?.errors?.required"
+                                                                    class="invalid-feedback">
+                                                                    off is required.
+                                                                </div>
+                                                                <div *ngIf="productForm.controls?.off?.errors?.pattern"
+                                                                    class="invalid-feedback">
+                                                                    Off product price.
                                                                 </div>
                                                             </div>
                                                             <!-- Product Volume -->
                                                             <div class="form-group">
                                                                 <label for="Productvolume">Product Volume *</label>
-                                                                <input type="text" id="productvolume" class="form-control" name="productvolume" formControlName="productvolume" [ngClass]="{'is-invalid': productForm.controls?.productvolume?.invalid && productForm.controls?.productvolume?.touched }">
-                                                                <div *ngIf="productForm.controls?.productvolume?.errors?.required" class="invalid-feedback">
+                                                                <input type="text" id="productvolume"
+                                                                    class="form-control" name="productvolume"
+                                                                    formControlName="productvolume"
+                                                                    [ngClass]="{'is-invalid': productForm.controls?.productvolume?.invalid && productForm.controls?.productvolume?.touched }">
+                                                                <div *ngIf="productForm.controls?.productvolume?.errors?.required"
+                                                                    class="invalid-feedback">
                                                                     Product volume is required.
                                                                 </div>
-                                                                <div *ngIf="productForm.controls?.productvolume?.errors?.pattern" class="invalid-feedback">
+                                                                <div *ngIf="productForm.controls?.productvolume?.errors?.pattern"
+                                                                    class="invalid-feedback">
                                                                     Invalid product volume.
                                                                 </div>
                                                             </div>
@@ -100,30 +151,42 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Product Image *</label>
-                                                                        <input type="file" class="form-control-file" #fileInput (change)="fileChangeEvent($event)">
+                                                                        <input type="file" class="form-control-file"
+                                                                            #fileInput
+                                                                            (change)="fileChangeEvent($event)">
                                                                         <div class="error-message">{{imageError}}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div *ngIf="isImageSaved" class="shw_img">
-                                                                        <img style="width: 100px; border: 1px solid #ccc;" [src]="cardImageBase64" />
-                                                                        <a (click)="removeImage(fileInput)" class="re_move">Remove</a>
+                                                                        <img style="width: 100px; border: 1px solid #ccc;"
+                                                                            [src]="cardImageBase64" />
+                                                                        <a (click)="removeImage(fileInput)"
+                                                                            class="re_move">Remove</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <!-- Product Description -->
                                                             <div class="form-group">
                                                                 <label for="eventInput2">Product Description *</label>
-                                                                <angular-editor [config]="config" formControlName="productdesc" (ngModelChange)="editorChangeEvent($event)"></angular-editor>
+                                                                <angular-editor [config]="config"
+                                                                    formControlName="productdesc"
+                                                                    (ngModelChange)="editorChangeEvent($event)">
+                                                                </angular-editor>
                                                                 <div class="error-message">{{editorError}}</div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-actions center justify-content-md-center" style="display:flex">
-                                                    <button type="button" class="btn btn-raised btn-warning mr-3" (click)="resetForm(fileInput)"><i class="ft-x"></i> Cancel</button>
-                                                    <button type="submit" class="btn btn-raised btn-success" [disabled]="!productForm.valid || cardImageBase64 == null"><i class="fa fa-check-square-o"></i> Save</button>
+                                                <div class="form-actions center justify-content-md-center"
+                                                    style="display:flex">
+                                                    <button type="button" class="btn btn-raised btn-warning mr-3"
+                                                        (click)="resetForm(fileInput)"><i class="ft-x"></i>
+                                                        Cancel</button>
+                                                    <button type="submit" class="btn btn-raised btn-success"
+                                                        [disabled]="!productForm.valid || cardImageBase64 == null"><i
+                                                            class="fa fa-check-square-o"></i> Save</button>
                                                 </div>
                                             </form>
                                         </div>

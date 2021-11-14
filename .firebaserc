@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "apple-pie-cc605"
+  },
+  "targets": {
+    "apple-pie-cc605": {
+      "hosting": {
+        "adminemoinu.responsenet.org": [
+          "emoinu-backend"
+        ]
+      }
+    }
+  }
+}

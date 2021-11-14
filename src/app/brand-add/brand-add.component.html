@@ -4,11 +4,11 @@
         <div class="top-col">
             <h5 class="head-text color-green">Brand Add</h5>
         </div>
-     
+
         <div class="main-panel">
             <div class="main-content">
                 <div class="content-wrapper">
-                    <!-- Basic form layout section start -->   
+                    <!-- Basic form layout section start -->
                     <section id="basic-form-layouts">
                         <div class="row match-height">
                             <div class="col-md-12">
@@ -26,17 +26,23 @@
                                                             <!-- Brand Name -->
                                                             <div class="form-group">
                                                                 <label for="eventInput1">Brand Name *</label>
-                                                                <input type="text" id="eventInput1" class="form-control" name="fullname" formControlName="brandname" [ngClass]="{'is-invalid': brandForm.controls?.brandname?.invalid && brandForm.controls?.brandname?.touched }">
-                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.required" class="invalid-feedback">
+                                                                <input type="text" id="eventInput1" class="form-control"
+                                                                    name="fullname" formControlName="brandname"
+                                                                    [ngClass]="{'is-invalid': brandForm.controls?.brandname?.invalid && brandForm.controls?.brandname?.touched }">
+                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.required"
+                                                                    class="invalid-feedback">
                                                                     Brand name is required.
                                                                 </div>
-                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.maxlength" class="invalid-feedback">
+                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.maxlength"
+                                                                    class="invalid-feedback">
                                                                     Brand name can maximum 100 characters.
                                                                 </div>
-                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.minlength" class="invalid-feedback">
+                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.minlength"
+                                                                    class="invalid-feedback">
                                                                     Brand name will atleast 2 characters.
                                                                 </div>
-                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.pattern" class="invalid-feedback">
+                                                                <div *ngIf="brandForm.controls?.brandname?.errors?.pattern"
+                                                                    class="invalid-feedback">
                                                                     Brand name will include only characters.
                                                                 </div>
                                                             </div>
@@ -45,30 +51,42 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Brand Image *</label>
-                                                                        <input type="file" class="form-control-file" #fileInput (change)="fileChangeEvent($event)">
+                                                                        <input type="file" class="form-control-file"
+                                                                            #fileInput
+                                                                            (change)="fileChangeEvent($event)">
                                                                         <div class="error-message">{{imageError}}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div *ngIf="isImageSaved" class="shw_img">
-                                                                        <img style="width: 100px;" [src]="cardImageBase64" />
-                                                                        <a (click)="removeImage(fileInput)" class="re_move">Remove</a>
+                                                                        <img style="width: 100px;"
+                                                                            [src]="cardImageBase64" />
+                                                                        <a (click)="removeImage(fileInput)"
+                                                                            class="re_move">Remove</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <!-- Brand Description -->
                                                             <div class="form-group">
                                                                 <label for="eventInput2">Brand Description *</label>
-                                                                <angular-editor [config]="config" formControlName="branddesc"  (ngModelChange)="editorChangeEvent($event)"></angular-editor>
+                                                                <angular-editor [config]="config"
+                                                                    formControlName="branddesc"
+                                                                    (ngModelChange)="editorChangeEvent($event)">
+                                                                </angular-editor>
                                                                 <div class="error-message">{{editorError}}</div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-actions center justify-content-md-center" style="display:flex">
-                                                    <button type="button" class="btn btn-raised btn-warning mr-3" (click)="resetForm(fileInput)"><i class="ft-x"></i> Cancel</button>
-                                                    <button type="submit" class="btn btn-raised btn-primary" [disabled]="!brandForm.valid || cardImageBase64 == null"><i class="fa fa-check-square-o"></i> Save</button>
+                                                <div class="form-actions center justify-content-md-center"
+                                                    style="display:flex">
+                                                    <button type="button" class="btn btn-raised btn-warning mr-3"
+                                                        (click)="resetForm(fileInput)"><i class="ft-x"></i>
+                                                        Cancel</button>
+                                                    <button type="submit" class="btn btn-raised btn-primary"
+                                                        [disabled]="!brandForm.valid || cardImageBase64 == null"><i
+                                                            class="fa fa-check-square-o"></i> Save</button>
                                                 </div>
                                             </form>
                                         </div>

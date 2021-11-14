@@ -67,12 +67,14 @@ export class ProductAddComponent implements OnInit {
 
     this.productForm = this.fb.group({
       // tslint:disable-next-line:max-line-length
-      productname: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(2), Validators.pattern(this.nameValidationRegex)]),
-      productdesc: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      productprice: new FormControl('', [Validators.required, Validators.pattern(this.priceValidationRegex)]),
-      productvolume: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required]),
-      brands: new FormControl('')
+      productname: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(2), Validators.pattern(this.nameValidationRegex)]),
+      productdesc: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      productprice: new FormControl(null, [Validators.required, Validators.pattern(this.priceValidationRegex)]),
+      productxprice: new FormControl(null, [Validators.required, Validators.pattern(this.priceValidationRegex)]),
+      productvolume: new FormControl(null, [Validators.required]),
+      category: new FormControl(null, [Validators.required]),
+      brands: new FormControl(null),
+      off: new FormControl(null),
     });
   }
 
@@ -283,19 +285,23 @@ export class ProductAddComponent implements OnInit {
         const url = 'product/add';
         const payload = {
           name: this.productForm.value.productname,
-          price: this.productForm.value.productprice,
-          volume: this.productForm.value.productvolume,
+          price: parseInt(this.productForm.value.productprice),
+          xprice: parseInt(this.productForm.value.productxprice),
+          volume: parseInt(this.productForm.value.productvolume),
           image: this.cardImageBase64,
           description: this.productForm.value.productdesc,
           category: categories,
-          brand: brands
-        };
+          brand: brands,
+          off: parseInt(this.productForm.value.off),
+          tag: 'test'
+        }; 
         this.showloader = true;
         this.apiService.sendHttpCallWithToken(payload, url, 'post').subscribe((response) => {
           console.log('submitProduct response: ' , response);
           this.showloader = false;
           if (response.status === 200) {
             this.dataService.showSuccess(response.message);
+            this.productForm.reset();
           } else if (response.status === 400) {
             this.dataService.showError(response.message);
           } else {
