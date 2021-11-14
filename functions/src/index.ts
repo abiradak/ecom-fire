@@ -1,4 +1,5 @@
 /* eslint-disable no-shadow */
+
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as express from 'express';
@@ -22,7 +23,7 @@ main.use('/api/v1', app);
 main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
 // -- webApi is your functions name, and you will pass main as a parameter
-export const webApi = functions.https.onRequest(main);
+export const webApi2 = functions.https.onRequest(main);
 
 const cors = require('cors');
  
@@ -33,12 +34,15 @@ interface product {
     name: String,
     description: String,
     image: String,
-    price: number,
+    price: number,  
+    xprice: number,
     volume: number,
     inStock: number,
+    off: number,
     isDeleted: number,
-    category: [],
-    brand: [],
+    tag: String | null,
+    category: [], 
+    brand: [], 
 }
 
 interface category {
@@ -95,6 +99,9 @@ app.post('/product/add', async (req, res) => {
             description: req.body['description'],
             image: req.body['image'],
             price: req.body['price'],
+            xprice: req.body['xprice'],
+            off: req.body['off'],  
+            tag: req.body['tag'],
             volume: req.body['volume'],
             category: req.body['category'],
             brand: req.body['brand'],
@@ -500,7 +507,7 @@ app.patch('/brand/edit/:brandId', async (req, res) => {
     }
 });
 
-// -- View a brand
+// -- View a brand 
 app.get('/brand/:brandId', async (req, res) => {
         const brandId = req.params.brandId; 
         // const productQuerySnapshot = await db.collection(productCollection).get();
@@ -542,6 +549,7 @@ app.get('/brand/:brandId', async (req, res) => {
 // -- View all brand
 app.get('/brands', async (req, res) => {
     try {
+        console.log("here");
         const brandQuerySnapshot = await db.collection(brandCollection).get();
         // const productQuerySnapshot = await db.collection(productCollection).get();
 
